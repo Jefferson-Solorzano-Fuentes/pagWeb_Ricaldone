@@ -1,0 +1,13 @@
+//Asignamos nuevos colores para la pagina web
+$theme-colors: (
+    "primary": #872323,
+    "secondary": #FEBD59,
+    "success": #443E36,
+    "danger" : #FF3737,
+    "warning": #F6E3D5,
+    "info": #E0A49D, 
+);
+
+
+//Importamos los archivos scss de bootstrap para modificarlos
+@import "../node_modules/bootstrap/scss/bootstrap.scss";

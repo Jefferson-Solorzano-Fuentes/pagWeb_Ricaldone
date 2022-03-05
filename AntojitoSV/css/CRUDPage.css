@@ -1,0 +1,152 @@
+.logoContainer {
+  width: 60%;
+  height: 90%;
+  background-color: #f8e4d4;
+  border-radius: 25px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logInContainer {
+  width: 30%;
+  height: 70%;
+  background-color: white;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userIconContainer {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.secondHeaderContainer {
+  width: 100%;
+  background-color: #fffcfc;
+}
+
+.figcaptionHeader {
+  text-align: center;
+}
+
+.figcaptionAntojitoSV {
+  color: #f4aca8;
+  text-align: center;
+  font-family: justbubble;
+}
+
+.buscador {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  background: transparent;
+  width: 80%;
+  height: 50px;
+  
+}
+
+::placeholder {
+  color: black;
+  font-size: 20px;
+}
+
+.fatherContainer {
+  background-color: #f8ecec;
+}
+
+.bodyContainer {
+    height: 700px;  
+    align-content: bottom;
+}
+
+.listContainerBackground {
+  background-image: url("../img/navbarPrivimg/fondo.png");
+  justify-content: center;
+  align-items: center;
+}
+
+.listContainer {
+    width: 90%;
+    background-color: #f8e4d4;
+    justify-content: center;
+    align-items: center;
+    border-radius:10px ;
+}
+
+.list-group-item {
+    background-color: transparent;
+}
+
+.provider {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.listProviderImage {
+    width: 70px;
+    height: 90%;
+
+}
+
+.editButton {
+    width: 70px;
+    height: 50px;
+    padding-left: 50px;
+    background: url("../img/navbarPrivimg/editing.png") no-repeat;
+    background-position: center;
+    background-size: 90% 90%;
+    border: 0;
+}
+
+.deleteButton {
+    width: 70px;
+    height: 50px;
+    background: url("../img/navbarPrivimg/delete.png") no-repeat;
+    background-position: center;
+    background-size: 90% 90%;  
+    border: 0;
+}
+
+.listButton{
+    width: 70px;
+    height: 50px;
+    background: url("../img/navbarPrivimg/list.png") no-repeat;
+    background-position: center;
+    background-size: 90% 90%;   
+    border: 0;
+}
+
+.searchButton {
+    width: 45px;
+    height: 35px;
+    background: transparent;
+    border: 0;
+}
+
+.searchImage{
+    width: 100%;
+    height: 100%;
+}
+
+.searchContainer {
+    display: inline;
+    padding-left:100px 
+}
+
+.nombreProveedor {
+    font-family: sans-serif;
+    color: black;
+    font-size: 25px;
+}
+
+.nombreProducto {
+    font-family: sans-serif;
+    color: black;
+    font-size: 20px;
+}
