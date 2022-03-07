@@ -11707,13 +11707,15 @@ fieldset:disabled .btn {
   }
 }
 
+/*Cambios Globales*/
+/*Para que el navbar cubra toda la longitud de la pantalla*/
+
 /*Fuentes*/
 @font-face {
   font-family: JustBubble;
   src: url(../fonts/JustBubble.ttf);
 }
 
-/*Para que el navbar cubra toda la longitud de la pantalla*/
 .container-fluid{
   padding: 0;
 }
@@ -11724,6 +11726,29 @@ fieldset:disabled .btn {
 
 #segundoNavbar{
   padding-top: 45px;
+}
+
+/*Decoración del Footer*/
+.p-4{
+  margin-top: 4;
+  padding: 8;
+}
+
+a{
+  text-decoration: none;
+}
+
+h5{
+  text-decoration-color: #E0A49D;
+  color: #E0A49D;
+}
+
+p{
+  color: #E0A49D;
+}
+
+div i{
+  color: #E0A49D;
 }
 
 /*Ordenar los botones de las redes sociales*/
@@ -11754,6 +11779,24 @@ fieldset:disabled .btn {
   text-decoration: none;
 }
 
+
+/*NavBar Publico*/
+/*Posicionar meticulosamente iamgenes de los botones del navbar publico*/
+
+#Sorbete{
+  padding-left: 35px;
+}
+
+/*Posicionar meticulosamente cada texto de los botones del navbar publico*/
+
+#Sorbetetxt{
+  padding-left: 45px;
+}
+
+#Promocionestxt{
+  padding-left: 132px;
+}
+
 /*Boton de registrarse*/
 #registrate{
   font-family:JustBubbles;
@@ -11770,23 +11813,6 @@ fieldset:disabled .btn {
   font-weight: bold;
   border-radius: 2rem;
   font-size: larger;
-}
-
-/*Posicionar meticulosamente iamgenes de los botones del navbar publico*/
-
-
-#Sorbete{
-  padding-left: 35px;
-}
-
-/*Posicionar meticulosamente cada texto de los botones del navbar publico*/
-
-#Sorbetetxt{
-  padding-left: 45px;
-}
-
-#Promocionestxt{
-  padding-left: 132px;
 }
 
 /*Posicionar meticulosamente cada texto de los botones del navbar privado*/
@@ -11854,11 +11880,13 @@ fieldset:disabled .btn {
 }
 
 /*Fondo de Container main*/
-#containerMain{
-  border-radius: 2rem;
-  background-image: url(../img/navbarPubimg/logoX125px.png);
+#containerImg{
+  margin: 5px;
+  border-radius: 1rem;
+  background-image: url(../img/main/fondo.png);
 }
 
+/*GestionProductos*/
 /*Separador de RowCards*/
 #rowCards{
   padding-top: 50px;
@@ -11867,6 +11895,10 @@ fieldset:disabled .btn {
 
 #colCards{
   padding-left: 35px;
+}
+
+#colCards .card{
+  background-image: url(../img/cardsImg/Fondo.png);
 }
 
 #colCards .card-title{
@@ -11880,7 +11912,6 @@ fieldset:disabled .btn {
 }
 
 /*Cards*/
-
 .card{
   border-radius: 2rem;
   height: 30rem;
@@ -11901,6 +11932,31 @@ fieldset:disabled .btn {
 #colImg img{
   border: 5px solid red;
   border-radius: 10px;
+}
+
+#colImgAdd .container{
+  width: 155px;
+  height: 148px;
+  border-radius: 10px;
+  border: 5px solid red;
+}
+
+#colImgAdd .btn{
+  margin-top:40px;
+}
+
+#colImgAdd img{
+ border-radius:20px;
+}
+
+/*Botones de Ajutar en SCRUD*/
+#btnAjustar img{
+  border: none;
+}
+
+#btnAjustar{
+  border: none;
+  background-color: none;
 }
 
 /*Footer separador*/
@@ -11975,27 +12031,228 @@ main{
 }
 
 
-/*Decoración del Footer*/
-.p-4{
-  margin-top: 4;
-  padding: 8;
+/*Jefferson Solorzano, privatePage*/
+
+.bodyLogInContainer {
+  background-image: url("../img/navbarPrivimg/fondo.png");
+  width: 100%;
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-a{
-  text-decoration: none;
+.logoContainer {
+  width: 60%;
+  height: 90%;
+  background-color: #f8e4d4;
+  border-radius: 25px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-h5{
-  text-decoration-color: #E0A49D;
-  color: #E0A49D;
+.logInContainer {
+  width: 30%;
+  height: 70%;
+  background-color: white;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-p{
-  color: #E0A49D;
+.logIndButton {
+  border-radius: 25px;
 }
 
-div i{
-  color: #E0A49D;
+.userIconContainer {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.secondHeaderContainer {
+  width: 100%;
+  background-color: #fffcfc;
+}
+
+.figcaptionHeader {
+  text-align: center;
+}
+
+.figcaptionAntojitoSV{
+  color: #f4aca8;
+  text-align: center;
+  font-family: justbubble;
+}
+
+#welcomeParagrah {
+  display: inline;
+  font-size: 115px;
+  font-family: justbubble;
+}
+
+/*Jefferson Solorzano, SCRUD*/
+
+.logoContainer {
+  width: 60%;
+  height: 90%;
+  background-color: #f8e4d4;
+  border-radius: 25px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logInContainer {
+  width: 30%;
+  height: 70%;
+  background-color: white;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userIconContainer {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.secondHeaderContainer {
+  width: 100%;
+  background-color: #fffcfc;
+}
+
+.figcaptionHeader {
+  text-align: center;
+}
+
+.figcaptionAntojitoSV {
+  color: #f4aca8;
+  text-align: center;
+  font-family: justbubble;
+}
+
+.buscador {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  background: transparent;
+  width: 80%;
+  height: 50px;
+  
+}
+
+::placeholder {
+  color: black;
+  font-size: 20px;
+}
+
+.fatherContainer {
+  background-color: #f8ecec;
+}
+
+.bodyContainer {
+    height: 700px;  
+    align-content: bottom;
+}
+
+.listContainerBackground {
+  background-image: url("../img/navbarPrivimg/fondo.png");
+  justify-content: center;
+  align-items: center;
+}
+
+.listContainer {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 90%;
+    background-color: #f8e4d4;
+    justify-content: center;
+    align-items: center;
+    border-radius:10px ;
+}
+
+.list-group-item {
+    background-color: transparent;
+}
+
+.provider {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.listProviderImage {
+    width: 70px;
+    height: 90%;
+
+}
+
+.editButton {
+    width: 70px;
+    height: 50px;
+    padding-left: 50px;
+    background: url("../img/cardsImg/buttons/editing.png") no-repeat;
+    background-position: center;
+    background-size: 90% 90%;
+    border: 0;
+}
+
+.deleteButton {
+    width: 70px;
+    height: 50px;
+    background: url("../img/cardsImg/buttons/delete.png") no-repeat;
+    background-position: center;
+    background-size: 90% 90%;  
+    border: 0;
+}
+
+.listButton{
+    width: 70px;
+    height: 50px;
+    background: url("../img/cardsImg/buttons/list.png") no-repeat;
+    background-position: center;
+    background-size: 90% 90%;   
+    border: 0;
+}
+
+.searchButton {
+    width: 45px;
+    height: 35px;
+    background: transparent;
+    border: 0;
+}
+
+.searchImage{
+    width: 100%;
+    height: 100%;
+}
+
+.searchContainer {
+    display: inline;
+    padding-left:100px 
+}
+
+.nombreProveedor {
+    font-family: sans-serif;
+    color: black;
+    font-size: 25px;
+}
+
+.nombreProducto {
+    font-family: sans-serif;
+    color: black;
+    font-size: 20px;
+}
+
+.list-group-item p{
+    margin-top: 15px;
 }
 
 /*# sourceMappingURL=style.css.map */

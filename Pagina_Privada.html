@@ -48,8 +48,8 @@
                         <div class="col-4 bg-secondary" id="SegundoNavbar">
                             <a class="navbar-brand" href="#">
                                 <!-- Boton de registrarse-->
-                                <a class="btn btn-danger" href="#" id="registrate"><img
-                                        src="img/navbarimg/user_25px.png"> Registrate</a>
+                                <a class="btn btn-danger" href="html/login.html" id="registrate"><img
+                                        src="img/navbarimg/user_25px.png">Registrate</a>
                                 <!-- Imagenes para ordenes/recibo -->
                                 <img class="redesSociales" src="img/navbarimg/shopping_cart_with_money_35px.png">
                                 <img class="redesSociales" src="img/navbarimg/bill_35px.png">
@@ -76,44 +76,53 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                            <!-- Imagenes de los botones del menu de la pagina privada con mapeo -->
-                            <img class="navCategoriasPriv" id="producto" src="img/navbarPrivimg/cake_75px.png" usemap="#producto">
-                            <img class="navCategoriasPriv" id="proveedores" src="img/navbarPrivimg/packaging_75px.png">
-                            <img class="navCategoriasPriv" id="clientes" src="img/navbarPrivimg/search_client_75px.png">
-                            <img class="navCategoriasPriv" id="categorias" src="img/navbarPrivimg/search_75px.png">
-                            <img class="navCategoriasPriv" id="pedidos" src="img/navbarPrivimg/bill_75px.png">
-                            <img class="navCategoriasPriv" id="empleados" src="img/navbarPrivimg/local_delivery_75px.png" usemap="#empleados">
-                            <img class="navCategoriasPriv" id="usuarios" src="img/navbarPrivimg/user_75px.png">
-                            <img class="navCategorias" id="Inicio" src="img/navbarPubimg/home_75px.png" usemap="#Inicio">
-                            <img class="navCategorias" id="LogoPriv" src="img/navbarPubimg/logoX125px.png">
+                        <!-- Imagenes de los botones del menu de la pagina privada con mapeo -->
+                        <img class="navCategoriasPriv" id="producto" src="img/navbarPrivimg/cake_75px.png"
+                            usemap="#producto">
+                        <img class="navCategoriasPriv" id="proveedores" src="img/navbarPrivimg/packaging_75px.png"
+                            usemap="#proveedores">
+                        <img class="navCategoriasPriv" id="clientes"
+                            src="img/navbarPrivimg/search_client_75px.png" usemap="#clientes">
+                        <img class="navCategoriasPriv" id="categorias" src="img/navbarPrivimg/search_75px.png"
+                            usemap="#categorias">
+                        <img class="navCategoriasPriv" id="pedidos" src="img/navbarPrivimg/bill_75px.png" usemap="#pedidos">
+                        <img class="navCategoriasPriv" id="empleados"
+                            src="img/navbarPrivimg/local_delivery_75px.png" usemap="#empleados">
+                        <img class="navCategoriasPriv" id="usuarios" src="img/navbarPrivimg/user_75px.png" usemap="#usuarios">
+                        <img class="navCategorias" id="Inicio" src="img/navbarPubimg/home_75px.png"
+                            usemap="#Inicio">
+                        <img class="navCategorias" id="LogoPriv" src="img/navbarPubimg/logoX125px.png"
+                            usemap="#LogoPriv">
                        
-                        <!-- Imagenes de los botones del menu de la pagina privada con mapeo -->      
+                        <!-- Imagenes de los botones del menu de la pagina privada con mapeo -->
                         <map name="producto">
-                            <area shape="rect" coords="0,0,75,75" href="html/GestionProductos.html">
+                            <area shape="rect" coords="50,0,125,75" href="html/Privado/GestionProductos.html">
                         </map>
                         <map name="proveedores">
-                            <area shape="rect" coords="0,0,75,75" href="#">
+                            <area shape="rect" coords="50,0,125,75" href="html/Privado/GestionProveedores.html">
                         </map>
                         <map name="clientes">
-                            <area shape="rect" coords="0,0,75,75" href="#">
+                            <area shape="rect" coords="50,0,125,75" href="html/Privado/GestionCliente.html">
                         </map>
                         <map name="categorias">
-                            <area shape="rect" coords="0,0,75,75" href="#">
+                            <area shape="rect" coords="50,0,125,75" href="html/Privado/GestionCategoria.html">
                         </map>
                         <map name="pedidos">
-                            <area shape="rect" coords="0,0,75,75" href="#">
+                            <area shape="rect" coords="50,0,125,75" href="html/Privado/GestionPedido.html">
                         </map>
                         <map name="empleados">
-                            <area shape="rect" coords="0,0,75,75" href="html/GestionEmpleados.html">
+                            <area shape="rect" coords="50,0,125,75" href="html/Privado/GestionEmpleados.html">
                         </map>
                         <map name="usuarios">
-                            <area shape="rect" coords="0,0,75,75" href="#">
+                            <area shape="rect" coords="50,0,125,75" href="html/Privado/GestionUsuario.html">
                         </map>
                         <map name="Inicio">
                             <area shape="rect" coords="200,0,275,275" href="Pagina_Privada.html">
                         </map>
                         <map name="LogoPriv">
-                            <area shape="rect" coords="0,0,75,75" href="#">
+                            <area shape="rect" coords="200,0,275,75" href="Pagina_Privada.html">
+                        </map>
+
                         </map>
 
                         
@@ -143,7 +152,7 @@
                 <div class="row" id="rowCards">
                     <div class="col-md-5 col-sm-10" id="colCards">
                         <!-- Primera card, datos de los proveedores -->
-                        <div class="card bg-secondary">
+                        <div class="card bg-secondary" id="cardBackground">
                             <div class="card-body">                               
                                 <h3 class="card-title text-center">¡Bienvenidos a AntojitoSV!</h3>
                                 <h3 class="card-title">Proveedores:</h3>
