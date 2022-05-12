@@ -59,25 +59,15 @@ getElementById('search-bar').addEventListener('submit', async (event) => {
 //Metodo manejador de el fomrulario al realizar inserción.
 function formCreate(){
     // Se abre el formulario de dialogo (el modal de inserción)
-    M.Modal.getInstance(getElementById('agregarform')).open();
 }
 
 //Metodo manejador de el formulario al realizar actualización
-function formUpdate(id_tipo_empleado){
+async function formUpdate(id_tipo_empleado){
     // Se abre el formulario de dialogo (el modal de actualización)
     M.Modal.getInstance(getElementById('actualizarform')).open();
     // Se define un obkjeto con los datos seleccionados.
     const DATA = new FormData();
-    DATA.append('id_tipo_empleado', id_tipo_empleado);
-    // Peticion para obtener los datos del registro solicitado
-    await searchRows(API_TIPO_EMPLEADO, 'actualizarform')
-    
-    fetch(API_TIPO_EMPLEADO + 'readOne', {
-        method: 'post',
-        body: DATA
-    }).then(function (request) {
-        // Se verifica si la peticion es correcta.
-        if(request.ok) {
+    DATA.f(request.ok) 
             //Se obtiene respuesta en JSON
             request.json().then( function (response) {
                 //Se comprueba la respuesta, si es satifactoria se deja pasar, si no , muestra error
@@ -90,11 +80,20 @@ function formUpdate(id_tipo_empleado){
                 } else{
                     M.Modal.getInstance(getElementById('procesoFallido')).open();
                 }
-            });
+            });append('id_tipo_empleado', id_tipo_empleado);
+    // Peticion para obtener los datos del registro solicitado
+    await searchRows(API_TIPO_EMPLEADO, 'actualizarform')
+    
+    fetch(API_TIPO_EMPLEADO + 'readOne', {
+        method: 'post',
+        body: DATA
+    }).then( (request) => {
+        // Se verifica si la peticion es correcta.
+        console.log(request)
         }
-    });
-
+    );
 }
+
 
 //Metodo manejado de el formulario al realizar una eliminación
 function formDelete(id_tipo_empleado){
