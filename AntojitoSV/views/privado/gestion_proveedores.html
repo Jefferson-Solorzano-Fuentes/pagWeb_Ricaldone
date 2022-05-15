@@ -132,10 +132,17 @@
             <div class="container-fluid" id="containerImg">
                 <div class="searchContainer">
                     <!-- Barra de  Buscador -->
+<<<<<<< Updated upstream
                     <form>
                         <input type="search" id="site-search" name="buscador_empleado" aria-label="buscar información"
                             class="buscador bg-light" placeholder="Buscar...">
                         <button class="searchButton"> <img class="searchImage" id="buscar_icono"
+=======
+                    <form method="post" id="search-bar">
+                        <input type="search" id="site-search" name="search" aria-label="buscar información"
+                            class="buscador bg-light" placeholder="Buscar..." required>
+                        <button type="submit" class="searchButton"> <img class="searchImage" id="buscar_icono"
+>>>>>>> Stashed changes
                                 src="../../resources/img/cards/buttons/search.png"></button>
                     </form>
                     <!-- Botones de SCRUD, actualizar y agregar -->
@@ -156,6 +163,7 @@
                                     <th>Número Telefónico</th>
                                     <th>Correo Electrónico</th>
                                     <th>Dirección</th>
+<<<<<<< Updated upstream
                                     <th>Actualizar</th>
                                 </tr>
                             </thead>
@@ -239,6 +247,12 @@
                                                 src="../../resources/img/cards/buttons/edit_40px.png"></a>
                                     </td>
                                 </tr>
+=======
+                                    <th>Gestionar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-rowsPro">
+>>>>>>> Stashed changes
                             </tbody>
                         </table>
                     </div>
@@ -281,6 +295,7 @@
                         <h5 class="modal-title" id="actualizarformLabel">Agregar Proveedor</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+<<<<<<< Updated upstream
                     <div class="modal-body" id="formModal">
                         <div class="col">
                             <label for="formGroupExampleInput" class="form-label">Nombre</label>
@@ -312,6 +327,45 @@
                                         src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
                         </div>
                     </div>
+=======
+                    <!-- Formulario-->
+
+                    <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
+                    <form method="post" id="insert-modal">
+                        <div class="modal-body" id="formModal">
+                            <div class="col">
+                                <label for="formGroupExampleInput" class="form-label">Nombre</label>
+                                <form>
+                                    <input type="text" class="form-control" id="formGroupExampleInput"
+                                        placeholder="Escriba el nombre del Proveedor">
+                                </form>
+                                <label for="formGroupExampleInput" class="form-label">Número Telefónico</label>
+                                <form>
+                                    <input type="number" class="form-control" id="formGroupExampleInput"
+                                        placeholder="Escriba el número telefónico">
+                                </form>
+                                <label for="formGroupExampleInput" class="form-label">Correo Electrónico</label>
+                                <form>
+                                    <input type="email" class="form-control" id="formGroupExampleInput"
+                                        placeholder="Escriba el correo electrónico">
+                                </form>
+                                <label for="formGroupExampleInput" class="form-label">Dirección</label>
+                                <textarea name="dirección" rows="4" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
+                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
+                                    data-bs-dismiss="modal" href="#agregarConfirmar" id="btnmenu"><a
+                                        class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/add_26px.png"></a></button>
+                                <button type="reset" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
+                                        class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                            </div>
+                        </div>
+                    </form>
+>>>>>>> Stashed changes
                 </div>
             </div>
         </div>
@@ -362,6 +416,7 @@
                         <h5 class="modal-title" id="actualizarformLabel">Actualizar Proveedor</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+<<<<<<< Updated upstream
                     <div class="modal-body" id="formModal">
                         <div class="col">
                             <label for="formGroupExampleInput" class="form-label">Nombre</label>
@@ -397,13 +452,57 @@
                                         src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
                         </div>
                     </div>
+=======
+                    <!-- Formulario para actualizar registro-->
+
+                    <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
+                    <form method="post" id="update-modal">
+                        <div class="modal-body" id="formModal">
+                            <div class="col">
+                                <label for="formGroupExampleInput" class="form-label">Nombre</label>
+                                <form>
+                                    <input type="text" class="form-control" id="formGroupExampleInput"
+                                        placeholder="Escriba el nombre del Proveedor">
+                                </form>
+                                <label for="formGroupExampleInput" class="form-label">Número Telefónico</label>
+                                <form>
+                                    <input type="number" class="form-control" id="formGroupExampleInput"
+                                        placeholder="Escriba el número telefónico">
+                                </form>
+                                <label for="formGroupExampleInput" class="form-label">Correo Electrónico</label>
+                                <form>
+                                    <input type="email" class="form-control" id="formGroupExampleInput"
+                                        placeholder="Escriba el correo electrónico">
+                                </form>
+                                <label for="formGroupExampleInput" class="form-label">Dirección</label>
+                                <textarea name="dirección" rows="4" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <!-- Fotter del modal -->
+                        <div class="modal-footer">
+                            <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
+                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
+                                    data-bs-dismiss="modal" href="#actualizarConfirmar" id="btnmenu"><a
+                                        class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/edit_26px.png"></a></button>
+                                <button type="reset" class="btn btn-light" id="btnmenu" data-bs-toggle="modal"
+                                    data-bs-dismiss="modal"><a class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                            </div>
+                        </div>
+                    </form>
+>>>>>>> Stashed changes
                 </div>
             </div>
         </div>
         </div>
         <!-- Modal de CONFIRMACIÓN -->
+<<<<<<< Updated upstream
         <div class="modal fade" id="actualizarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
             tabindex="-1">
+=======
+        <div class="modal fade" id="actualizarConfirmar" aria-hidden="true" tabindex="-1">
+>>>>>>> Stashed changes
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -423,8 +522,12 @@
             </div>
         </div>
         <!-- Modal de ACTUALIZACIÓN REALIZADA -->
+<<<<<<< Updated upstream
         <div class="modal fade" id="actualizado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3"
             tabindex="-1">
+=======
+        <div class="modal fade" id="actualizado" aria-hidden="true" tabindex="-1">
+>>>>>>> Stashed changes
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -441,8 +544,12 @@
             </div>
         </div>
         <!-- Modal de ELIMINAR -->
+<<<<<<< Updated upstream
         <div class="modal fade" id="eliminarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
             tabindex="-1">
+=======
+        <div class="modal fade" id="eliminarConfirmar" aria-hidden="true" tabindex="-1">
+>>>>>>> Stashed changes
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -453,17 +560,33 @@
                         ¿Desea Eliminar la información de este registro?
                     </div>
                     <div class="modal-footer">
+<<<<<<< Updated upstream
                         <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
                             id="btnmenu">Volver</button>
                         <button class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
                             id="btnmenu">Confirmar</button>
+=======
+                        <button type="reset" class="btn btn-primary" data-bs-target="#actualizarform"
+                            data-bs-toggle="modal" id="btnmenu">Volver</button>
+                        <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
+                        <form id="delete-form">
+                            <input type="hidden" id="id-eliminar" name="id-eliminar">
+                            <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                            <button type="submit" class="btn btn-primary" data-bs-target="#eliminado"
+                                data-bs-toggle="modal" id="btnmenu">Confirmar</button>
+                        </form>
+>>>>>>> Stashed changes
                     </div>
                 </div>
             </div>
         </div>
         <!-- Modal de ELIMINAR REALIZADO -->
+<<<<<<< Updated upstream
         <div class="modal fade" id="eliminado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
             tabindex="-1">
+=======
+        <div class="modal fade" id="eliminado" aria-hidden="true" tabindex="-1">
+>>>>>>> Stashed changes
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -504,6 +627,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
+<<<<<<< Updated upstream
+=======
+    <script type="module" src="../../controller/privado/proveedor.js"></script>
+>>>>>>> Stashed changes
 
 </body>
 
