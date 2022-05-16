@@ -121,7 +121,7 @@ class cliente extends validator
         $sql = 'INSERT INTO cliente(
             nombre_cliente, telefono, correo, estado_cliente)
             VALUES (?, ?, ?, ?)';
-        $params = array($this->nombre, $this->telefono, $this->correo, $this->estado);
+        $params = array($this->nombre, $this->telefono, $this->correo, $this->true);
         return Database::executeRow($sql, $params);
     }
 
@@ -130,7 +130,7 @@ class cliente extends validator
         $sql = 'UPDATE cliente
         SET nombre_cliente=?, telefono=?, correo=?, estado_cliente=?
         WHERE id_cliente = ?';
-        $params = array($this->nombre, $this->telefono, $this->correo, $this->estado, $this->id_cliente);
+        $params = array($this->nombre, $this->telefono, $this->correo, $this->true, $this->id_cliente);
         return Database::executeRow($sql, $params);
     }
 

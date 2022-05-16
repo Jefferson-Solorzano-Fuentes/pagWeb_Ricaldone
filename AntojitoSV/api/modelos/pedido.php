@@ -218,4 +218,14 @@ class pedido extends validator
         $params = ($this->id_pedido);
         return Database::getRow($sql, $params);
     }
+
+    //Llenar combobox
+    //Combobox de  cliente
+    public function readCliente()
+    {
+        $sql = 'SELECT id_cliente, nombre_cliente 
+        FROM cliente';
+        $params = null;
+        return Database::getRow($sql, $params);
+    }
 }

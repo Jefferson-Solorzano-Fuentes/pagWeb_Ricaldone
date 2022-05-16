@@ -226,10 +226,8 @@ class producto extends validator
     //Utilizaremos los campos o (NOMBRE, APELLIDO, TIPO, ESTADO, TELEFONO, DUI, NIT)
     public function searchRows($value)
     {
-        $sql = 'SELECT producto.id_producto, nombre_producto, descripcion, proveedor.id_proveedor, proveedor.nombre, precio, stock, descuento, categoria.id_categoria, nombre_categoria, imagen_producto.imagen
+        $sql = 'SELECT producto.id_producto, nombre_producto, descripcion, proveedor.id_proveedor, proveedor.nombre, precio, stock, descuento, categoria.id_categoria, nombre_categoria, imagen
         FROM producto
-        INNER JOIN imagen_producto
-        ON producto.id_producto = imagen_producto.id_producto
         INNER JOIN categoria
         ON categoria.id_categoria = producto.id_categoria
         INNER JOIN proveedor
@@ -250,6 +248,7 @@ class producto extends validator
         return Database::executeRow($sql, $params);
     }
 
+/*   
     public function createRowImage()
     {
         $sql = 'INSERT INTO imagen_producto(
@@ -258,17 +257,18 @@ class producto extends validator
         $params = array($this->id_producto, $this->imagen);
         return Database::executeRow($sql, $params);
     }
-
+*/
     //Metodo para la actualización
     public function updateRow()
     {
         $sql = 'UPDATE producto
-        SET  nombre_producto=?, descripcion=?, id_proveedor=?, precio=?, stock=?, descuento=?, id_categoria=?, visibilidad=?
+        SET  nombre_producto=?, descripcion=?, id_proveedor=?, precio=?, stock=?, descuento=?, id_categoria=?, visibilidad=?, imagen=?
         WHERE id_producto=?';
         $params = array($this->nombre_producto, $this->descripcion, $this->proveedor_id, $this->precio, $this->stock, $this->descuento, $this->categoria, $this->visiblidad, $this->id_producto);
         return Database::executeRow($sql, $params);
     }
 
+/*  
     public function updateRowImage()
     {
         $sql = 'UPDATE imagen_producto
@@ -277,6 +277,7 @@ class producto extends validator
         $params = array($this->id_producto, $this->imagen, $this->id_imagen_p);
         return Database::executeRow($sql, $params);
     }
+*/
 
     //Metodo para la eliminación
     public function deleteRow()
@@ -287,7 +288,8 @@ class producto extends validator
         $params = array($this->false, $this->id_producto);
         return Database::executeRow($sql, $params);
     }
-
+    
+/*  
     public function deleteRowImage()
     {
         $sql = 'DELETE FROM imagen_producto
@@ -295,15 +297,13 @@ class producto extends validator
         $params = array($this->id_imagen_p);
         return Database::executeRow($sql, $params);
     }
-
+*/
     //Metodo para leer READ
     //Leer todas las filas de la Tabla
     public function readAll()
     {
-        $sql = 'SELECT producto.id_producto, nombre_producto, descripcion, proveedor.id_proveedor, proveedor.nombre, precio, stock, descuento, categoria.id_categoria, nombre_categoria, imagen_producto.imagen
+        $sql = 'SELECT producto.id_producto, nombre_producto, descripcion, proveedor.id_proveedor, proveedor.nombre, precio, stock, descuento, categoria.id_categoria, nombre_categoria, imagen
         FROM producto
-        INNER JOIN imagen_producto
-        ON producto.id_producto = imagen_producto.id_producto
         INNER JOIN categoria
         ON categoria.id_categoria = producto.id_categoria
         INNER JOIN proveedor
@@ -317,16 +317,33 @@ class producto extends validator
     //Leer solamente una fila de la Tabla
     public function readOne()
     {
-        $sql = 'SELECT producto.id_producto, nombre_producto, descripcion, proveedor.id_proveedor, proveedor.nombre, precio, stock, descuento, categoria.id_categoria, nombre_categoria, imagen_producto.imagen
+        $sql = 'SELECT producto.id_producto, nombre_producto, descripcion, proveedor.id_proveedor, proveedor.nombre, precio, stock, descuento, categoria.id_categoria, nombre_categoria, imagen
         FROM producto
-        INNER JOIN imagen_producto
-        ON producto.id_producto = imagen_producto.id_producto
         INNER JOIN categoria
         ON categoria.id_categoria = producto.id_categoria
         INNER JOIN proveedor
         ON proveedor.id_proveedor = producto.id_proveedor
         WHERE producto.id_producto = ?';
         $params = ($this->id_producto);
+        return Database::getRow($sql, $params);
+    }
+
+    //Llenar combobox
+    //Combobox de  proveedor
+    public function readProveedor()
+    {
+        $sql = 'SELECT id_proveedor, nombre
+        FROM proveedor';
+        $params = null;
+        return Database::getRow($sql, $params);
+    }
+
+    //Combobox de categoria
+    public function readCategoria()
+    {
+        $sql = 'SELECT id_categoria, nombre_categoria
+        FROM categoria';
+        $params = null;
         return Database::getRow($sql, $params);
     }
 }

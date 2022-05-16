@@ -2,7 +2,7 @@
 //Llama a otros documentos de php respectivo, el database, el validador, y el respectivo modelo
 require_once('../helpers/database.php');
 require_once('../helpers/validator.php');
-require_once('../modelos/tipo_empleado.php');
+require_once('../modelos/cliente.php');
 
 // constants 
 const ACTION = 'action';
@@ -19,16 +19,21 @@ const DELETE = 'delete';
 const SUCESS_RESPONSE = 1;
 
 // NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARIO
-const TIPO_EMPLEADO = 'tipo_empleado';
-const NOMBRE = 'nombre_tipo_empleado';
+const CLIENTE = 'cliente';
 const ID = 'id';
+const NOMBRE = 'nombre_cliente';
+const TELEFONO = 'telefono';
+const CORREO = 'correo';
+const DIRECCION = 'direccion';
+const ESTADO = 'estado';
+
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET[ACTION])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
-    $tipo_empleado = new tipo_empleado;
+    $cliente = new cliente;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array(STATUS => 0, MESSAGE => null, EXCEPTION => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -36,7 +41,7 @@ if (isset($_GET[ACTION])) {
     switch ($_GET[ACTION]) {
             //Leer todo
         case READ_ALL:
-            if ($result[DATA_SET] = $tipo_empleado->readAll()) {
+            if ($result[DATA_SET] = $cliente->readAll()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 
             } elseif (Database::getException()) {
@@ -46,10 +51,10 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case SEARCH:
-            $_POST = $tipo_empleado->validateSpace($_POST);
+            $_POST = $cliente->validateSpace($_POST);
             if ($_POST[SEARCH] == '') {
                 $result[EXCEPTION] = 'Ingrese un valor para buscar';
-            } elseif ($result[DATA_SET] = $tipo_empleado->searchRows($_POST[SEARCH])) {
+            } elseif ($result[DATA_SET] = $cliente->searchRows($_POST[SEARCH])) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Valor encontrado';
             } elseif (Database::getException()) {
@@ -59,36 +64,46 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case CREATE:
-            $_POST = $tipo_empleado->validateSpace($_POST);
-            if (!$tipo_empleado->setNombre($_POST[NOMBRE])) {
+            $_POST = $cliente->validateSpace($_POST);
+            if (!$cliente->setNombre($_POST[NOMBRE])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
-            } elseif ($tipo_empleado->createRow()) {
+            } else if (!$cliente->setTelefono($_POST[TELEFONO])){
+                $result[EXCEPTION] = 'Número de Telefono no valido';
+            } else if (!$cliente->setCorreo($POST[CORREO])) {
+                $result[EXCEPTION] = 'Correo electronico no valido';
+            } else if (!$cliente->setEstado($POST[ESTADO])){
+                $result[EXCEPTION] = 'Estado incorrecto';
+            } elseif ($cliente->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Tipo de empleado creado existosamente';
+                $result[MESSAGE] = 'Proveedor creado existosamente';
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
         case READ_ONE:
-            if (!$tipo_empleado->setId($_POST)) {
-                $result[EXCEPTION] = 'Tipo de empleado incorrecto';
-            } elseif ($result[DATA_SET] = $tipo_empleado->readOne()) {
+            if (!$cliente->setId($_POST[ID])) {
+                $result[EXCEPTION] = 'Proveedor incorrecto';
+            } elseif ($result[DATA_SET] = $cliente->readOne()) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
             } else {
-                $result[EXCEPTION] = 'Tipo de empleado inexistente';
+                $result[EXCEPTION] = 'Proveedor inexistente';
             }
             break;
         case UPDATE:
-            $_POST = $tipo_empleado->validateSpace($_POST);
-            if (!$tipo_empleado->setId($_POST[ID])) {
-                $result[EXCEPTION] = 'Categoría incorrecta';
-            } elseif (!$data = $tipo_empleado->readOne()) {
-                $result[EXCEPTION] = 'Categoría inexistente';
-            } elseif (!$tipo_empleado->setNombre($_POST[NOMBRE])) {
+            $_POST = $cliente->validateSpace($_POST);
+            if (!$cliente->setId($_POST[ID])) {
+                $result[EXCEPTION] = 'Proveedor incorrecto';
+            } else if(!$cliente->setNombre($_POST[NOMBRE])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
-            } elseif ($tipo_empleado->updateRow()) {
+            } else if (!$cliente->setTelefono($_POST[TELEFONO])){
+                $result[EXCEPTION] = 'Número de Telefono no valido';
+            } else if (!$cliente->setCorreo($POST[CORREO])) {
+                $result[EXCEPTION] = 'Correo electronico no valido';
+            } else if (!$cliente->setEstado($POST[ESTADO])){
+                $result[EXCEPTION] = 'Estado incorrecto';
+            } elseif ($cliente->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Cantidad modificada correctamente';
             } else {
@@ -96,11 +111,11 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case DELETE:
-            if (!$tipo_empleado->setId($_POST[ID])) {
-                $result[EXCEPTION] = 'Tipo de empleado incorrecto';
-            } elseif ($tipo_empleado->deleteRow()) {
+            if (!$cliente->setId($_POST[ID])) {
+                $result[EXCEPTION] = 'Empleado incorrecto';
+            } elseif ($cliente->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Tipo de empleado removido correctamente';
+                $result[MESSAGE] = 'Proveedor removido correctamente';
             } else {
                 $result[EXCEPTION] = Database::getException();
             }

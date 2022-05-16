@@ -25,6 +25,22 @@ class Validator
         return $this->fileName;
     }
 
+    /*
+    *   Método para sanear todos los campos de un formulario (quitar los espacios en blanco al principio y al final).
+    *
+    *   Parámetros: $fields (arreglo con los campos del formulario).
+    *   
+    *   Retorno: arreglo con los campos saneados del formulario.
+    */
+    public function validateForm($fields)
+    {
+        foreach ($fields as $index => $value) {
+            $value = trim($value);
+            $fields[$index] = $value;
+        }
+        return $fields;
+    }
+
 
     //Método para obtener el error al validar un archivo.
 

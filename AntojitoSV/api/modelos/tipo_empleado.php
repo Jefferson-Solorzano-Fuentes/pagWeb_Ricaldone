@@ -104,7 +104,7 @@ class tipo_empleado extends validator
         $sql = 'SELECT id_tipo_empleado, nombre_tipo
         FROM tipo_empleado
         WHERE id_tipo_empleado = ?';
-        $params = ($this->id_tipo_empleado);
+        $params = array($this->id_tipo_empleado);
         return Database::getRow($sql, $params);
     }
 }

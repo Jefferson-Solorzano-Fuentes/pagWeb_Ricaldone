@@ -196,4 +196,23 @@ class compra_exitencia extends validator
         $params = ($this->id_tipo_usuario);
         return Database::getRow($sql, $params);
     }
+
+    //Llenar combobox
+    //Combobox de  proveedor
+    public function readProveedor()
+    {
+        $sql = 'SELECT id_proveedor, nombre
+        FROM proveedor';
+        $params = null;
+        return Database::getRow($sql, $params);
+    }
+
+    //Combobox de  empleado
+    public function readEmpleado()
+    {
+        $sql = 'SELECT  id_empleado, nombre, apellido, "DUI"
+        FROM empleado';
+        $params = null;
+        return Database::getRow($sql, $params);
+    }
 }

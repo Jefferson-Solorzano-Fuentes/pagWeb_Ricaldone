@@ -143,4 +143,23 @@ class empleado_vehiculo extends validator
         $params = ($this->id_pedido_envio);
         return Database::getRow($sql, $params);
     }
+
+    //Llenar combobox
+    //Combobox de  pedido
+    public function readPedido()
+    {
+        $sql = 'SELECT id_pedido
+        FROM pedido';
+        $params = null;
+        return Database::getRow($sql, $params);
+    }
+
+    //Combobox de envio
+    public function readEnvio()
+    {
+        $sql = 'SELECT id_envio
+        FROM envio';
+        $params = null;
+        return Database::getRow($sql, $params);
+    }
 }

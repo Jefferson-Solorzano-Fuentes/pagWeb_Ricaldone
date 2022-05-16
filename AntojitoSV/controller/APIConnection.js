@@ -9,7 +9,6 @@ export async function APIConnection (APIEndpoint, Metodo, parametrosDePeticion) 
                 body: parametrosDePeticion
             });   
     
-
             // Se convierte la respuesta a formato "JSON", este devuelve una promesa asi que se usa el keyword "await"
            let responseJSON = await response.json();
 

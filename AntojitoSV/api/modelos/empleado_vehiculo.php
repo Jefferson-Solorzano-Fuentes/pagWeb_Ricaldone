@@ -143,4 +143,23 @@ class empleado_vehiculo extends validator
         $params = ($this->id_vehiculo_empleado);
         return Database::getRow($sql, $params);
     }
+
+    //Llenar combobox
+    //Combobox de  empleado
+    public function readEmpleado()
+    {
+        $sql = 'SELECT id_empleado, nombre, apellido, "DUI"
+        FROM empleado';
+        $params = null;
+        return Database::getRow($sql, $params);
+    }
+
+    //Combobox de vehiculo
+    public function readVehiculo()
+    {
+        $sql = 'SELECT id_vehiculo, placa
+        FROM vehiculo';
+        $params = null;
+        return Database::getRow($sql, $params);
+    }
 }

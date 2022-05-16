@@ -176,4 +176,23 @@ class detalle_pedido extends validator
         $params = ($this->id_detalle_pedido);
         return Database::getRow($sql, $params);
     }
+
+    //Llenar combobox
+    //Combobox de  proveedor
+    public function readPedido()
+    {
+        $sql = 'SELECT id_pedido
+        FROM pedido';
+        $params = null;
+        return Database::getRow($sql, $params);
+    }
+
+    //Combobox de producto
+    public function readProducto()
+    {
+        $sql = 'SELECT  id_producto, nombre_producto
+        FROM producto';
+        $params = null;
+        return Database::getRow($sql, $params);
+    }
 }

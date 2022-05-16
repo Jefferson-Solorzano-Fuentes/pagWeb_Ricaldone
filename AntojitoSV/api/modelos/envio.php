@@ -163,4 +163,24 @@ class envio extends validator
         $params = ($this->id_vehiculo_empleado);
         return Database::getRow($sql, $params);
     }
+
+
+    //Llenar combobox
+    //Combobox de estado envio
+    public function readEstadoEnvio()
+    {
+        $sql = 'SELECT id_estado_envio, nombre_estado 
+        FROM estado_envio';
+        $params = null;
+        return Database::getRow($sql, $params);
+    }
+
+    //Combobox de producto
+    public function readProducto()
+    {
+        $sql = 'SELECT id_producto, nombre_producto
+        FROM producto';
+        $params = null;
+        return Database::getRow($sql, $params);
+    }
 }

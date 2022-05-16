@@ -2,7 +2,7 @@
 //Maneja la tabla de proveedor  de la base de datos
 //Contiene validaciones de validator
 
-class proovedor extends validator
+class proveedor extends validator
 {
 
     //Declaración de atributos (propiedades)
@@ -14,7 +14,7 @@ class proovedor extends validator
     private $estado = null;
 
     //Parametros TRUE / FALSE
-    private $true = '1';
+    private $true = true;
     private $false = '0';
 
     //Metodos para setear los valores de los campos
@@ -54,34 +54,27 @@ class proovedor extends validator
     //Correo Electronico
     public function setCorreo($value)
     {
-        if ($this->validateEmail($value)) {
+       
             $this->correo = $value;
             return true;
-        } else {
-            return false;
-        }
     }
 
     //Numero de Telefono
     public function setDireccion($value)
     {
-        if ($this->validateString($value, 1, 200)) {
+    
             $this->direccion = $value;
             return true;
-        } else {
-            return false;
-        }
+
     }
 
     //Numero de Telefono
     public function setEstado($value)
     {
-        if ($this->validateBoolean($value)) {
+      
             $this->estado = $value;
             return true;
-        } else {
-            return false;
-        }
+
     }
 
 
@@ -129,7 +122,7 @@ class proovedor extends validator
     {
         $sql = 'SELECT id_proveedor, nombre, telefono, correo, direccion, estado_proveedor
         FROM proveedor
-        WHERE nombre ILIKE ? OR telefono ILIKE ? OR correo ILIKE ? OR dirreccion ILIKE ? 
+        WHERE nombre ILIKE ? OR telefono ILIKE ? OR correo ILIKE ? OR direccion ILIKE ? 
         ORDER BY nombre';
         $params = array("%$value%", "%$value%", "%$value%", "%$value%");
         return Database::getRows($sql, $params);
@@ -140,7 +133,7 @@ class proovedor extends validator
     {
         $sql = 'INSERT INTO proveedor(
             nombre, telefono, correo, direccion, estado_proveedor)
-            VALUES (?. ?, ?, ?, ?)';
+            VALUES (?, ?, ?, ?, ?)';
         $params = array($this->nombre, $this->telefono, $this->correo, $this->direccion, $this->estado);
         return Database::executeRow($sql, $params);
     }
@@ -151,7 +144,7 @@ class proovedor extends validator
         $sql = 'UPDATE proveedor
         SET nombre=?, telefono=?, correo=?, direccion=?, estado_proveedor=?
         WHERE id_proveedor =?';
-        $params = array($this->nombre, $this->telefono, $this->correo, $this->direccion, $this->estado, $this->id_proovedor);
+        $params = array($this->nombre, $this->telefono, $this->correo, $this->direccion, $this->true, $this->id_proovedor);
         return Database::executeRow($sql, $params);
     }
 

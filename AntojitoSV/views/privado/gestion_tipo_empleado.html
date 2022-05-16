@@ -142,7 +142,8 @@
                     <!-- Botones de SCRUD, actualizar y agregar -->
                     <div class="container-fluid" id="opciones">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button onclick="formCreate()" type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"><a class="nav-link" href="#"><img
+                            <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
+                                data-bs-target="#agregarform"><a class="nav-link" href="#"><img
                                         src="../../resources/img/cards/buttons/add_40px.png"></a></button>
                         </div>
                     </div>
@@ -153,11 +154,11 @@
                                 <tr>
                                     <th>Identificador</th>
                                     <th>Tipo de Empleado</th>
-                                    <th>Actualizar</th>
+                                    <th>Gestionar</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbody-rows">
-                               
+                            <tbody id="tbody-rowsTP">
+
                             </tbody>
                         </table>
                     </div>
@@ -193,66 +194,43 @@
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="actualizarformLabel">Agregar Tipo de Empleado</h5>
+                        <h5 class="modal-title">Agregar Tipo de Empleado</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!-- Formulario-->
+
+                    <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
                     <form method="post" id="insert-modal">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
-                                    <!-- Id oculto-->
-                                    <input class="hide" type="number" id="id_tipo_empleado" name="id">
                                     <!-- Nombre del tipo del empleado, rquerido-->
                                     <label for="nombre_tipo" class="form-label">Tipo de Empleado</label>
-                                    <input type="text" class="validate" name="nombre_tipo" id="nombre_tipo"
-                                        placeholder="Escriba el nombre de un tipo de Empleado" required>
+                                    <!-- CADA NOMBRE Y ID DEL INPUT DEBEN DE SER LOS NOMBRES QUE TIENE LOS PARAMETROS DEL ARCHIVO DE MODELOS -->
+                                    <input type="text" class="form-control" name="nombre_tipo_empleado"
+                                        id="nombre_tipo_empleado"  value="HOLA PRUEBA" placeholder="Escriba el nombre de un tipo de Empleado"
+                                        required>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                    <div class="modal-footer">
-                        <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                href="#actualizarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/add_26px.png"></a></button>
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                href="#eliminarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/Remove_26px.png"></a></button>
-                            <button type="button" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
-                                    class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                        <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                        <div class="modal-footer">
+                            <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
+                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
+                                    data-bs-dismiss="modal" href="#agregado" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/add_26px.png"></a></button>
+                                <button type="reset" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
+                                        class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal de AGREGAR CONFIRMAR -->
-        <div class="modal fade" id="agregarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-            tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ¿Desea agregar esta información como un nuevo registro?
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#agregarform" data-bs-toggle="modal"
-                            data-bs-dismiss="modal" id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#agregado" data-bs-toggle="modal"
-                            data-bs-dismiss="modal" id="btnmenu">Confirmar</button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
 
         <!-- Modal de AGREGAR REALIZADO -->
-        <div class="modal fade" id="agregado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
-            tabindex="-1">
+        <div class="modal fade" id="agregado" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -278,33 +256,35 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!-- Formulario-->
+
+                    <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
                     <form method="post" id="update-modal">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Tipo de Empleado</label>
-                                    <input type="text" class="form-control" id="formGroupExampleInput"
-                                        placeholder="Conductor">
+                                    <input type="text" class="form-control" id="nombre_tipo_empleado_actualizar"
+                                        name="nombre_tipo_empleado" placeholder="" value="" required>
                                 </div>
                             </div>
+                            <!-- Fotter del modal -->
+
+                            <div id="UPDATE_MODAL" class="modal-footer">
+                                <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                                <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
+                                    <button type="submit" class="btn btn-light" data-bs-toggle="modal"
+                                        data-bs-dismiss="modal" href="#actualizarConfirmar" id="btnmenu"><a
+                                            class="nav-link"><img
+                                                src="../../resources/img/cards/buttons/edit_26px.png"></a></button>
+                                    <button type="reset" class="btn btn-light" id="btnmenu" data-bs-toggle="modal"
+                                        data-bs-dismiss="modal"><a class="nav-link"><img
+                                                src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
-                <!-- Fotter del modal -->
-                <div class="modal-footer">
-                    <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                            href="#actualizarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                    src="../../resources/img/cards/buttons/edit_26px.png"></a></button>
-                        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                            href="#eliminarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                    src="../../resources/img/cards/buttons/Remove_26px.png"></a></button>
-                        <button type="button" class="btn btn-light" id="btnmenu" data-bs-toggle="modal"
-                            data-bs-dismiss="modal"><a class="nav-link"><img
-                                    src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
-                    </div>
-                </div>
             </div>
-        </div>
         </div>
 
         <!-- Modal de CONFIRMACIÓN -->
@@ -319,12 +299,11 @@
                     <div class="modal-body">
                         ¿Desea actualizar la información de este registro?
                     </div>
-                    <div class="modal-footer">
+                    <form id="actualizarConfirmar_buttons" class="modal-footer">
                         <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
                             id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#actualizado" data-bs-toggle="modal"
-                            id="btnmenu">Confirmar</button>
-                    </div>
+                        <button type="submit">Confirmar</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -348,7 +327,7 @@
         </div>
 
         <!-- Modal de ELIMINAR -->
-        <div class="modal fade" id="eliminarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+        <div class="modal fade" id="eliminarForm" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
             tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -362,8 +341,14 @@
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
                             data-bs-dismiss="modal" id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
-                            data-bs-dismiss="modal" id="btnmenu">Confirmar</button>
+                        <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
+                        <form id="delete-form">
+                            <input type="hidden" id="id-eliminar" name="id-eliminar">
+                            <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                            <button class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
+                                data-bs-dismiss="modal" id="btnmenu" type="submit">Confirmar</button>
+
+                        </form>
                     </div>
                 </div>
             </div>
@@ -393,7 +378,8 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel4">¡El proceso de gestion ha fallado!</h5>
+                        <h5 class="modal-title" id="exampleModalToggleLabel4">¡El proceso de gestion ha fallado!
+                        </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -431,8 +417,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
-        <script type="module" src="../../controller/components.js"></script>
-        <script type="module" src="../../controller/privado/tipo_empleado.js"></script>
+    <script type="module" src="../../controller/privado/tipo_empleado.js"></script>
+
+
 </body>
 
 </html>

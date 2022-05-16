@@ -20,6 +20,8 @@ class empleado extends validator
     private $tipo_empleado = null;
     private $ruta = '../imagenes/empleado';
 
+    private $true = 1;
+    private $still_true = 2;
     //Metodos para setear los valores de los campos
     //Id - integer
     public function setId($value)
@@ -228,7 +230,7 @@ class empleado extends validator
     {
         return $this->tipo_empleado;
     }
- 
+
     //Ruta de imagenes
     public function getRuta()
     {
@@ -239,7 +241,8 @@ class empleado extends validator
 
     //Metodo para la busqueda
     //Utilizaremos los campos o (NOMBRE, APELLIDO, TIPO, ESTADO, TELEFONO, DUI, NIT)
-    public function searchRows($value){
+    public function searchRows($value)
+    {
         $sql = 'SELECT id_empleado, nombre, apellido, "DUI", "NIT", telefono, correo, genero, fecha_nacimiento, imagen, nombre_estado , nombre_tipo
         FROM empleado 
         INNER JOIN tipo_empleado
@@ -248,7 +251,7 @@ class empleado extends validator
         ON empleado.id_estado_empleado = estado_empleado.id_estado_empleado
         WHERE nombre ILIKE ? OR apellido ILIKE ? OR "DUI" ILIKE ? OR "NIT" ILIKE ? OR telefono ILIKE ? OR correo ILIKE ? OR nombre_estado ILIKE ? OR nombre_tipo ILIKE ?
         ORDER BY apellido ';
-        $params = array("%$value%","%$value%","%$value%","%$value%","%$value%","%$value%","%$value%","%$value%");
+        $params = array("%$value%", "%$value%", "%$value%", "%$value%", "%$value%", "%$value%", "%$value%", "%$value%");
         return Database::getRows($sql, $params);
     }
 
@@ -263,42 +266,70 @@ class empleado extends validator
     }
 
     //Metodo para la actualización
-    public function updateRow(){
+    public function updateRow()
+    {
         $sql = 'UPDATE public.empleado
         SET  nombre= ?, apellido= ?, "DUI"= ?, "NIT"= ?, telefono= ?, correo= ?, genero= ?, fecha_nacimiento= ?, imagen= ?, id_estado_empleado= ?, id_tipo_empleado= ?
         WHERE id_empleado = ?';
-        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->nit, $this->telefono, $this->correo, $this->genero, $this->fecha_nacimiento, $this->imagen, $this->estado_empleado, $this->tipo_empleado. $this->id_empleado);
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->nit, $this->telefono, $this->correo, $this->genero, $this->fecha_nacimiento, $this->imagen, $this->estado_empleado, $this->tipo_empleado . $this->id_empleado);
         return Database::executeRow($sql, $params);
     }
 
 
     //Metodo para la eliminación
-    public function deleteRow(){
+    public function deleteRow()
+    {
         $sql = 'DELETE FROM empleado
         WHERE id_empleado = ?';
         $params = array($this->id_empleado);
-        return Database::executeRow($sql,$params);
+        return Database::executeRow($sql, $params);
     }
 
     //Metodo para leer READ
     //Leer todas las filas de la Tabla
     public function readAll()
     {
-        $sql= 'SELECT id_empleado, nombre, apellido, "DUI", "NIT", telefono, correo, genero, fecha_nacimiento, imagen, id_estado_empleado, id_tipo_empleado
-        FROM empleado';
-        $params = null;
+        $sql = 'SELECT id_empleado, nombre, apellido, "DUI", "NIT", telefono, correo, genero, fecha_nacimiento, imagen, empleado.id_estado_empleado, nombre_estado, empleado.id_tipo_empleado, nombre_tipo
+        FROM empleado
+        INNER JOIN tipo_empleado 
+        ON tipo_empleado.id_tipo_empleado = empleado.id_tipo_empleado
+        INNER JOIN estado_empleado
+        ON estado_empleado.id_estado_empleado = empleado.id_estado_empleado
+        WHERE empleado.id_estado_empleado = ? OR empleado.id_estado_empleado = ?';
+        $params = array($this->true, $this->still_true);
         return Database::getRows($sql, $params);
     }
 
     //Leer solamente una fila de la Tabla
     public function readOne()
     {
-        $sql = 'SELECT id_empleado, nombre, apellido, "DUI", "NIT", telefono, correo, genero, fecha_nacimiento, imagen, id_estado_empleado, id_tipo_empleado
+        $sql = 'SELECT id_empleado, nombre, apellido, "DUI", "NIT", telefono, correo, genero, fecha_nacimiento, imagen, empleado.id_estado_empleado, nombre_estado, empleado.id_tipo_empleado, nombre_tipo
         FROM empleado
+        INNER JOIN tipo_empleado 
+        ON tipo_empleado.id_tipo_empleado = empleado.id_tipo_empleado
+        INNER JOIN estado_empleado
+        ON estado_empleado.id_estado_empleado = empleado.id_estado_empleado
         WHERE id_empleado = ?';
         $params = ($this->id_empleado);
         return Database::getRow($sql, $params);
     }
 
-    
+    //Llenar combobox
+    //Combobox de estado empleado
+    public function readEstadoEmpleado()
+    {
+        $sql = 'SELECT  id_estado_empleado, nombre_estado
+        FROM estado_empleado';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    //Combobox de estado empleado
+    public function readTipoEmpleado()
+    {
+        $sql = 'SELECT  id_tipo_empleado, nombre_tipo
+        FROM tipo_empleado';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
 }

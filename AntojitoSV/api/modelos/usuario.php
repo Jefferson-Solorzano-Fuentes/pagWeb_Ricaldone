@@ -12,11 +12,15 @@ class usuario extends validator
     private $tipo_usuario = null;
     private $cliente_id = null;
     private $empleado_id = null;
+    private $correoUsuario = null;
 
     //Parametros TRUE / FALSE
+    private $tipo_administrador = 1;
     private $tipo_empleado = 2;
     private $tipo_cliente = 3;
     private $false = 4;
+
+
 
     //Metodos para setear los valores de los campos
     //Id
@@ -30,10 +34,21 @@ class usuario extends validator
         }
     }
 
+    //correo de usuario 
+    public function setCorreo($value)
+    {
+        if ($this->validateEmail($value)) {
+            $this->correo = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     //Nombre del usuario
     public function setNombre($value)
     {
-        if ($this->validateBoolean($value)) {
+        if ($this->validateAlphanumeric($value, 10, 100)) {
             $this->nombre_usuario = $value;
             return true;
         } else {
@@ -88,21 +103,32 @@ class usuario extends validator
     //Id
     public function getId()
     {
-        return $this->id_vehiculo_empleado;
+        return $this->id_usuario;
     }
 
     //Nombre del Proveedor
+    public function getNombre()
+    {
+        return $this->nombre_usuario;
+    }
+
+    //Telefono del Proveedor
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    //Telefono del Proveedor
+    public function getCliente()
+    {
+        return $this->cliente_id;
+    }
+
+    //Telefono del Proveedor
     public function getEmpleado()
     {
         return $this->empleado_id;
     }
-
-    //Telefono del Proveedor
-    public function getVehiculo()
-    {
-        return $this->vehiculo_id;
-    }
-
 
     //Metodos para realizar las operaciones SCRUD(Search, Create, Read, Update, Delete)
 
@@ -121,9 +147,9 @@ class usuario extends validator
     public function createRow()
     {
         $sql = 'INSERT INTO usuario(
-            nombre_usuario, password, id_tipo_usuario, id_cliente)
-            VALUES (?, ?, ?, ?)';
-        $params = array($this->nombre_usuario, $this->password, $this->tipo_cliente, $this->cliente_id);
+            nombre_usuario, password, id_tipo_usuario)
+            VALUES (?, ?, ?)';
+        $params = array($this->nombre_usuario, $this->password, $this->tipo_administrador);
         return Database::executeRow($sql, $params);
     }
 
@@ -133,7 +159,7 @@ class usuario extends validator
         $sql = 'UPDATE usuario
         SET nombre_usuario=?, id_tipo_usuario=?, id_empleado=?, id_cliente=?
         WHERE id_usuario=?';
-        $params = array($this->nombre_usuario, $this->tipo_usuario, $this->empleado_id, $this->cliente_id, $this-> id_usuario);
+        $params = array($this->nombre_usuario, $this->tipo_usuario, $this->empleado_id, $this->cliente_id, $this->id_usuario);
         return Database::executeRow($sql, $params);
     }
 
@@ -152,14 +178,12 @@ class usuario extends validator
     //Leer todas las filas de la Tabla
     public function readAllEmpleado()
     {
-        $sql = 'SELECT id_usuario, nombre_usuario, password, tipo_usuario.id_tipo_usuario, empleado.id_empleado, nombre, apellido
-        FROM public.usuario
+        $sql = 'SELECT id_usuario, nombre_usuario, password, tipo_usuario.id_tipo_usuario
+        FROM usuario
         INNER JOIN tipo_usuario
         ON tipo_usuario.id_tipo_usuario = usuario.id_tipo_usuario
-        INNER JOIN empleado
-        ON empleado.id_empleado = usuario.id_empleado
-        WHERE id_tipo_usuario =?';
-        $params = array($this->tipo_empleado);
+        WHERE usuario.id_tipo_usuario =? OR usuario.id_tipo_usuario =?';
+        $params = array($this->tipo_administrador, $this->tipo_empleado);
         return Database::getRows($sql, $params);
     }
 
@@ -187,6 +211,52 @@ class usuario extends validator
         ON empleado.id_empleado = usuario.id_empleado
         WHERE id_usuario =?';
         $params = ($this->id_usuario);
+        return Database::getRow($sql, $params);
+    }
+
+    //Buscar el nombre del usuario
+    public function searchUser($nombre_Usuario)
+    {
+        $sql = 'SELECT id_usuario, nombre_usuario, password, id_tipo_usuario
+        FROM usuario
+        WHERE nombre_usuario = ?';
+        $param = array($nombre_Usuario);
+        if ($data = Database::getRow($sql, $param)) {
+            $this->id_usuario = $data['id_usuario'];
+            $this->nombre_usuario = $nombre_Usuario;
+            return true;
+        } else {
+            return false;
+        }
+        return Database::getRow($sql, $param);
+    }
+
+    //Buscar el password
+    public function searchPassword()
+    {
+        $sql = 'SELECT password 
+        FROM usuario 
+        WHERE id_usuario = ?';
+        $param = array($this->id_usuario);
+        return Database::getRow($sql, $param);
+    }
+
+    //Llenar combobox
+    //Combobox de cliente
+    public function readCliente()
+    {
+        $sql = 'SELECT id_cliente, nombre_cliente
+        FROM cliente';
+        $params = null;
+        return Database::getRow($sql, $params);
+    }
+
+    //Combobox de  empleado
+    public function readEmpleado()
+    {
+        $sql = 'SELECT id_empleado, nombre, apellido, "DUI"
+            FROM empleado';
+        $params = null;
         return Database::getRow($sql, $params);
     }
 }
