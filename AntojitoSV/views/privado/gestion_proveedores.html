@@ -278,11 +278,11 @@
                                 <input type="number" class="form-control" name="telefono" id="telefono"
                                     placeholder="Escriba el número telefónico" required>
                                 <label for="formGroupExampleInput" class="form-label">Correo Electrónico</label>
-                                <input type="email" class="form-control" name="correo" id="correo"
+                                <input type="email" class="form-control" name="correo_proveedor" id="correo_proveedor"
                                     placeholder="Escriba el correo electrónico" required>
                                 <label for="formGroupExampleInput" class="form-label">Dirección</label>
-                                <textarea placeholder="Escriba la dirección del proveedor" rows="4" class="form-control"
-                                    name="nombre" id="nombre"></textarea>
+                                <textarea placeholder="Escriba la dirección del proveedor" class="form-control"
+                                    name="direccion" id="direccion" rows="4"></textarea>
                             </div>
                         </div>
                         <!-- Fotter del modal -->
@@ -303,7 +303,8 @@
         </div>
         </div>
         <!-- Modal de CONFIRMACIÓN -->
-        <div class="modal fade" id="actualizarConfirmar" aria-hidden="true" tabindex="-1">
+        <div class="modal fade" id="actualizarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+            tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -313,12 +314,11 @@
                     <div class="modal-body">
                         ¿Desea actualizar la información de este registro?
                     </div>
-                    <div class="modal-footer">
+                    <form id="actualizarConfirmar_buttons" class="modal-footer">
                         <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
                             id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#actualizado" data-bs-toggle="modal"
-                            id="btnmenu">Confirmar</button>
-                    </div>
+                        <button type="submit">Confirmar</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -340,7 +340,7 @@
             </div>
         </div>
         <!-- Modal de ELIMINAR -->
-        <div class="modal fade" id="eliminarConfirmar" aria-hidden="true" tabindex="-1">
+        <div class="modal fade" id="eliminarForm" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -351,11 +351,11 @@
                         ¿Desea Eliminar la información de este registro?
                     </div>
                     <div class="modal-footer">
-                        <button type="reset" class="btn btn-primary" data-bs-target="#actualizarform"
-                            data-bs-toggle="modal" id="btnmenu">Volver</button>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Volver</button>
+                    </div>
                         <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
                         <form id="delete-form">
-                            <input type="hidden" id="id-eliminar" name="id-eliminar">
                             <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
                             <button type="submit" class="btn btn-primary" data-bs-target="#eliminado"
                                 data-bs-toggle="modal" id="btnmenu">Confirmar</button>

@@ -1,18 +1,13 @@
-//@ts-check
-
 //Importar las constantes y metodos de components.js y api_constant.js
 // @ts-ignore
 import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
-import { SERVER } from "../constants/api_constant.js";
-import { getElementById } from "../constants/functions.js";
-import { API_CREATE, API_UPDATE } from "../constants/api_constant.js";
+import { SERVER,  API_CREATE, API_UPDATE } from "../constants/api_constant.js";
+import { getElementById, validateExistenceOfUser } from "../constants/functions.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_PROOVEDOR = SERVER + 'privada/proveedor.php?action=';
 // @ts-ignore
 const ENDPOINT_PROOVEDOR = SERVER + 'privada/proveedor.php?action=readAll';
-//El nombre del CRUD que es
-const CRUD_NAME = "proveedor";
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
@@ -27,9 +22,12 @@ let datos_proveedor = {
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
+    
+    validateExistenceOfUser()
+
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     //Declarando cual CRUD es este
-    await readRows(API_PROOVEDOR,CRUD_NAME)
+    await readRows(API_PROOVEDOR,fillTableProveedor)
     // Se define una variable para establecer las opciones del componente Modal.
     // @ts-ignore
     let options = {
@@ -43,7 +41,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 //Metodo para llenar las tablas de datos, utiliza la función readRows()
-export function fillTableProveedor(dataset) {
+ function fillTableProveedor(dataset) {
+    console.log("EXECUTING")
+    
     let content = '';
     // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
     dataset.map(function (row) {
@@ -57,9 +57,9 @@ export function fillTableProveedor(dataset) {
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
                         <form method="post" id="read-one">
-                            <a onclick="guardarDatosTipoEmpleado(${row.id_proveedor})"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
+                            <a onclick="guardarDatosProveedor(${row.id_proveedor})"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
                                 <img src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                            <a  onclick="guardarDatosTipoEmpleado(${row.id_proveedor})" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
+                            <a  onclick="guardarDatosProveedor(${row.id_proveedor})" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
                             name="search">
                                 <img src="../../resources/img/cards/buttons/delete_40px.png"></a>
                         </form>
@@ -74,8 +74,8 @@ export function fillTableProveedor(dataset) {
 
 // FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE EMPLEADO
 // @ts-ignore
-window.guardarDatosTipoEmpleado = (id_proovedor) => {
-    datos_proveedor.id = id_proovedor;
+window.guardarDatosProveedor = (id_proveedor) => {
+    datos_proveedor.id = id_proveedor;
 }
 
 
@@ -85,22 +85,15 @@ getElementById('search-bar').addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
-    await searchRows(API_PROOVEDOR, 'search-bar', CRUD_NAME);
+    await searchRows(API_PROOVEDOR, 'search-bar', fillTableProveedor);
 });
 
-/*
-// Metodo que se ejecuta al enviar un formulario de update
-getElementById('read-one').addEventListener('submit', async (event) => {
-    // Se evita recargar la página web después de enviar el formulario.
-    event.preventDefault();
-    // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
-    await searchRows(API_EMPLEADO, 'read-one', CRUD_NAME);
-});
-*/
 
 // EVENTO PARA INSERT 
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
 document.getElementById('insert-modal').addEventListener('submit', async (event) => {
+
+    console.log("ejecutanso insercion")
 
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
@@ -112,23 +105,32 @@ document.getElementById('insert-modal').addEventListener('submit', async (event)
     parameters.append('estado',true)
 
     // PETICION A LA API POR MEDIO DEL ENPOINT, Y LOS PARAMETROS NECESARIOS PARA LA INSERSION DE DATOS
-    await saveRow(API_PROOVEDOR, API_CREATE, parameters, CRUD_NAME);
+    await saveRow(API_PROOVEDOR, API_CREATE, parameters, fillTableProveedor);
 });
 
 
 
 // EVENTO PARA UPDATE
 // SE EJECUTARA CUANDO EL BOTON DE TIPO "submit" DEL FORMULARIO CON EL ID 'actualizarConfirmar_buttons' SE CLICKEE
-getElementById().addEventListener('submit', async (event) => {
+getElementById('update-modal').addEventListener('submit', async (event) => {
     event.preventDefault();
+
+    console.log("executing")
 
     //@ts-ignore
     let parameters = new FormData(getElementById('update-modal'));
     //@ts-ignore
     parameters.append('id', datos_proveedor['id'])
 
+    var object = {};
+    parameters.forEach(function(value, key){
+    object[key] = value;
+});
+var json = JSON.stringify(object);
+console.log(json)
+
     // API REQUEST
-    await saveRow(API_PROOVEDOR, API_UPDATE, parameters, CRUD_NAME);
+    await saveRow(API_PROOVEDOR, API_UPDATE, parameters, fillTableProveedor);
 });
 
 //EVENTO PARA DELETE
@@ -141,7 +143,7 @@ getElementById('delete-form').addEventListener('submit', async (event) => {
     parameters.append('id', datos_proveedor['id'])
 
     //API REQUEST
-    await deleteRow(API_PROOVEDOR, parameters, CRUD_NAME);
+    await deleteRow(API_PROOVEDOR, parameters, fillTableProveedor);
 });
 
 

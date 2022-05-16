@@ -21,12 +21,12 @@ class proveedor extends validator
     //Id
     public function setId($value)
     {
-        if ($this->validateNaturalNumber($value)) {
-            $this->id_proovedor = $value;
-            return true;
-        } else {
-            return false;
-        }
+        // if ($this->validateNaturalNumber($value)) {
+        $this->id_proovedor = $value;
+        return true;
+        // } else {
+        //     return false;
+        // }
     }
 
     //Nombre del tipo proovedor
@@ -43,38 +43,31 @@ class proveedor extends validator
     //Numero de Telefono
     public function setTelefono($value)
     {
-        if ($this->validatePhone($value)) {
-            $this->telefono = $value;
-            return true;
-        } else {
-            return false;
-        }
+        $this->telefono = $value;
+        return true;
     }
 
     //Correo Electronico
     public function setCorreo($value)
     {
-       
-            $this->correo = $value;
-            return true;
+
+        $this->correo = $value;
+        return true;
     }
 
     //Numero de Telefono
     public function setDireccion($value)
     {
-    
-            $this->direccion = $value;
-            return true;
-
+        $this->direccion = $value;
+        return true;
     }
 
     //Numero de Telefono
     public function setEstado($value)
     {
-      
-            $this->estado = $value;
-            return true;
 
+        $this->estado = $value;
+        return true;
     }
 
 
@@ -153,9 +146,9 @@ class proveedor extends validator
     public function deleteRow()
     {
         $sql = 'UPDATE proveedor
-        SET estado_proovedor =?
+        SET estado_proveedor = ?
         WHERE id_proveedor = ?';
-        $params = array($this->false,$this->id_proovedor);
+        $params = array($this->false, $this->id_proovedor);
         return Database::executeRow($sql, $params);
     }
 

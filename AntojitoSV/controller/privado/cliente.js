@@ -3,9 +3,8 @@
 //Importar las constantes y metodos de components.js y api_constant.js
 // @ts-ignore
 import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
-import { SERVER } from "../constants/api_constant.js";
-import { getElementById } from "../constants/functions.js";
-import { API_CREATE, API_UPDATE } from "../constants/api_constant.js";
+import { SERVER, API_CREATE, API_UPDATE } from "../constants/api_constant.js";
+import { getElementById, validateExistenceOfUser } from "../constants/functions.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_CLIENTE = SERVER + 'privada/cliente.php?action=';
@@ -26,8 +25,10 @@ let datos_cliente = {
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
+   
+    validateExistenceOfUser()
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
-    await readRows(API_CLIENTE, CRUD_NAME)
+    await readRows(API_CLIENTE, fillTableCliente)
     // Se define una variable para establecer las opciones del componente Modal.
     // @ts-ignore
     let options = {
@@ -84,7 +85,7 @@ getElementById('search-bar').addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
-    await searchRows(API_CLIENTE, 'search-bar', CRUD_NAME);
+    await searchRows(API_CLIENTE, 'search-bar', fillTableCliente);
 });
 
 
@@ -113,10 +114,10 @@ getElementById('update-modal').addEventListener('submit', async (event) => {
     //@ts-ignore
     let parameters = new FormData(getElementById('update-modal'));
     //@ts-ignore
-    parameters.append('id', datos_tipo_empleado['id'])
+    parameters.append('id', datos_cliente['id'])
 
     // API REQUEST
-    await saveRow(API_CLIENTE, API_UPDATE, parameters, CRUD_NAME);
+    await saveRow(API_CLIENTE, API_UPDATE, parameters, fillTableCliente);
 });
 
 //EVENTO PARA DELETE
@@ -126,10 +127,10 @@ getElementById('delete-form').addEventListener('submit', async (event) => {
     // CONVIRTIENDO EL JSON A FORMDATA
     let parameters = new FormData();
     //@ts-ignore
-    parameters.append('id', datos_tipo_empleado['id'])
+    parameters.append('id', datos_cliente['id'])
 
     //API REQUEST
-    await deleteRow(API_CLIENTE, parameters, CRUD_NAME);
+    await deleteRow(API_CLIENTE, parameters, fillTableCliente);
 });
 
 

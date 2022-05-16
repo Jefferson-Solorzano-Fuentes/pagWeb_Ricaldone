@@ -94,7 +94,7 @@ if (isset($_GET[ACTION])) {
         case UPDATE:
             $_POST = $cliente->validateSpace($_POST);
             if (!$cliente->setId($_POST[ID])) {
-                $result[EXCEPTION] = 'Proveedor incorrecto';
+                $result[EXCEPTION] = 'Proveedor cliente';
             } else if(!$cliente->setNombre($_POST[NOMBRE])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
             } else if (!$cliente->setTelefono($_POST[TELEFONO])){

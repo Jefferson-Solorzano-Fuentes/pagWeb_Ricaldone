@@ -1,11 +1,6 @@
 //@ts-check
 //Importar las constantes y metodos de components.js y api_constant.js
 import { APIConnection } from "./APIConnection.js";
-import { fillTableTipoEmpleado } from "./privado/tipo_empleado.js";
-import { fillTableEmpleado } from "./privado/empleado.js";
-import { fillTableProveedor } from "./privado/proveedor.js";
-import { fillTableCliente } from "./privado/cliente.js";
-
 import {
   API_READALL,
   API_SEARCH,
@@ -19,39 +14,19 @@ import {
 import { getElementById } from "./constants/functions.js";
 
 // LEER REGISTROS
-export async function readRows(ENDPOINT, CRUD_NAME) {
+export async function readRows(ENDPOINT, fillrows) {
   let APIEndpoint = ENDPOINT + API_READALL;
   //Llamar a la función de conexión api para realizar fetch y then
-  let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, CRUD_NAME);
+  let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, null);
   if (APIResponse.status == API_SUCESS_REQUEST) {
-    switch (CRUD_NAME) {
-      case 'cliente':
-        fillTableCliente(APIResponse.dataset);
-        console.log(CRUD_NAME);
-        break;
-      case 'empleado':
-        fillTableEmpleado(APIResponse.dataset);
-        console.log(CRUD_NAME);
-        break;
-      case 'tipo_empleado':
-        fillTableTipoEmpleado(APIResponse.dataset);
-        console.log(CRUD_NAME);
-        break;
-      case 'proveedor':
-        fillTableProveedor(APIResponse.dataset);
-        console.log(CRUD_NAME);
-        break;
-      default:
-        console.log("ALL BAD");
-    }
+    fillrows(APIResponse.dataset)
   }
   // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo
   return;
 }
 
-
 // BUSCAR REGISTROS
-export async function searchRows(ENDPOINT, formID, CRUD_NAME) {
+export async function searchRows(ENDPOINT, formID,fillrows) {
   let APIEndpoint = ENDPOINT + API_SEARCH;
   //@ts-ignore
   let parameters = new FormData(getElementById(formID));
@@ -59,107 +34,39 @@ export async function searchRows(ENDPOINT, formID, CRUD_NAME) {
   let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
   //Utilizar la respuesta del api para realizar funciones
   if (APIResponse.status == API_SUCESS_REQUEST) {
-    switch (CRUD_NAME) {
-      case 'cliente':
-        fillTableCliente(APIResponse.dataset);
-        console.log(CRUD_NAME);
-        break;
-      case 'proveedor':
-        fillTableProveedor(APIResponse.dataset);
-        console.log(CRUD_NAME);
-        break;
-
-      case 'empleado':
-        fillTableEmpleado(APIResponse.dataset);
-        console.log(CRUD_NAME);
-        break;
-
-      case 'tipo_empleado':
-        fillTableTipoEmpleado(APIResponse.dataset);
-        console.log(CRUD_NAME);
-        break;
-
-      default:
-        console.log("ALL BAD");
-    }
+    fillrows(APIResponse.dataset)
     // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo
     return;
   }
 }
 
-/* 
-export async function readOne(ENDPOINT, formId){
-  let APIEndpoint = ENDPOINT + API_READONE;
-  //@ts-ignore
-  let parameters = new FormData(getElementById(formId));
-  //Llamar a la función de conexión api para realizar fetch y then
-  let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
-  //Utilizar la respuesta del api para realizar funciones
-  if(APIResponse.status == API_SUCESS_REQUEST){
-    fillUpdateForm(APIResponse.dataset);
-  // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo"
-   return;
-  }
-}
-*/
 
 // GUARDAR REGISTROS
-export async function saveRow(ENDPOINT, ACTION, parameters, CRUD_NAME) {
+export async function saveRow(ENDPOINT, ACTION, parameters, fillrows) {
   // ingresando valores a variables
   let APIEndpoint = ENDPOINT + ACTION;
 
   // ejecutando request hacia la API
   let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
   // validando respuesta
+
+  console.log(APIResponse)
+
   if (APIResponse.status == API_SUCESS_REQUEST) {
-    switch (CRUD_NAME) {
-      case 'cliente':
-        fillTableCliente(APIResponse.dataset);
-        console.log(CRUD_NAME);
-        break;
-      case 'proveedor':
-        fillTableProveedor(APIResponse.dataset);
-        console.log(CRUD_NAME);
-      case 'empleado':
-        fillTableEmpleado(APIResponse.dataset);
-        console.log(CRUD_NAME);
-      case 'tipo_empleado':
-        fillTableTipoEmpleado(APIResponse.dataset);
-        console.log(CRUD_NAME);
-      default:
-        console.log("ALL BAD");
-    }
-    // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo
+    fillrows(APIResponse.dataset)
     return;
   }
   console.log("ALL BAD")
 }
 
 // ELIMINAR REGISTROS
-export async function deleteRow(ENDPOINT, parameters, CRUD_NAME) {
+export async function deleteRow(ENDPOINT, parameters, fillrows) {
   let APIEndpoint = ENDPOINT + API_DELETE;
 
   let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
 
   if (APIResponse.status == API_SUCESS_REQUEST) {
-    switch (CRUD_NAME) {
-      case 'cliente':
-        fillTableCliente(APIResponse.dataset);
-        console.log(CRUD_NAME);
-        break;
-      case 'proveedor':
-        fillTableProveedor(APIResponse.dataset);
-        console.log(CRUD_NAME);
-      case 'empleado':
-        fillTableEmpleado(APIResponse.dataset);
-        console.log(CRUD_NAME);
-      case 'tipo_empleado':
-        fillTableTipoEmpleado(APIResponse.dataset);
-        console.log(CRUD_NAME);
-      default:
-        console.log("ALL BAD");
-    }
-    // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo
+    fillrows(APIResponse.dataset)
     return;
   }
 }

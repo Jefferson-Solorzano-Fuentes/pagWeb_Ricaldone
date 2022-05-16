@@ -3,17 +3,14 @@
 //Importar las constantes y metodos de components.js y api_constant.js
 // @ts-ignore
 import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
-import { GET_METHOD, SERVER } from "../constants/api_constant.js";
-import { getElementById } from "../constants/functions.js";
-import { API_CREATE, API_UPDATE } from "../constants/api_constant.js";
+import { GET_METHOD, SERVER,  API_CREATE, API_UPDATE } from "../constants/api_constant.js";
+import { getElementById, validateExistenceOfUser} from "../constants/functions.js";
 import { APIConnection } from "../APIConnection.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_EMPLEADO = SERVER + 'privada/empleado.php?action=';
 // @ts-ignore
 const ENDPOINT_TIPO_EMPLEADO = SERVER + 'privada/empleado.php?action=readTipoEmpleado';
-//El nombre del CRUD que es
-const CRUD_NAME = "empleado";
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
@@ -45,9 +42,10 @@ let datos_tipo_empleado = {
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
+    validateExistenceOfUser();
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     //Declarando cual CRUD es este
-    await readRows(API_EMPLEADO, CRUD_NAME)
+    await readRows(API_EMPLEADO, fillTableEmpleado)
     // Se define una variable para establecer las opciones del componente Modal.
     // @ts-ignore
     let options = {
@@ -151,7 +149,7 @@ getElementById('search-bar').addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
-    await searchRows(API_EMPLEADO, 'search-bar', CRUD_NAME);
+    await searchRows(API_EMPLEADO, 'search-bar', fillTableEmpleado);
 });
 
 /*
@@ -176,7 +174,7 @@ document.getElementById('insert-modal').addEventListener('submit', async (event)
     let parameters = new FormData(getElementById('insert-modal'));
 
     // PETICION A LA API POR MEDIO DEL ENPOINT, Y LOS PARAMETROS NECESARIOS PARA LA INSERSION DE DATOS
-    await saveRow(API_EMPLEADO, API_CREATE, parameters, CRUD_NAME);
+    await saveRow(API_EMPLEADO, API_CREATE, parameters, fillTableEmpleado);
 });
 
 
@@ -192,7 +190,7 @@ getElementById('update-modal').addEventListener('submit', async (event) => {
     parameters.append('id', datos_empleado['id'])
 
     // API REQUEST
-    await saveRow(API_EMPLEADO, API_UPDATE, parameters, CRUD_NAME);
+    await saveRow(API_EMPLEADO, API_UPDATE, parameters, fillTableEmpleado);
 });
 
 //EVENTO PARA DELETE
@@ -205,7 +203,7 @@ getElementById('delete-form').addEventListener('submit', async (event) => {
     parameters.append('id', datos_empleado['id'])
 
     //API REQUEST
-    await deleteRow(API_EMPLEADO, parameters, CRUD_NAME);
+    await deleteRow(API_EMPLEADO, parameters, fillTableEmpleado);
 });
 
 

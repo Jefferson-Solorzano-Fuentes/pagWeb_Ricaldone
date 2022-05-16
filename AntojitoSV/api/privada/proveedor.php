@@ -96,7 +96,7 @@ if (isset($_GET[ACTION])) {
         case UPDATE:
             $_POST = $proveedor->validateSpace($_POST);
             if (!$proveedor->setId($_POST[PROVEEDOR_ID])) {
-                $result[EXCEPTION] = 'Proveedor incorrecto';
+                $result[EXCEPTION] = 'Proveedor NO ES CORRECTO';
             } else if(!$proveedor->setNombre($_POST[PROVEEDOR_NOMBRE])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
             } else if (!$proveedor->setTelefono($_POST[PROVEEDOR_TELEFONO])){
@@ -105,8 +105,6 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Correo electronico no valido';
             } else if (!$proveedor->setDireccion($_POST['direccion'])){
                 $result[EXCEPTION] = 'Direccion incorrecta';
-            } else if (!$proveedor->setEstado($_POST['estado'])){
-                $result[EXCEPTION] = 'estado incorrecta';
             } elseif ($proveedor->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Cantidad modificada correctamente';
@@ -116,7 +114,7 @@ if (isset($_GET[ACTION])) {
             break;
         case DELETE:
             if (!$proveedor->setId($_POST[PROVEEDOR_ID])) {
-                $result[EXCEPTION] = 'Empleado incorrecto';
+                $result[EXCEPTION] = 'id no seteado correctamente';
             } elseif ($proveedor->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Proveedor removido correctamente';
