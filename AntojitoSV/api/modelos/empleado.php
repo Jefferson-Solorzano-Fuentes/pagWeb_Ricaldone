@@ -22,6 +22,7 @@ class empleado extends validator
 
     private $true = 1;
     private $still_true = 2;
+    private $false =3;
     //Metodos para setear los valores de los campos
     //Id - integer
     public function setId($value)
@@ -59,74 +60,76 @@ class empleado extends validator
     //DUI del empleado - char
     public function setDUI($value)
     {
-        if ($this->validateDUI($value)) {
+            // if ($this->validateDUI($value)) {
             $this->dui = $value;
             return true;
-        } else {
-            return false;
-        }
+        // } else {
+        //     return false;
+        // }
     }
 
     //NIT del empleado - char
     public function setNIT($value)
     {
-        if ($this->validateNIT($value)) {
+        // if ($this->validateNIT($value)) {
             $this->nit = $value;
             return true;
-        } else {
-            return false;
-        }
+        // } else {
+        //     return false;
+        // }
     }
 
     //Telefono del empleado - char
     public function setTelefono($value)
     {
-        if ($this->validatePhone($value)) {
+        // if ($this->validatePhone($value)) {
             $this->telefono = $value;
             return true;
-        } else {
-            return false;
-        }
-    }
+    //     } else {
+    //         return false;
+    //     }
+     }
 
     //Correo del empleado - varying char
     public function setCorreo($value)
     {
-        if ($this->validateAlphanumeric($value, 1, 75)) {
+        // if ($this->validateAlphanumeric($value, 1, 75)) {
             $this->correo = $value;
             return true;
-        } else {
-            return false;
-        }
+        // } else {
+        //     return false;
+        // }
     }
 
     //Genero del empleado - char
     public function setGenero($value)
     {
-        if ($this->validateAlphabetic($value, 1, 1)) {
+        // if ($this->validateAlphabetic($value, 1, 1)) {
             $this->genero = $value;
+            return true;
+        // } else {
+        //     return false;
+        // }
+    }
+
+    
+    //Imagen del empleado - varying char
+    public function setImage($file)
+    {
+        if ($this->validateImageFile($file, 5000, 5000)) {
+            $this->imagen = $this->getFileName();
             return true;
         } else {
             return false;
         }
     }
+
 
     //Fecha nacimiento del empleado - Date
     public function setFechaNacmiento($value)
     {
         if ($this->validateDate($value)) {
             $this->fecha_nacimiento = $value;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    //Imagen del empleado - varying char
-    public function setImagen($file)
-    {
-        if ($this->validateImageFile($file, 500, 500)) {
-            $this->imagen = $this->getFileName();
             return true;
         } else {
             return false;
@@ -158,6 +161,11 @@ class empleado extends validator
 
 
     //Metodos para obtener los valores de los campos
+
+    //ruta img
+    public function getRutaImagenes() {
+        return '../imagenes/empleado/';
+    }
 
     //Id 
     public function getId()
@@ -237,6 +245,8 @@ class empleado extends validator
         return $this->ruta;
     }
 
+
+
     //Metodos para realizar las operaciones SCRUD(Search, Create, Read, Update, Delete)
 
     //Metodo para la busqueda
@@ -257,11 +267,11 @@ class empleado extends validator
 
     //Metodo para la inserción
     public function createRow()
-    {
+    {   
         $sql = 'INSERT INTO public.empleado(
-            nombre, apellido, "DUI", "NIT", telefono, correo, genero, fecha_nacimiento, imagen, id_estado_empleado, id_tipo_empleado)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->nit, $this->telefono, $this->correo, $this->genero, $this->fecha_nacimiento, $this->imagen, $this->estado_empleado, $this->tipo_empleado);
+			nombre, apellido, "DUI", "NIT", telefono, correo, genero, fecha_nacimiento, id_estado_empleado, id_tipo_empleado, imagen)
+			VALUES (?,?,?,?,?,?,?,?,?,?,?)';
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->nit,  $this->telefono, $this->correo , $this->genero,$this->fecha_nacimiento , $this->estado_empleado, $this->tipo_empleado, $this->imagen);
         return Database::executeRow($sql, $params);
     }
 
@@ -269,9 +279,9 @@ class empleado extends validator
     public function updateRow()
     {
         $sql = 'UPDATE public.empleado
-        SET  nombre= ?, apellido= ?, "DUI"= ?, "NIT"= ?, telefono= ?, correo= ?, genero= ?, fecha_nacimiento= ?, imagen= ?, id_estado_empleado= ?, id_tipo_empleado= ?
+        SET  nombre= ?, apellido= ?, "DUI"= ?, "NIT"= ?, telefono= ?, correo= ?, genero= ?, fecha_nacimiento= ?, id_estado_empleado= ?, id_tipo_empleado= ?
         WHERE id_empleado = ?';
-        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->nit, $this->telefono, $this->correo, $this->genero, $this->fecha_nacimiento, $this->imagen, $this->estado_empleado, $this->tipo_empleado . $this->id_empleado);
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->nit, $this->telefono, $this->correo, $this->genero, $this->fecha_nacimiento, $this->estado_empleado, $this->tipo_empleado, $this->id_empleado);
         return Database::executeRow($sql, $params);
     }
 
@@ -279,9 +289,10 @@ class empleado extends validator
     //Metodo para la eliminación
     public function deleteRow()
     {
-        $sql = 'DELETE FROM empleado
-        WHERE id_empleado = ?';
-        $params = array($this->id_empleado);
+        $sql = 'UPDATE empleado 
+        SET id_estado_empleado =?
+        WHERE id_empleado =?';
+        $params = array($this->false,$this->id_empleado);
         return Database::executeRow($sql, $params);
     }
 

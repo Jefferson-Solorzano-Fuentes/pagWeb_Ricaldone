@@ -73,34 +73,41 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case CREATE:
-            $_POST = $empleado->validateSpace($_POST);
+            $_POST = $empleado->validateSpace($_POST); 
             if (!$empleado->setNombre($_POST[EMPLEADO_NOMBRE])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
             } else if (!$empleado->setApellido($_POST[EMPLEADO_APELLIDO])) {
                 $result[EXCEPTION] = 'Apellido incorrecto';
-            } else if (!$empleado->setDUI($POST[EMPLEADO_DUI])) {
+            } else if (!$empleado->setDUI($_POST[EMPLEADO_DUI])) {
                 $result[EXCEPTION] = 'DUI no valido';
-            } else if (!$empleado->setNIT($POST[EMPLEADO_NIT])) {
+            } else if (!$empleado->setNIT($_POST[EMPLEADO_NIT])) {
                 $result[EXCEPTION] = 'NIT no valido';
-            } else if (!$empleado->setTelefono($POST[EMPLEADO_TELEFONO])) {
+            }
+            else if (!$empleado->setFechaNacmiento($_POST['fecha_nacimiento'])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
-            } else if (!$empleado->setCorreo($POST[EMPLEADO_CORREO])) {
+            }
+            else if (!$empleado->setTelefono($_POST[EMPLEADO_TELEFONO])) {
+                $result[EXCEPTION] = 'Número de telefono no valido';
+            } else if (!$empleado->setCorreo($_POST[EMPLEADO_CORREO])) {
                 $result[EXCEPTION] = 'Correo electronico no valido';
-            } else if (!$empleado->setGenero($POST[EMPLEADO_GENERO])) {
+            } else if (!$empleado->setGenero($_POST[EMPLEADO_GENERO])) {
                 $result[EXCEPTION] = 'Genero no disponible';
-            } else if (!$empleado->setTelefono($POST[EMPLEADO_FECHA_NACIMIENTO])) {
-                $result[EXCEPTION] = 'Fecha incorrecta';
             } elseif (!is_uploaded_file($_FILES[EMPLEADO_ARCHIVO][TMP_NAME])) {
                 $result[EXCEPTION] = 'Seleccione una imagen';
-            } elseif (!$categoria->setImagen($_FILES[EMPLEADO_ARCHIVO])) {
-                $result[EXCEPTION] = $categoria->getFileError();
-            } else if (!$empleado->setEstadoEmpleado($POST[EMPLEADO_ESTADO])) {
+            } elseif (!$empleado->setImage($_FILES[EMPLEADO_ARCHIVO])) {
+                $result[EXCEPTION] = $empleado->getFileError();
+            } else if (!$empleado->setEstadoEmpleado($_POST[EMPLEADO_ESTADO])) {
                 $result[EXCEPTION] = 'Estado incorrecto';
-            } else if (!$empleado->setTipoEmpleado($POST[EMPLEADO_TIPO])) {
+            } else if (!$empleado->setTipoEmpleado($_POST[EMPLEADO_TIPO])) {
                 $result[EXCEPTION] = 'Tipo incorrecto';
             } elseif ($empleado->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Empleado creado existosamente';
+                if ($empleado->saveFile($_FILES[EMPLEADO_ARCHIVO],$empleado->getRutaImagenes(),$empleado->getImagen())) {
+                    $result[MESSAGE] = 'Imagen ingresada correctanente';
+                } else {
+                    $result[MESSAGE] = 'Imagen no se a ingresado correctanente';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
@@ -117,36 +124,40 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case UPDATE:
-            $_POST = $empleado->validateSpace($_POST[NOMBRE]);
+            $_POST = $empleado->validateSpace($_POST);
             if (!$empleado->setId($_POST[EMPLEADO_ID])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
             } else if (!$empleado->setNombre($_POST[EMPLEADO_NOMBRE])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
             } else if (!$empleado->setApellido($_POST[EMPLEADO_APELLIDO])) {
                 $result[EXCEPTION] = 'Apellido incorrecto';
-            } else if (!$empleado->setDUI($POST[EMPLEADO_DUI])) {
+            } else if (!$empleado->setDUI($_POST[EMPLEADO_DUI])) {
                 $result[EXCEPTION] = 'DUI no valido';
-            } else if (!$empleado->setNIT($POST[EMPLEADO_NIT])) {
-                $result[EXCEPTION] = 'NIT no valido';
-            } else if (!$empleado->setTelefono($POST[EMPLEADO_TELEFONO])) {
+            } 
+            else if (!$empleado->setFechaNacmiento($_POST['fecha_nacimiento'])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
-            } else if (!$empleado->setCorreo($POST[EMPLEADO_CORREO])) {
+            }
+            else if (!$empleado->setNIT($_POST[EMPLEADO_NIT])) {
+                $result[EXCEPTION] = 'NIT no valido';
+            } else if (!$empleado->setTelefono($_POST[EMPLEADO_TELEFONO])) {
+                $result[EXCEPTION] = 'Número de telefono no valido';
+            } else if (!$empleado->setCorreo($_POST[EMPLEADO_CORREO])) {
                 $result[EXCEPTION] = 'Correo electronico no valido';
-            } else if (!$empleado->setGenero($POST[EMPLEADO_GENERO])) {
+            } else if (!$empleado->setGenero($_POST[EMPLEADO_GENERO])) {
                 $result[EXCEPTION] = 'Genero no disponible';
-            } else if (!$empleado->setTelefono($POST[EMPLEADO_FECHA_NACIMIENTO])) {
+            } else if (!$empleado->setTelefono($_POST[EMPLEADO_FECHA_NACIMIENTO])) {
                 $result[EXCEPTION] = 'Fecha incorrecta';
             } elseif (!is_uploaded_file($_FILES[EMPLEADO_ARCHIVO][TMP_NAME])) {
                 $result[EXCEPTION] = 'Seleccione una imagen';
-            } elseif (!$categoria->setImagen($_FILES[EMPLEADO_ARCHIVO])) {
-                $result[EXCEPTION] = $categoria->getFileError();
-            } else if (!$empleado->setEstadoEmpleado($POST[EMPLEADO_ESTADO])) {
+            } elseif (!$empleado->setImage($_FILES[EMPLEADO_ARCHIVO])) {
+                $result[EXCEPTION] = $empleado->getFileError();
+            } else if (!$empleado->setEstadoEmpleado($_POST[EMPLEADO_ESTADO])) {
                 $result[EXCEPTION] = 'Estado incorrecto';
-            } else if (!$empleado->setTipoEmpleado($POST[EMPLEADO_TIPO])) {
+            } else if (!$empleado->setTipoEmpleado($_POST[EMPLEADO_TIPO])) {
                 $result[EXCEPTION] = 'Tipo incorrecto';
             } elseif ($empleado->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Cantidad modificada correctamente';
+                $result[MESSAGE] = 'EMPLEADO modificada correctamente';
             } else {
                 $result[EXCEPTION] = Database::getException();
             }

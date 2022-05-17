@@ -73,6 +73,9 @@ async function fillComboBoxTipoEmpleado() {
     APIResponse.dataset.map(element => {
        getElementById('tipo_empleado').innerHTML += `<option value="${element.id_tipo_empleado}" > ${element.nombre_tipo} </option>`
     })
+    APIResponse.dataset.map(element => {
+        getElementById('tipo_empleado_u').innerHTML += `<option value="${element.id_tipo_empleado}" > ${element.nombre_tipo} </option>`
+     })
 }
 
 //Obtener los datos de combobox estado empleado
@@ -85,6 +88,9 @@ async function fillComboxEstadoEmpleado(){
     APIResponse.dataset.map(element => {
        getElementById('estado_empleado').innerHTML += `<option value="${element.id_estado_empleado}" > ${element.nombre_estado} </option>`
     })
+    APIResponse.dataset.map(element => {
+        getElementById('estado_empleado_u').innerHTML += `<option value="${element.id_estado_empleado}" > ${element.nombre_estado} </option>`
+     })
 }
 
 //@ts-ignore
@@ -152,26 +158,25 @@ getElementById('search-bar').addEventListener('submit', async (event) => {
     await searchRows(API_EMPLEADO, 'search-bar', fillTableEmpleado);
 });
 
-/*
-// Metodo que se ejecuta al enviar un formulario de update
-getElementById('read-one').addEventListener('submit', async (event) => {
-    // Se evita recargar la página web después de enviar el formulario.
-    event.preventDefault();
-    // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
-    await searchRows(API_EMPLEADO, 'read-one', CRUD_NAME);
-});
-*/
 
 // EVENTO PARA INSERT 
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
 document.getElementById('insert-modal').addEventListener('submit', async (event) => {
-
+    console.log("INSERTANDO")
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
 
     //@ts-ignore
     //OBTIENE LOS DATOS DEL FORMULARIO QUE TENGA COMO ID "'insert-modal'"
     let parameters = new FormData(getElementById('insert-modal'));
+
+    var object = {};
+    parameters.forEach(function(value, key){
+        object[key] = value;
+    });
+    var json = JSON.stringify(object);
+
+    console.log(json)
 
     // PETICION A LA API POR MEDIO DEL ENPOINT, Y LOS PARAMETROS NECESARIOS PARA LA INSERSION DE DATOS
     await saveRow(API_EMPLEADO, API_CREATE, parameters, fillTableEmpleado);
@@ -183,6 +188,8 @@ document.getElementById('insert-modal').addEventListener('submit', async (event)
 // SE EJECUTARA CUANDO EL BOTON DE TIPO "submit" DEL FORMULARIO CON EL ID 'actualizarConfirmar_buttons' SE CLICKEE
 getElementById('update-modal').addEventListener('submit', async (event) => {
     event.preventDefault();
+
+    console.log("UPDATING MODAL")
 
     //@ts-ignore
     let parameters = new FormData(getElementById('update-modal'));
@@ -196,6 +203,8 @@ getElementById('update-modal').addEventListener('submit', async (event) => {
 //EVENTO PARA DELETE
 getElementById('delete-form').addEventListener('submit', async (event) => {
     event.preventDefault();
+
+    console.log("ELIMINANDO EMPLEADO")
 
     // CONVIRTIENDO EL JSON A FORMDATA
     let parameters = new FormData();

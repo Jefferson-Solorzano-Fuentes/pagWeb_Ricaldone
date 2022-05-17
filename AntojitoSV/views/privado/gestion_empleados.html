@@ -217,53 +217,56 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" id="formGroupExampleInput"
+                                    <input type="text" class="form-control" id="nombre_empleado" name="nombre_empleado"
                                         placeholder="Escriba el nombre del empleado">
                                     <label for="formGroupExampleInput" class="form-label">Apellido</label>
-                                    <input type="text" class="form-control" id="formGroupExampleInput"
-                                        placeholder="Escriba el apellido del empleado">
+                                    <input type="text" class="form-control" id="apellido_empleado"
+                                        name="apellido_empleado" placeholder="Escriba el apellido del empleado">
                                     <label for="formGroupExampleInput" class="form-label">Teléfono</label>
-                                    <input type="text" class="form-control" id="formGroupExampleInput"
+                                    <input type="text" class="form-control" id="telefono" name="telefono"
                                         placeholder="Escriba su número telefónico">
                                     <label for="formGroupExampleInput" class="form-label">Correo Electrónico</label>
-                                    <input type="email" class="form-control" id="formGroupExampleInput"
+                                    <input type="email" class="form-control" id="correo" name="correo"
                                         placeholder="Escriba su correo electrónico">
                                     <label for="formGroupExampleInput" class="form-label">Fecha de Nacimiento</label>
-                                    <input type="date" class="form-control" id="formGroupExampleInput"
-                                        placeholder="00/00/0000">
+                                    <input type="date" class="form-control" id="fecha_nacimiento"
+                                        name="fecha_nacimiento">
                                 </div>
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Género</label>
-                                    <select name="select" class="form-control">
-                                        <option value="value1" selected>Masculino</option>
-                                        <option value="value2">Femenino</option>
+                                    <select id="genero" name="genero" class="form-control">
+                                        <option value="H" selected>Masculino</option>
+                                        <option value="M">Femenino</option>
                                     </select>
 
                                     <label for="formGroupExampleInput" class="form-label">DUI</label>
-                                    <input type="text" class="form-control" id="formGroupExampleInput"
+                                    <input type="text" class="form-control" id="dui" name="dui"
                                         placeholder="Escriba su DUI">
                                     <label for="formGroupExampleInput" class="form-label">NIT</label>
-                                    <form>
-                                        <input type="text" class="form-control" id="formGroupExampleInput"
-                                            placeholder="Escriba su NIT">
-                                        <label for="formGroupExampleInput" class="form-label">Tipo de Empleado</label>
-                                        <select onchange="seleccionarTipoEmpleado()" name="select" class="form-control" id="tipo_empleado">
-                                           
-                                        </select>
-                                        <label for="formGroupExampleInput" class="form-label">Estado de Empleado</label>
-                                        <select onchange="seleccionarEstadoEmpleado()" name="select" class="form-control" id="estado_empleado">
-                                           
-                                        </select>
+                                    <input type="text" class="form-control" id="nit" name="nit"
+                                        placeholder="Escriba su NIT">
+                                    <label for="formGroupExampleInput" class="form-label">Tipo de Empleado</label>
+                                    <select onchange="seleccionarTipoEmpleado()" id="tipo_empleado"
+                                        name="tipo_empleado">
+
+                                    </select>
+                                    <label for="formGroupExampleInput" class="form-label">Estado de Empleado</label>
+                                    <select onchange="seleccionarEstadoEmpleado()" id="estado_empleado"
+                                        name="estado_empleado">
+
+                                    </select>
                                 </div>
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Imagen</label>
                                     <a class="btn" id="upload_image">
-                                        <input type="file" class="form-control form-control-sm form-Input-Style">
+                                        <input type="file" class="form-control form-control-sm form-Input-Style" name="archivo" id="archivo">
                                         <img src="../../resources/img/cards/buttons/download_100px.png">
                                     </a>
                                 </div>
                             </div>
                         </div>
+                        <!-- Fotter del modal -->
+                        <!-- Boton de insert -->
                         <div class="modal-footer">
                             <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
                                 <button type="submit" class="btn btn-light" data-bs-toggle="modal"
@@ -307,89 +310,64 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!-- Formulario para actualizar registro-->
-
                     <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
                     <form method="post" id="update-modal">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Nombre</label>
-                                    <form>
-                                        <input type="text" class="form-control" id="formGroupExampleInput"
-                                            placeholder="Rodrigo Almendares">
-                                    </form>
+                                    <input type="text" class="form-control" id="nombre_empleado" name="nombre_empleado"
+                                        placeholder="Escriba el nombre del empleado">
                                     <label for="formGroupExampleInput" class="form-label">Apellido</label>
-                                    <form>
-                                        <input type="text" class="form-control" id="formGroupExampleInput"
-                                            placeholder="Bonilla Bonifacio">
-                                    </form>
+                                    <input type="text" class="form-control" id="apellido_empleado"
+                                        name="apellido_empleado" placeholder="Escriba el apellido del empleado">
                                     <label for="formGroupExampleInput" class="form-label">Teléfono</label>
-                                    <form>
-                                        <input type="tel" class="form-control" id="formGroupExampleInput"
-                                            placeholder="+50375258524">
-                                    </form>
+                                    <input type="text" class="form-control" id="telefono" name="telefono"
+                                        placeholder="Escriba su número telefónico">
                                     <label for="formGroupExampleInput" class="form-label">Correo Electrónico</label>
-                                    <form>
-                                        <input type="email" class="form-control" id="formGroupExampleInput"
-                                            placeholder="yo.serinqul.h3h3@gmail.com">
-                                    </form>
+                                    <input type="email" class="form-control" id="correo" name="correo"
+                                        placeholder="Escriba su correo electrónico">
                                     <label for="formGroupExampleInput" class="form-label">Fecha de Nacimiento</label>
-                                    <form>
-                                        <input type="date" class="form-control" id="formGroupExampleInput"
-                                            placeholder="00/00/0000">
-                                    </form>
+                                    <input type="date" class="form-control" id="fecha_nacimiento"
+                                        name="fecha_nacimiento">
                                 </div>
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Género</label>
-                                    <form>
-                                        <select name="select" class="form-control">
-                                            <option value="value1" selected>Masculino</option>
-                                            <option value="value2">Femenino</option>
-                                        </select>
-                                    </form>
+                                    <select id="genero" name="genero" class="form-control">
+                                        <option value="H" selected>Masculino</option>
+                                        <option value="M">Femenino</option>
+                                    </select>
 
                                     <label for="formGroupExampleInput" class="form-label">DUI</label>
-                                    <form>
-                                        <input type="text" class="form-control" id="formGroupExampleInput"
-                                            placeholder="92381920-2">
-                                    </form>
+                                    <input type="text" class="form-control" id="dui" name="dui"
+                                        placeholder="Escriba su DUI">
                                     <label for="formGroupExampleInput" class="form-label">NIT</label>
-                                    <form>
-                                        <input type="text" class="form-control" id="formGroupExampleInput"
-                                            placeholder="4351-109313-529-1">
-                                    </form>
+                                    <input type="text" class="form-control" id="nit" name="nit"
+                                        placeholder="Escriba su NIT">
                                     <label for="formGroupExampleInput" class="form-label">Tipo de Empleado</label>
-                                    <form>
-                                        <select name="select" class="form-control">
-                                            <option value="value1" selected>Vendedor</option>
-                                            <option value="value2">Abogado</option>
-                                            <option value="value3">Contratista</option>
-                                        </select>
-                                    </form>
+                                    <select onchange="seleccionarTipoEmpleado()" id="tipo_empleado_u"
+                                        name="tipo_empleado">
+
+                                    </select>
                                     <label for="formGroupExampleInput" class="form-label">Estado de Empleado</label>
-                                    <form>
-                                        <select name="select" class="form-control">
-                                            <option value="value1" selected>Activo</option>
-                                            <option value="value2">Inactivo</option>
-                                            <option value="value3">Despedido</option>
-                                        </select>
-                                    </form>
+                                    <select onchange="seleccionarEstadoEmpleado()" id="estado_empleado_u"
+                                        name="estado_empleado">
+
+                                    </select>
                                 </div>
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Imagen</label>
-                                    <form>
-                                        <a class="btn" id="upload_image">
-                                            <input type="file" class="form-control form-control-sm form-Input-Style">
-                                            <img src="../../resources/img/cards/buttons/download_100px.png">
-                                        </a>
-                                    </form>
+                                    <a class="btn" id="upload_image">
+                                        <input type="file" class="form-control form-control-sm form-Input-Style" name="archivo" id="archivo">
+                                        <img src="../../resources/img/cards/buttons/download_100px.png">
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         <!-- Fotter del modal -->
                         <div class="modal-footer">
                             <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                                <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
                                     data-bs-dismiss="modal" href="#actualizarConfirmar" id="btnmenu"><a
                                         class="nav-link"><img
                                             src="../../resources/img/cards/buttons/edit_26px.png"></a></button>
@@ -462,10 +440,12 @@
                             <input type="hidden" id="id-eliminar" name="id-eliminar">
                             <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
                             <button class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
-                                data-bs-dismiss="modal" id="btnmenu" type="submit">Confirmar</button>
-                        </form>
-                        <button class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
+                            data-bs-dismiss="modal" id="btnmenu" type="submit">Confirmar</button>
+
+                            <button type="submit" class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
                             id="btnmenu">Confirmar</button>
+                        </form>
+
                     </div>
                 </div>
             </div>

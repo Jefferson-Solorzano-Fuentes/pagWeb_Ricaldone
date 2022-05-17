@@ -119,23 +119,8 @@ class Database
         self::$error = utf8_encode($message);
         // Se toman los errores existentes y se añaden a este switch para generar el mensaje personalizado
         switch ($code) {
-            case '7':
-                self::$error = 'Existe un problema al conectar con el servidor';
-                break;
-            case '42703':
-                self::$error = 'Nombre de campo desconocido';
-                break;
-            case '23505':
-                self::$error = 'Dato duplicado, no se puede guardar';
-                break;
-            case '42P01':
-                self::$error = 'Nombre de tabla desconocido';
-                break;
-            case '23503':
-                self::$error = 'Registro ocupado, no se puede eliminar';
-                break;
             default:
-                self::$error = 'Ocurrió un problema en la base de datos';
+                self::$error =  strval($code) . strval($message);
         }
     }
 

@@ -2,7 +2,7 @@
 //Llama a otros documentos de php respectivo, el database, el validador, y el respectivo modelo
 require_once('../helpers/database.php');
 require_once('../helpers/validator.php');
-require_once('../modelos/cliente.php');
+require_once('../modelos/vehiculo.php');
 
 // constants 
 const ACTION = 'action';
@@ -13,19 +13,18 @@ const DATA_SET = 'dataset';
 const SEARCH = 'search';
 const READ_ALL = 'readAll';
 const READ_ONE = 'readOne';
+const DELETE = 'delete';
 const CREATE = 'create';
 const UPDATE = 'update';
-const DELETE = 'delete';
 const SUCESS_RESPONSE = 1;
 
 // NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARIO
-const CLIENTE = 'cliente';
-const CLIENTE_ID = 'id';
-const CLIENTE_NOMBRE = 'nombre_cliente';
-const CLIENTE_TELEFONO = 'telefono';
-const CLIENTE_CORREO = 'correo';
-const DIRECCION = 'direccion';
-const CLIENTE_ESTADO = 'estado';
+const VEHICULO = 'vehiculo';
+const VEHICULO_ID = 'vehiculo_id';
+const DISPONIBILIDAD = 'disponibilidad';
+const VEHICULO_VIN = 'vin';
+const VEHICULO_PLACA = 'placa';
+const VEHICULO_IMAGEN = 'vehiculo_imagen';
 
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
@@ -33,7 +32,7 @@ if (isset($_GET[ACTION])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
-    $cliente = new cliente;
+    $vehiculo = new vehiculo;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array(STATUS => 0, MESSAGE => null, EXCEPTION => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -41,7 +40,7 @@ if (isset($_GET[ACTION])) {
     switch ($_GET[ACTION]) {
             //Leer todo
         case READ_ALL:
-            if ($result[DATA_SET] = $cliente->readAll()) {
+            if ($result[DATA_SET] = $vehiculo->readAll()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 
             } elseif (Database::getException()) {
@@ -51,10 +50,10 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case SEARCH:
-            $_POST = $cliente->validateSpace($_POST);
+            $_POST = $vehiculo->validateSpace($_POST);
             if ($_POST[SEARCH] == '') {
                 $result[EXCEPTION] = 'Ingrese un valor para buscar';
-            } elseif ($result[DATA_SET] = $cliente->searchRows($_POST[SEARCH])) {
+            } elseif ($result[DATA_SET] = $vehiculo->searchRows($_POST[SEARCH])) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Valor encontrado';
             } elseif (Database::getException()) {
@@ -64,44 +63,37 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case CREATE:
-            $_POST = $cliente->validateSpace($_POST);
-            if (!$cliente->setNombre($_POST[CLIENTE_NOMBRE])) {
-                $result[EXCEPTION] = 'Nombre incorrecto';
-            } else if (!$cliente->setTelefono($_POST[CLIENTE_TELEFONO])){
-                $result[EXCEPTION] = 'Número de Telefono no valido';
-            } else if (!$cliente->setCorreo($_POST[CLIENTE_CORREO])) {
-                $result[EXCEPTION] = 'Correo electronico no valido';
-            } else if (!$cliente->setEstado($_POST[CLIENTE_ESTADO])){
-                $result[EXCEPTION] = 'Estado incorrecto';
-            } elseif ($cliente->createRow()) {
+            $_POST = $vehiculo->validateSpace($_POST);
+            if (!$vehiculo->setId($_POST[VEHICULO_ID])) {
+                $result[MESSAGE] = 'Nombre incorrecto';
+            } elseif ($vehiculo->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Proveedor creado existosamente';
+                $result[MESSAGE] = 'Categoria creada existosamente';
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
         case READ_ONE:
-            if (!$cliente->setId($_POST[CLIENTE_ID])) {
-                $result[EXCEPTION] = 'Proveedor incorrecto';
-            } elseif ($result[DATA_SET] = $cliente->readOne()) {
+            if (!$vehiculo->setId($_POST[VEHICULO_ID])) {
+                $result[EXCEPTION] = 'Categoria incorrecto';
+            } elseif ($result[DATA_SET] = $vehiculo->readOne()) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
             } else {
-                $result[EXCEPTION] = 'Proveedor inexistente';
+                $result[EXCEPTION] = 'Categoria inexistente';
             }
             break;
         case UPDATE:
-            $_POST = $cliente->validateSpace($_POST);
-            if (!$cliente->setId($_POST[CLIENTE_ID])) {
-                $result[EXCEPTION] = 'Proveedor cliente';
-            } else if(!$cliente->setNombre($_POST[CLIENTE_NOMBRE])) {
+            // $_POST = $tipo_empleado->validateSpace($_POST[NOMBRE]);
+            if (!$vehiculo->setId($_POST[VEHICULO_ID])) {
+                $result[EXCEPTION] = 'Categoría incorrecta';
+            }  elseif (!$vehiculo->setVIN($_POST[VEHICULO_VIN])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
-            } else if (!$cliente->setTelefono($_POST[CLIENTE_TELEFONO])){
-                $result[EXCEPTION] = 'Número de Telefono no valido';
-            } else if (!$cliente->setCorreo($_POST[CLIENTE_CORREO])) {
-                $result[EXCEPTION] = 'Correo electronico no valido';
-            } elseif ($cliente->updateRow()) {
+            }elseif (!$vehiculo->setPlaca($_POST[VEHICULO_PLACA])) {
+                $result[EXCEPTION] = 'Nombre incorrecto';
+            }
+             elseif ($vehiculo->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Cantidad modificada correctamente';
             } else {
@@ -109,11 +101,11 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case DELETE:
-            if (!$cliente->setId($_POST[CLIENTE_ID])) {
-                $result[EXCEPTION] = 'Empleado incorrecto';
-            } elseif ($cliente->deleteRow()) {
+            if (!$vehiculo->setId($_POST[VEHICULO_ID])) {
+                $result[EXCEPTION] = 'Categoria incorrecta';
+            } elseif ($vehiculo->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Proveedor removido correctamente';
+                $result[MESSAGE] = 'Categoria removida correctamente';
             } else {
                 $result[EXCEPTION] = Database::getException();
             }

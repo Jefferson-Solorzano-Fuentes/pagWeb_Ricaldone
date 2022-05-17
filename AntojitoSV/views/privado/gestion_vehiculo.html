@@ -156,84 +156,11 @@
                                     <th>Disponibilidad</th>
                                     <th>VIN</th>
                                     <th>Placa del Vehiculo</th>
-                                    <th>Conductor</th>
                                     <th>Ver más...</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <!-- Linea de Informacion -->
-                                <tr>
-                                    <td><img src="../../resources/img/cards/buttons/iconProvider.png"></td>
-                                    <td>Disponible</td>
-                                    <td>1FAFP58U0XA209159</td>
-                                    <td>P249-139</td>
-                                    <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a class="btn btn-primary" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                            data-bs-target="#actualizarform"><img
-                                                src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><img src="../../resources/img/cards/buttons/iconProvider.png"></td>
-                                    <td>Disponible</td>
-                                    <td>1FAFP58U0XA209159</td>
-                                    <td>P249-139</td>
-                                    <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a class="btn btn-primary" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                            data-bs-target="#actualizarform"><img
-                                                src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><img src="../../resources/img/cards/buttons/iconProvider.png"></td>
-                                    <td>Disponible</td>
-                                    <td>1FAFP58U0XA209159</td>
-                                    <td>P249-139</td>
-                                    <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a class="btn btn-primary" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                            data-bs-target="#actualizarform"><img
-                                                src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><img src="../../resources/img/cards/buttons/iconProvider.png"></td>
-                                    <td>Disponible</td>
-                                    <td>1FAFP58U0XA209159</td>
-                                    <td>P249-139</td>
-                                    <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a class="btn btn-primary" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                            data-bs-target="#actualizarform"><img
-                                                src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><img src="../../resources/img/cards/buttons/iconProvider.png"></td>
-                                    <td>Disponible</td>
-                                    <td>1FAFP58U0XA209159</td>
-                                    <td>P249-139</td>
-                                    <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a class="btn btn-primary" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                            data-bs-target="#actualizarform"><img
-                                                src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><img src="../../resources/img/cards/buttons/iconProvider.png"></td>
-                                    <td>Disponible</td>
-                                    <td>1FAFP58U0XA209159</td>
-                                    <td>P249-139</td>
-                                    <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a class="btn btn-primary" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                            data-bs-target="#actualizarform"><img
-                                                src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                                    </td>
-                                </tr>
+                            <tbody id="tbody-rowsVehiculo">
+
                             </tbody>
                         </table>
                     </div>
@@ -340,7 +267,8 @@
                                 href="#eliminarConfirmar" id="btnmenu"><a class="nav-link"><img
                                         src="../../resources/img/cards/buttons/Remove_26px.png"></a></button>
                             <button type="button" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
-                                    class="nav-link"><img src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                                    class="nav-link"><img
+                                        src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
                         </div>
                     </div>
                 </div>
@@ -425,81 +353,55 @@
             </div>
         </div>
         <!-- Modal de ACTUALIZAR REGISTRO -->
-        <div class="modal fade" id="actualizarform" tabindex="-1" aria-labelledby="actualizarform" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal fade" id="actualizarform" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="actualizarformLabel">Actualizar Vehiculo</h5>
+                        <h5 class="modal-title" id="actualizarformLabel">Actualizar Tipo de Usuario</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" id="formModal">
-                        <div class="row">
-                            <div class="col-6">
-                                <label for="formGroupExampleInput" class="form-label">Disponibilidad</label>
-                                <form>
-                                    <select name="select" class="form-control">
+                    <form method="post" id="update-modal-prueba">
+                        <div class="modal-body" id="formModal">
+                            <div class="row">
+                                <div class="col-6">
+                                    <!-- <label for="formGroupExampleInput" class="form-label">Disponibilidad</label> -->
+                                    <!-- <select name="select" class="form-control">
                                         <option value="value1" selected>Disponible</option>
                                         <option value="value2">En Mantenimiento</option>
                                         <option value="value3">Fuera de Uso</option>
-                                    </select>
-                                </form>
-                                <label for="formGroupExampleInput" class="form-label">VIN</label>
-                                <form>
-                                    <input type="text" class="form-control" id="formGroupExampleInput"
+                                    </select> -->
+                                    <label for="formGroupExampleInput" class="form-label">VIN</label>
+                                    <input type="text" class="form-control" id="VIN_id" name="VIN"
                                         placeholder="1FAFP58U0XA209159">
-                                </form>
-                                <label for="formGroupExampleInput" class="form-label">Placa del Vehiculo</label>
-                                <form>
-                                    <input type="tel" class="form-control" id="formGroupExampleInput"
+                                    <label for="formGroupExampleInput" class="form-label">Placa del Vehiculo</label>
+                                    <input type="tel" class="form-control" id="placa_id" name="placa"
                                         placeholder="P249-139">
-                                </form>
-                                <div class="row">
-                                    <div class="col-10">
-                                        <label for="formGroupExampleInput" class="form-label">Conductor</label>
-                                        <form>
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <label for="formGroupExampleInput" class="form-label">Conductor</label>
                                             <select name="select" class="form-control">
-                                                <option value="value1" selected>Andres Alejandro Leon Guzman</option>
+                                                <option value="value1" selected>Andres Alejandro Leon Guzman
+                                                </option>
                                                 <option value="value2">Jefferson Alxandro Solorzano Reyes</option>
                                                 <option value="value3">Jesus Daniel Ezquivel Flores</option>
                                                 <option value="value4">Rodrigo Almnedaros Bonilla Bonifacio</option>
                                             </select>
-                                        </form>
-                                    </div>
-                                    <div class="col-1">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-dismiss="modal" href="#actualizar_conductor" id="add_conductor"><a
-                                                class="nav-link"><img
-                                                    src="../../resources/img/cards/buttons/add_30px.png"></a></button>
+                                        </div>
+                                        <div class="col-1">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-1">
-                            </div>
-                            <div class="col-5">
-                                <label for="formGroupExampleInput" class="form-label">Imagen</label>
-                                <form>
-                                    <a class="btn" id="upload_image">
-                                        <input type="file" class="form-control form-control-sm form-Input-Style">
-                                        <img src="../../resources/img/cards/buttons/download_100px.png">
-                                    </a>
-                                </form>
-                            </div>
                         </div>
-                    </div>
-                    <!-- Fotter del modal -->
-                    <div class="modal-footer">
-                        <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                href="#actualizarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/edit_26px.png"></a></button>
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                href="#eliminarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/Remove_26px.png"></a></button>
-                            <button type="button" class="btn btn-light" id="btnmenu" data-bs-toggle="modal"
-                                data-bs-dismiss="modal"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                        <!-- Fotter del modal -->
+                        <div class="modal-footer">
+                                <button type="  "> <img
+                                        src="../../resources/img/cards/buttons/edit_26px.png"></button>
+                                <button type="button" class="btn btn-light" id="btnmenu" data-bs-toggle="modal"
+                                    data-bs-dismiss="modal"><a class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -645,6 +547,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
+    <script type="module" src="../../controller/privado/vehiculo.js"></script>
+
 
 </body>
 

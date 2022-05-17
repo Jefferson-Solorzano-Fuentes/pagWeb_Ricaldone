@@ -13,7 +13,7 @@ class cliente extends validator
     private $estado = null;
 
     //Parametros TRUE / FALSE
-    private $true = '1';
+    private $true = true;
     private $false = '0';
 
     //Metodos para setear los valores de los campos
@@ -42,32 +42,24 @@ class cliente extends validator
     //Telefono del cliente - char
     public function setTelefono($value)
     {
-        if ($this->validatePhone($value)) {
-            $this->telefono = $value;
-            return true;
-        } else {
-            return false;
-        }
+        $this->telefono = $value;
+        return true;
     }
 
     //Correo del cliente - varying char
     public function setCorreo($value)
     {
-        if ($this->validateAlphanumeric($value, 1, 75)) {
-            $this->correo = $value;
-            return true;
-        } else {
-            return false;
-        }
+        $this->correo = $value;
+        return true;
     }
 
     //Estado del cliente - boolean
     public function setEstado($value)
     {
-        if($this->validateBoolean($value)) {
+        if ($this->validateBoolean($value)) {
             $this->estado = $value;
             return true;
-        } else{
+        } else {
             return false;
         }
     }
@@ -99,7 +91,8 @@ class cliente extends validator
     }
 
     //Estado de Cliente
-    public function getEstado(){
+    public function getEstado()
+    {
         return $this->estado;
     }
 
@@ -107,11 +100,12 @@ class cliente extends validator
 
     //Metodo para la busqueda
     //Utilizaremos los campos o (NOMBRE,  CORREO, TELEFONO)
-    public function searchRows($value){
+    public function searchRows($value)
+    {
         $sql = 'SELECT id_cliente, nombre_cliente, telefono, correo, estado_cliente
         FROM cliente
         WHERE nombre_cliente ILIKE ? OR telefono ILIKE ? OR correo ILIKE ?';
-        $params = array("%$value%","%$value%","%$value%");
+        $params = array("%$value%", "%$value%", "%$value%");
         return Database::getRows($sql, $params);
     }
 
@@ -121,12 +115,13 @@ class cliente extends validator
         $sql = 'INSERT INTO cliente(
             nombre_cliente, telefono, correo, estado_cliente)
             VALUES (?, ?, ?, ?)';
-        $params = array($this->nombre, $this->telefono, $this->correo, $this->true);
+        $params = array($this->nombre, $this->telefono, $this->correo, $this->estado);
         return Database::executeRow($sql, $params);
     }
 
     //Metodo para la actualización
-    public function updateRow(){
+    public function updateRow()
+    {
         $sql = 'UPDATE cliente
         SET nombre_cliente=?, telefono=?, correo=?, estado_cliente=?
         WHERE id_cliente = ?';
@@ -136,19 +131,20 @@ class cliente extends validator
 
 
     //Metodo para la eliminación
-    public function deleteRow(){
+    public function deleteRow()
+    {
         $sql = 'UPDATE cliente
         SET estado_cliente=?
         WHERE id_cliente = ?';
-        $params = array($this->false,$this->id_cliente);
-        return Database::executeRow($sql,$params);
+        $params = array($this->false, $this->id_cliente);
+        return Database::executeRow($sql, $params);
     }
 
     //Metodo para leer READ
     //Leer todas las filas de la Tabla
     public function readAll()
     {
-        $sql= 'SELECT id_cliente, nombre_cliente, telefono, correo, estado_cliente
+        $sql = 'SELECT id_cliente, nombre_cliente, telefono, correo, estado_cliente
         FROM cliente
         WHERE estado_cliente =?';
         $params = array($this->true);
@@ -164,6 +160,4 @@ class cliente extends validator
         $params = ($this->id_cliente);
         return Database::getRow($sql, $params);
     }
-
-    
 }

@@ -49,9 +49,6 @@ export async function saveRow(ENDPOINT, ACTION, parameters, fillrows) {
   // ejecutando request hacia la API
   let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
   // validando respuesta
-
-  console.log(APIResponse)
-
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
     return;

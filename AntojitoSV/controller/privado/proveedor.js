@@ -93,7 +93,7 @@ getElementById('search-bar').addEventListener('submit', async (event) => {
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
 document.getElementById('insert-modal').addEventListener('submit', async (event) => {
 
-    console.log("ejecutanso insercion")
+    console.log("ejecutando insercion")
 
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
