@@ -159,7 +159,7 @@ class usuario extends validator
         $sql = 'UPDATE usuario
         SET nombre_usuario=?, id_tipo_usuario=?, id_empleado=?, id_cliente=?
         WHERE id_usuario=?';
-        $params = array($this->nombre_usuario, $this->tipo_usuario, $this->empleado_id, $this->cliente_id, $this-> id_usuario);
+        $params = array($this->nombre_usuario, $this->tipo_usuario, $this->empleado_id, $this->cliente_id, $this->id_usuario);
         return Database::executeRow($sql, $params);
     }
 
@@ -214,6 +214,7 @@ class usuario extends validator
         return Database::getRow($sql, $params);
     }
 
+    //Buscar el nombre del usuario
     public function searchUser($nombre_Usuario)
     {
         $sql = 'SELECT id_usuario, nombre_usuario, password, id_tipo_usuario
@@ -230,12 +231,32 @@ class usuario extends validator
         return Database::getRow($sql, $param);
     }
 
+    //Buscar el password
     public function searchPassword()
     {
         $sql = 'SELECT password 
         FROM usuario 
         WHERE id_usuario = ?';
-        $param= array($this->id_usuario);
+        $param = array($this->id_usuario);
         return Database::getRow($sql, $param);
+    }
+
+    //Llenar combobox
+    //Combobox de cliente
+    public function readCliente()
+    {
+        $sql = 'SELECT id_cliente, nombre_cliente
+        FROM cliente';
+        $params = null;
+        return Database::getRow($sql, $params);
+    }
+
+    //Combobox de  empleado
+    public function readEmpleado()
+    {
+        $sql = 'SELECT id_empleado, nombre, apellido, "DUI"
+            FROM empleado';
+        $params = null;
+        return Database::getRow($sql, $params);
     }
 }

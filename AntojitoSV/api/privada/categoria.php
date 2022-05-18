@@ -2,7 +2,7 @@
 //Llama a otros documentos de php respectivo, el database, el validador, y el respectivo modelo
 require_once('../helpers/database.php');
 require_once('../helpers/validator.php');
-require_once('../modelos/tipo_empleado.php');
+require_once('../modelos/categoria.php');
 
 // constants 
 const ACTION = 'action';
@@ -13,22 +13,25 @@ const DATA_SET = 'dataset';
 const SEARCH = 'search';
 const READ_ALL = 'readAll';
 const READ_ONE = 'readOne';
+const DELETE = 'delete';
 const CREATE = 'create';
 const UPDATE = 'update';
-const DELETE = 'delete';
 const SUCESS_RESPONSE = 1;
 
 // NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARIO
-const TIPO_EMPLEADO = 'tipo_empleado';
-const NOMBRE = 'nombre_tipo_empleado';
-const ID = 'id';
+const CATEGORIA = 'categoria';
+const CATEGORIA_ID = 'id';
+const CATEGORIA_NOMBRE = 'nombre_categoria';
+const CATEGORIA_IMAGEN = 'imagen';
+const TMP_NAME = 'tmp_name';
+
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET[ACTION])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
-    $tipo_empleado = new tipo_empleado;
+    $categoria = new categoria;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array(STATUS => 0, MESSAGE => null, EXCEPTION => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -36,7 +39,7 @@ if (isset($_GET[ACTION])) {
     switch ($_GET[ACTION]) {
             //Leer todo
         case READ_ALL:
-            if ($result[DATA_SET] = $tipo_empleado->readAll()) {
+            if ($result[DATA_SET] = $categoria->readAll()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 
             } elseif (Database::getException()) {
@@ -46,10 +49,10 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case SEARCH:
-            $_POST = $tipo_empleado->validateSpace($_POST);
+            $_POST = $categoria->validateSpace($_POST);
             if ($_POST[SEARCH] == '') {
                 $result[EXCEPTION] = 'Ingrese un valor para buscar';
-            } elseif ($result[DATA_SET] = $tipo_empleado->searchRows($_POST[SEARCH])) {
+            } elseif ($result[DATA_SET] = $categoria->searchRows($_POST[SEARCH])) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Valor encontrado';
             } elseif (Database::getException()) {
@@ -59,43 +62,40 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case CREATE:
-            $_POST = $tipo_empleado->validateSpace($_POST);
-            if (!$tipo_empleado->setNombre($_POST[NOMBRE])) {
-                $result[EXCEPTION] = 'Nombre incorrecto';
-            } elseif ($tipo_empleado->createRow()) {
+            $_POST = $categoria->validateSpace($_POST);
+            if (!$categoria->setNombre($_POST[CATEGORIA_NOMBRE])) {
+                $result[MESSAGE] = 'Nombre incorrecto';
+            } elseif ($categoria->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Tipo de empleado creado existosamente';
-                if ($result[DATA_SET] = $compra_existencia->readAll()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
-                } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
-                }
+                $result[MESSAGE] = 'Categoria creada existosamente';
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
         case READ_ONE:
-            if (!$tipo_empleado->setId($_POST)) {
-                $result[EXCEPTION] = 'Tipo de empleado incorrecto';
-            } elseif ($result[DATA_SET] = $tipo_empleado->readOne()) {
+            if (!$categoria->setId($_POST[CATEGORIA_ID])) {
+                $result[EXCEPTION] = 'Categoria incorrecto';
+            } elseif ($result[DATA_SET] = $categoria->readOne()) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
             } else {
-                $result[EXCEPTION] = 'Tipo de empleado inexistente';
+                $result[EXCEPTION] = 'Categoria inexistente';
             }
             break;
         case UPDATE:
-            $_POST = $tipo_empleado->validateSpace($_POST);
-            if (!$tipo_empleado->setId($_POST[ID])) {
+            $_POST = $categoria->validateSpace($_POST);
+            if (!$categoria->setId($_POST[CATEGORIA_ID])) {
                 $result[EXCEPTION] = 'Categoría incorrecta';
-            } elseif (!$data = $tipo_empleado->readOne()) {
-                $result[EXCEPTION] = 'Categoría inexistente';
-            } elseif (!$tipo_empleado->setNombre($_POST[NOMBRE])) {
+            } elseif (!$categoria->setNombre($_POST[CATEGORIA_NOMBRE])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
-            } elseif ($tipo_empleado->updateRow()) {
+            } elseif (!is_uploaded_file($_FILES[CATEGORIA_IMAGEN][TMP_NAME])) {
+                $result[EXCEPTION] = 'Seleccione una imagen';
+            } elseif (!$categoria->setImagen($_FILES[CATEGORIA_IMAGEN])) {
+                $result[EXCEPTION] = $categoria->getFileError();
+            } elseif ($categoria->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Cantidad modificada correctamente';
+                $result[MESSAGE] = 'Categoria modificada correctamente';
                 if ($result[DATA_SET] = $compra_existencia->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
                 } else {
@@ -106,12 +106,12 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case DELETE:
-            if (!$tipo_empleado->setId($_POST[ID])) {
-                $result[EXCEPTION] = 'Tipo de empleado incorrecto';
-            } elseif ($tipo_empleado->deleteRow()) {
+            if (!$categoria->setId($_POST[CATEGORIA_ID])) {
+                $result[EXCEPTION] = 'Categoria incorrecta';
+            } elseif ($categoria->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Tipo de empleado removido correctamente';
-                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                $result[MESSAGE] = 'Categoria removida correctamente';
+                if ($result[DATA_SET] = $categoria->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';

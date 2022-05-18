@@ -154,10 +154,10 @@
                                 <tr>
                                     <th>Identificador</th>
                                     <th>Tipo de Empleado</th>
-                                    <th>Actualizar</th>
+                                    <th>Gestionar</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbody-rows">
+                            <tbody id="tbody-rowsTP">
 
                             </tbody>
                         </table>
@@ -194,7 +194,7 @@
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="actualizarformLabel">Agregar Tipo de Empleado</h5>
+                        <h5 class="modal-title">Agregar Tipo de Empleado</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!-- Formulario-->
@@ -207,8 +207,8 @@
                                     <!-- Nombre del tipo del empleado, rquerido-->
                                     <label for="nombre_tipo" class="form-label">Tipo de Empleado</label>
                                     <!-- CADA NOMBRE Y ID DEL INPUT DEBEN DE SER LOS NOMBRES QUE TIENE LOS PARAMETROS DEL ARCHIVO DE MODELOS -->
-                                    <input type="text" class="validate" name="nombre_tipo_empleado"
-                                        id="nombre_tipo_empleado" placeholder="Escriba el nombre de un tipo de Empleado"
+                                    <input type="text" class="form-control" name="nombre_tipo_empleado"
+                                        id="nombre_tipo_empleado"  value="HOLA PRUEBA" placeholder="Escriba el nombre de un tipo de Empleado"
                                         required>
                                 </div>
                             </div>
@@ -230,8 +230,7 @@
         </div>
 
         <!-- Modal de AGREGAR REALIZADO -->
-        <div class="modal fade" id="agregado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
-            tabindex="-1">
+        <div class="modal fade" id="agregado" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -250,6 +249,42 @@
 
         <!-- Modal de ACTUALIZAR REGISTRO -->
         <div class="modal fade" id="actualizarform" tabindex="-1" aria-labelledby="actualizarform" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="actualizarformLabel">Actualizar Tipo de Empleado</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Formulario-->
+
+                    <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
+                    <form method="post" id="update-modal">
+                        <div class="modal-body" id="formModal">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="formGroupExampleInput" class="form-label">Tipo de Empleado</label>
+                                    <input type="text" class="form-control" id="nombre_tipo_empleado_actualizar"
+                                        name="nombre_tipo_empleado" placeholder="" value="" required>
+                                </div>
+                            </div>
+                            <!-- Fotter del modal -->
+
+                            <div id="UPDATE_MODAL" class="modal-footer">
+                                <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                                <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
+                                    <button type="submit" class="btn btn-light" data-bs-toggle="modal"
+                                        data-bs-dismiss="modal" href="#actualizarConfirmar" id="btnmenu"><a
+                                            class="nav-link"><img
+                                                src="../../resources/img/cards/buttons/edit_26px.png"></a></button>
+                                    <button type="reset" class="btn btn-light" id="btnmenu" data-bs-toggle="modal"
+                                        data-bs-dismiss="modal"><a class="nav-link"><img
+                                                src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
         <!-- Modal de CONFIRMACIÓN -->
@@ -267,7 +302,7 @@
                     <form id="actualizarConfirmar_buttons" class="modal-footer">
                         <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
                             id="btnmenu">Volver</button>
-                        <button type="submit">Confirmar</button>
+                        <button type="submit"  class="btn btn-primary" >Confirmar</button>
                     </form>
                 </div>
             </div>
@@ -343,7 +378,8 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel4">¡El proceso de gestion ha fallado!</h5>
+                        <h5 class="modal-title" id="exampleModalToggleLabel4">¡El proceso de gestion ha fallado!
+                        </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">

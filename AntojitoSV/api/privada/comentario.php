@@ -2,7 +2,7 @@
 //Llama a otros documentos de php respectivo, el database, el validador, y el respectivo modelo
 require_once('../helpers/database.php');
 require_once('../helpers/validator.php');
-require_once('../modelos/tipo_empleado.php');
+require_once('../modelos/comentario.php');
 
 // constants 
 const ACTION = 'action';
@@ -16,19 +16,24 @@ const READ_ONE = 'readOne';
 const CREATE = 'create';
 const UPDATE = 'update';
 const DELETE = 'delete';
+const READ_CLIENTE = 'readCliente';
+const READ_PRODUCTO = 'readProducto';
 const SUCESS_RESPONSE = 1;
 
 // NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARIO
-const TIPO_EMPLEADO = 'tipo_empleado';
-const NOMBRE = 'nombre_tipo_empleado';
-const ID = 'id';
+const COMENTARIO = 'comentario';
+const COMENTARIO_ID = 'id';
+const COMENTARIO_DESCRIPCION = 'comentario_desc';
+const COMENTARIO_CLIENTE = 'cliente_id';
+const COMENTARIO_PRODUCTO = 'producto_id';
+const COMENTARIO_VISIBILIDAD = 'estado';
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET[ACTION])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
-    $tipo_empleado = new tipo_empleado;
+    $comentario = new comentario;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array(STATUS => 0, MESSAGE => null, EXCEPTION => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -36,9 +41,8 @@ if (isset($_GET[ACTION])) {
     switch ($_GET[ACTION]) {
             //Leer todo
         case READ_ALL:
-            if ($result[DATA_SET] = $tipo_empleado->readAll()) {
+            if ($result[DATA_SET] = $comentario->readAll()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
             } else {
@@ -46,10 +50,10 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case SEARCH:
-            $_POST = $tipo_empleado->validateSpace($_POST);
+            $_POST = $comentario->validateSpace($_POST);
             if ($_POST[SEARCH] == '') {
                 $result[EXCEPTION] = 'Ingrese un valor para buscar';
-            } elseif ($result[DATA_SET] = $tipo_empleado->searchRows($_POST[SEARCH])) {
+            } elseif ($result[DATA_SET] = $comentario->searchRows($_POST[SEARCH])) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Valor encontrado';
             } elseif (Database::getException()) {
@@ -59,14 +63,23 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case CREATE:
-            $_POST = $tipo_empleado->validateSpace($_POST);
-            if (!$tipo_empleado->setNombre($_POST[NOMBRE])) {
-                $result[EXCEPTION] = 'Nombre incorrecto';
-            } elseif ($tipo_empleado->createRow()) {
+            $_POST = $comentario->validateSpace($_POST);
+            if (!$comentario->setComentario($_POST[COMENTARIO_DESCRIPCION])) {
+                $result[EXCEPTION] = 'Comentario incorrecto';
+            } else if (!$comentario->setCliente($_POST[COMENTARIO_CLIENTE])) {
+                $result[EXCEPTION] = 'Cliente incorrecto';
+            } else if (!$comentario->setProducto($POST[COMENTARIO_PRODUCTO])) {
+                $result[EXCEPTION] = 'Empleado no valido';
+            } elseif ($empleado->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Tipo de empleado creado existosamente';
+                $result[MESSAGE] = 'Empleado creado existosamente';
                 if ($result[DATA_SET] = $compra_existencia->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
+                    if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                        $result[STATUS] = SUCESS_RESPONSE;
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';
                 }
@@ -75,25 +88,27 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case READ_ONE:
-            if (!$tipo_empleado->setId($_POST)) {
-                $result[EXCEPTION] = 'Tipo de empleado incorrecto';
-            } elseif ($result[DATA_SET] = $tipo_empleado->readOne()) {
+            if (!$comentario->setId($_POST[COMENTARIO_ID])) {
+                $result[EXCEPTION] = 'identificador Comentario incorrecto';
+            } elseif ($result[DATA_SET] = $comentario->readOne()) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
             } else {
-                $result[EXCEPTION] = 'Tipo de empleado inexistente';
+                $result[EXCEPTION] = 'Empleado inexistente';
             }
             break;
         case UPDATE:
-            $_POST = $tipo_empleado->validateSpace($_POST);
-            if (!$tipo_empleado->setId($_POST[ID])) {
-                $result[EXCEPTION] = 'Categoría incorrecta';
-            } elseif (!$data = $tipo_empleado->readOne()) {
-                $result[EXCEPTION] = 'Categoría inexistente';
-            } elseif (!$tipo_empleado->setNombre($_POST[NOMBRE])) {
+            $_POST = $comentario->validateSpace($_POST);
+            if (!$comentario->setId($_POST[COMENTARIO_ID])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
-            } elseif ($tipo_empleado->updateRow()) {
+            } else if (!$comentario->setComentario($_POST[COMENTARIO_DESCRIPCION])) {
+                $result[EXCEPTION] = 'Comentario incorrecto';
+            } else if (!$comentario->setCliente($_POST[COMENTARIO_CLIENTE])) {
+                $result[EXCEPTION] = 'Cliente incorrecto';
+            } else if (!$comentario->setProducto($POST[COMENTARIO_PRODUCTO])) {
+                $result[EXCEPTION] = 'Empleado no valido';
+            } else if ($comentario->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Cantidad modificada correctamente';
                 if ($result[DATA_SET] = $compra_existencia->readAll()) {
@@ -106,11 +121,11 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case DELETE:
-            if (!$tipo_empleado->setId($_POST[ID])) {
-                $result[EXCEPTION] = 'Tipo de empleado incorrecto';
-            } elseif ($tipo_empleado->deleteRow()) {
+            if (!$comentario->setId($_POST[COMENTARIO_ID])) {
+                $result[EXCEPTION] = 'Empleado incorrecto';
+            } elseif ($comentario->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Tipo de empleado removido correctamente';
+                $result[MESSAGE] = 'Empleado removido correctamente';
                 if ($result[DATA_SET] = $compra_existencia->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
                 } else {
@@ -118,6 +133,24 @@ if (isset($_GET[ACTION])) {
                 }
             } else {
                 $result[EXCEPTION] = Database::getException();
+            }
+            break;
+        case READ_CLIENTE:
+            if ($result[DATA_SET] = $comentario->readCliente()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
+        case READ_PRODUCTO:
+            if ($result[DATA_SET] = $comentario->readProducto()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'No hay datos registrados';
             }
             break;
         default:

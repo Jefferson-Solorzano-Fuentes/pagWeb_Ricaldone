@@ -2,7 +2,7 @@
 //Llama a otros documentos de php respectivo, el database, el validador, y el respectivo modelo
 require_once('../helpers/database.php');
 require_once('../helpers/validator.php');
-require_once('../modelos/tipo_empleado.php');
+require_once('../modelos/compra_existencia.php');
 
 // constants 
 const ACTION = 'action';
@@ -16,19 +16,25 @@ const READ_ONE = 'readOne';
 const CREATE = 'create';
 const UPDATE = 'update';
 const DELETE = 'delete';
+const READ_PRODUCTO = 'readProducto';
+
 const SUCESS_RESPONSE = 1;
 
 // NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARIO
-const TIPO_EMPLEADO = 'tipo_empleado';
-const NOMBRE = 'nombre_tipo_empleado';
-const ID = 'id';
+const COMPRA_EXISTENCIA = 'compra_existencia';
+const COMPRA_EXISTENCIA_ID = 'id';
+const COMPRA_EXISTENCIA_PRODUCTO = 'producto_id';
+const COMPRA_EXISTENCIA_CANTIDAD = 'cantidad';
+const COMPRA_EXISTENCIA_FECHA = 'fecha_compra';
+const COMPRA_EXISTENCIA_VISIBILIDAD = 'visibilidad';
+
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET[ACTION])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
-    $tipo_empleado = new tipo_empleado;
+    $compra_existencia = new compra_exitencia;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array(STATUS => 0, MESSAGE => null, EXCEPTION => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -36,9 +42,8 @@ if (isset($_GET[ACTION])) {
     switch ($_GET[ACTION]) {
             //Leer todo
         case READ_ALL:
-            if ($result[DATA_SET] = $tipo_empleado->readAll()) {
+            if ($result[DATA_SET] = $compra_existencia->readAll()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
             } else {
@@ -46,10 +51,10 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case SEARCH:
-            $_POST = $tipo_empleado->validateSpace($_POST);
+            $_POST = $compra_existencia->validateSpace($_POST);
             if ($_POST[SEARCH] == '') {
                 $result[EXCEPTION] = 'Ingrese un valor para buscar';
-            } elseif ($result[DATA_SET] = $tipo_empleado->searchRows($_POST[SEARCH])) {
+            } elseif ($result[DATA_SET] = $compra_existencia->searchRows($_POST[SEARCH])) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Valor encontrado';
             } elseif (Database::getException()) {
@@ -59,12 +64,16 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case CREATE:
-            $_POST = $tipo_empleado->validateSpace($_POST);
-            if (!$tipo_empleado->setNombre($_POST[NOMBRE])) {
-                $result[EXCEPTION] = 'Nombre incorrecto';
-            } elseif ($tipo_empleado->createRow()) {
+            $_POST = $compra_existencia->validateSpace($_POST);
+            if (!$compra_existencia->setProducto($_POST[COMPRA_EXISTENCIA_PRODUCTO])) {
+                $result[EXCEPTION] = 'Producto incorrecto';
+            } else if (!$compra_existencia->setCantidad($_POST[COMPRA_EXISTENCIA_CANTIDAD])) {
+                $result[EXCEPTION] = 'Cantidad incorrecta';
+            } else if (!$compra_existencia->setFecha($_POST[COMPRA_EXISTENCIA_FECHA])) {
+                $result[EXCEPTION] = 'Fecha no valido';
+            } elseif ($compra_existencia->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Tipo de empleado creado existosamente';
+                $result[MESSAGE] = 'Compra creada existosamente';
                 if ($result[DATA_SET] = $compra_existencia->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
                 } else {
@@ -75,29 +84,36 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case READ_ONE:
-            if (!$tipo_empleado->setId($_POST)) {
-                $result[EXCEPTION] = 'Tipo de empleado incorrecto';
-            } elseif ($result[DATA_SET] = $tipo_empleado->readOne()) {
+            if (!$compra_existencia->setId($_POST[COMPRA_EXISTENCIA_ID])) {
+                $result[EXCEPTION] = 'Empleado incorrecto';
+            } elseif ($result[DATA_SET] = $compra_existencia->readOne()) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
             } else {
-                $result[EXCEPTION] = 'Tipo de empleado inexistente';
+                $result[EXCEPTION] = 'Empleado inexistente';
             }
             break;
         case UPDATE:
-            $_POST = $tipo_empleado->validateSpace($_POST);
-            if (!$tipo_empleado->setId($_POST[ID])) {
-                $result[EXCEPTION] = 'Categoría incorrecta';
-            } elseif (!$data = $tipo_empleado->readOne()) {
-                $result[EXCEPTION] = 'Categoría inexistente';
-            } elseif (!$tipo_empleado->setNombre($_POST[NOMBRE])) {
-                $result[EXCEPTION] = 'Nombre incorrecto';
-            } elseif ($tipo_empleado->updateRow()) {
+            $_POST = $compra_existencia->validateSpace($_POST);
+            if (!$compra_existencia->setId($_POST[COMPRA_EXISTENCIA_ID])) {
+                $result[EXCEPTION] = 'id incorrecto';
+            } else if (!$compra_existencia->setProducto($_POST[COMPRA_EXISTENCIA_PRODUCTO])) {
+                $result[EXCEPTION] = 'Producto incorrecto';
+            } else if (!$compra_existencia->setCantidad($_POST[COMPRA_EXISTENCIA_CANTIDAD])) {
+                $result[EXCEPTION] = 'Cantidad incorrecta';
+            } else if (!$compra_existencia->setFecha($_POST[COMPRA_EXISTENCIA_FECHA])) {
+                $result[EXCEPTION] = 'Fecha no valido';
+            } elseif ($compra_existencia->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Cantidad modificada correctamente';
+                $result[MESSAGE] = 'Compra modificada correctamente';
                 if ($result[DATA_SET] = $compra_existencia->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
+                    if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                        $result[STATUS] = SUCESS_RESPONSE;
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';
                 }
@@ -106,18 +122,32 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case DELETE:
-            if (!$tipo_empleado->setId($_POST[ID])) {
-                $result[EXCEPTION] = 'Tipo de empleado incorrecto';
-            } elseif ($tipo_empleado->deleteRow()) {
+            if (!$compra_existencia->setId($_POST[COMPRA_EXISTENCIA_ID])) {
+                $result[EXCEPTION] = 'Empleado incorrecto';
+            } elseif ($compra_existencia->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Tipo de empleado removido correctamente';
+                $result[MESSAGE] = 'Empleado removido correctamente';
                 if ($result[DATA_SET] = $compra_existencia->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
+                    if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                        $result[STATUS] = SUCESS_RESPONSE;
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';
                 }
             } else {
                 $result[EXCEPTION] = Database::getException();
+            }
+            break;
+        case READ_PRODUCTO:
+            if ($result[DATA_SET] = $compra_existencia->readProducto()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'No hay datos registrados';
             }
             break;
         default:

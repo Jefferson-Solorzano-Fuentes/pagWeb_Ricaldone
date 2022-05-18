@@ -102,6 +102,11 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Tipo incorrecto';
             } elseif ($empleado->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
+                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
                 $result[MESSAGE] = 'Empleado creado existosamente';
                 if ($empleado->saveFile($_FILES[EMPLEADO_ARCHIVO],$empleado->getRutaImagenes(),$empleado->getImagen())) {
                     $result[MESSAGE] = 'Imagen ingresada correctanente';
@@ -157,6 +162,11 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Tipo incorrecto';
             } elseif ($empleado->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
+                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
                 $result[MESSAGE] = 'EMPLEADO modificada correctamente';
             } else {
                 $result[EXCEPTION] = Database::getException();
@@ -167,6 +177,11 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Empleado incorrecto';
             } elseif ($empleado->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
+                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
                 $result[MESSAGE] = 'Empleado removido correctamente';
             } else {
                 $result[EXCEPTION] = Database::getException();

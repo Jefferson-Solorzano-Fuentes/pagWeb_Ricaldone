@@ -234,6 +234,11 @@ if (isset($_GET[ACTION])) {
                     $result[EXCEPTION] = 'Clave incorrecta';
                 }
                 break;
+            case 'checkSession':
+                if (!isset($_SESSION['usuario'])){
+                    $result[STATUS] = 1;
+                }
+                break;
             default:
                 $result[EXCEPTION] = 'Acción no disponible fuera de la sesión';
         }

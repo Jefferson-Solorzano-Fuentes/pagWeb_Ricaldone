@@ -253,7 +253,7 @@ class empleado extends validator
     //Utilizaremos los campos o (NOMBRE, APELLIDO, TIPO, ESTADO, TELEFONO, DUI, NIT)
     public function searchRows($value)
     {
-        $sql = 'SELECT id_empleado, nombre, apellido, "DUI", "NIT", telefono, correo, genero, fecha_nacimiento, imagen, nombre_estado , nombre_tipo
+        $sql = 'SELECT id_empleado, nombre, apellido, "DUI", "NIT", telefono, correo, genero, fecha_nacimiento, imagen, estado_empleado.id_estado_empleado, nombre_estado , nombre_tipo
         FROM empleado 
         INNER JOIN tipo_empleado
         ON empleado.id_tipo_empleado = tipo_empleado.id_tipo_empleado
@@ -300,7 +300,7 @@ class empleado extends validator
     //Leer todas las filas de la Tabla
     public function readAll()
     {
-        $sql = 'SELECT id_empleado, nombre, apellido, "DUI", "NIT", telefono, correo, genero, fecha_nacimiento, imagen, empleado.id_estado_empleado, nombre_estado, empleado.id_tipo_empleado, nombre_tipo
+        $sql = 'SELECT id_empleado, nombre, apellido, "DUI", "NIT", telefono, correo, genero, fecha_nacimiento, imagen, empleado.id_estado_empleado, nombre_estado, empleado.id_estado_empleado, empleado.id_tipo_empleado, nombre_tipo
         FROM empleado
         INNER JOIN tipo_empleado 
         ON tipo_empleado.id_tipo_empleado = empleado.id_tipo_empleado

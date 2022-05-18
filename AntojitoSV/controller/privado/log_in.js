@@ -22,15 +22,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // valida session activa
   if (APIResponse.session) {
-    console.log("USUARIO LOGGEADO")
     // REENVIA A LA PAGINA ASIGNADA
     location.href = "paginaprivada.html";
     // VALIDA QUE EXISTA UN USUARIO
   } else if (APIResponse.status == API_SUCESS_REQUEST) {
     console.log("SE DEBE AUTENTICAR");
-
   } else {
-    console.log("HI")
     location.href = "register.html";
   }
 });

@@ -247,7 +247,7 @@ class Validator
     public function validatePhone($value)
     {
         //Se verifica el formato de +00000000000
-        if (preg_match('/^[+][0-9]{3}[0-9]{8}$/', $value)) {
+        if (preg_match('/^[+][0-9]{11}$/', $value)) {
             return true;
         } else {
             return false;

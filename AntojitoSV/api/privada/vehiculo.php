@@ -22,8 +22,8 @@ const SUCESS_RESPONSE = 1;
 const VEHICULO = 'vehiculo';
 const VEHICULO_ID = 'vehiculo_id';
 const DISPONIBILIDAD = 'disponibilidad';
-const VEHICULO_VIN = 'vin';
-const VEHICULO_PLACA = 'placa';
+const VIN = 'vin';
+const PLACA = 'placa';
 const VEHICULO_IMAGEN = 'vehiculo_imagen';
 
 
@@ -40,7 +40,7 @@ if (isset($_GET[ACTION])) {
     switch ($_GET[ACTION]) {
             //Leer todo
         case READ_ALL:
-            if ($result[DATA_SET] = $vehiculo->readAll()) {
+            if ($result['dataset'] = $vehiculo->readAll()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 
             } elseif (Database::getException()) {
@@ -64,17 +64,22 @@ if (isset($_GET[ACTION])) {
             break;
         case CREATE:
             $_POST = $vehiculo->validateSpace($_POST);
-            if (!$vehiculo->setId($_POST[VEHICULO_ID])) {
-                $result[MESSAGE] = 'Nombre incorrecto';
+            if (!$vehiculo->setNombre($_POST[VEHICULO_ID])) {
+                $result[TIPO_EMPLEADO] = 'Nombre incorrecto';
             } elseif ($vehiculo->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Categoria creada existosamente';
+                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
         case READ_ONE:
-            if (!$vehiculo->setId($_POST[VEHICULO_ID])) {
+            if (!$vehiculo->setId($_POST[ID])) {
                 $result[EXCEPTION] = 'Categoria incorrecto';
             } elseif ($result[DATA_SET] = $vehiculo->readOne()) {
                 $result[STATUS] = SUCESS_RESPONSE;
@@ -86,26 +91,35 @@ if (isset($_GET[ACTION])) {
             break;
         case UPDATE:
             // $_POST = $tipo_empleado->validateSpace($_POST[NOMBRE]);
-            if (!$vehiculo->setId($_POST[VEHICULO_ID])) {
+            if (!$vehiculo->setId($_POST[ID])) {
                 $result[EXCEPTION] = 'Categoría incorrecta';
-            }  elseif (!$vehiculo->setVIN($_POST[VEHICULO_VIN])) {
+            } elseif (!$data = $vehiculo->readOne()) {
+                $result[EXCEPTION] = 'Categoría inexistente';
+            } elseif (!$vehiculo->setNombre($_POST['vehiculo'])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
-            }elseif (!$vehiculo->setPlaca($_POST[VEHICULO_PLACA])) {
-                $result[EXCEPTION] = 'Nombre incorrecto';
-            }
-             elseif ($vehiculo->updateRow()) {
+            } elseif ($vehiculo->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Cantidad modificada correctamente';
+                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
         case DELETE:
-            if (!$vehiculo->setId($_POST[VEHICULO_ID])) {
+            if (!$vehiculo->setId($_POST[ID])) {
                 $result[EXCEPTION] = 'Categoria incorrecta';
             } elseif ($vehiculo->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Categoria removida correctamente';
+                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
