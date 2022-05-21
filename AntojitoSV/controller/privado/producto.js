@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 //LLENAR COMBOBOX
-
+//Combobox Proveedor
 async function fillProveedorCombobox() {
     let APIEndpoint = API_PRODUCTO + 'proveedoresCMB'
     let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null)
@@ -62,7 +62,7 @@ async function fillProveedorCombobox() {
     }
     console.log("all bad")
 }
-
+//Combobox Categoria
 async function fillCategoriaComboBox() {
     let APIEndpoint = API_PRODUCTO + 'categoriaCMB'
     let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null)
@@ -96,7 +96,6 @@ window.selectIdCategoria = (idCategoriaCmb) => {
 window.guardardarDatosComboBoxProveedor = (idProveedor) => {
     datos_producto.id_proveedor = idProveedor
 }
-
 
 // FUNCION PARA GUARDAR LOS DATOS DEL PRODUCTO
 // @ts-ignore

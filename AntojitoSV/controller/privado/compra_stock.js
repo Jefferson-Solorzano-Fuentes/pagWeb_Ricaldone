@@ -19,7 +19,7 @@ let datos_compra_existencia = {
     "producto_id": 0,
     "cantidad": 0,
     "fecha_compra": ' ',
-    "false": true
+    "false": true 
 }
 
 let datos_productos = {

@@ -12,6 +12,11 @@ class detalle_pedido extends validator
     private $cantidad = null;
     private $subtotal = null;
 
+    
+    //Parametros TRUE / FALSE
+    private $true = true;
+    private $false = '0';
+
     //Metodos para setear los valores de los campos
     //Id
     public function setId($value)
@@ -105,15 +110,15 @@ class detalle_pedido extends validator
     //Utilizaremos los campos o (NOMBRE_TIPO)
     public function searchRows($value)
     {
-        $sql = 'SELECT id_detalle_pedido, pedido.id_pedido, monto_total, nombre_producto, cantidad, subtotal
+        $sql = 'SELECT id_detalle_pedido, pedido.id_pedido, monto_total, nombre_producto, cantidad, subtotal, detalle_pedido.visibilidad
         FROM detalle_pedido
         INNER JOIN producto
         ON producto.id_producto = detalle_pedido.id_producto
         INNER JOIN pedido
-        ON pedido.id_pedido = detalle_pedido.id_pedido
-        WHERE nombre_producto ILIKE ?
+        ON  pedido.id_pedido= detalle_pedido.id_pedido
+        WHERE pedido.id_pedido=?
         order by detalle_pedido.id_pedido';
-        $params = array("%$value%");
+        $params = array($this->pedido_id);
         return Database::getRows($sql, $params);
     }
 
@@ -141,11 +146,23 @@ class detalle_pedido extends validator
     //Metodo para la eliminación DELETE 
     public function deleteRow()
     {
-        $sql = 'DELETE FROM detalle_pedido
-        WHERE id_detalle_pedido = ?';
-        $params = array($this->id_detalle_pedido);
+        $sql = 'UPDATE detalle_pedido
+        SET visibilidad =?
+        WHERE id_detalle_pedido=?';
+        $params = array($this->false,$this->id_detalle_pedido);
         return Database::executeRow($sql, $params);
     }
+
+    //Metodo de activación
+    public function unDeleteRow()
+    {
+        $sql = 'UPDATE detalle_pedido
+        SET visibilidad =?
+        WHERE id_detalle_pedido=?';
+        $params = array($this->true, $this->id_detalle_pedido);
+        return Database::executeRow($sql, $params);
+    }
+    
 
     //Metodo para leer READ
     //Leer todas las filas de la Tabla

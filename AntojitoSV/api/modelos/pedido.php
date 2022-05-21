@@ -23,12 +23,10 @@ class pedido extends validator
     //Id - integer
     public function setId($value)
     {
-        if ($this->validateNaturalNumber($value)) {
+
             $this->id_pedido = $value;
             return true;
-        } else {
-            return false;
-        }
+
     }
 
     //Fecha de Entrega - varying char
@@ -45,12 +43,14 @@ class pedido extends validator
     //Direccion del envio  - varying char
     public function setDireccion($value)
     {
-        if ($this->validateAlphanumeric($value, 1, 200)) {
             $this->direccion = $value;
             return true;
-        } else {
-            return false;
-        }
+
+    }
+
+    public function setMonto ($value) {
+        $this->monto = $value;
+        return true;
     }
 
     //Descripcion proporcionada por el cliente - varying char
@@ -95,6 +95,10 @@ class pedido extends validator
         } else {
             return false;
         }
+    }
+
+    public function setFechaEntrega ($value) {
+        $this-> fecha_entrega = $value;
     }
 
 
@@ -169,7 +173,7 @@ class pedido extends validator
         $sql = 'INSERT INTO pedido(
         fecha_entrega, monto_total, direccion, descripcion, fecha_creacion, id_cliente, estado)
         VALUES (?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->fecha_entrega, $this->monto, $this->direccion, $this->descripcion, $this->fecha_creacion, $this->cliente_id, $this->estado);
+        $params = array($this->fecha_entrega, $this->monto, $this->direccion, $this->descripcion, $this->fecha_creacion, $this->cliente_id, 1);
         return Database::executeRow($sql, $params);
     }
 
@@ -179,7 +183,7 @@ class pedido extends validator
         $sql = 'UPDATE pedido
         SET  fecha_entrega=?, monto_total=?, direccion=?, descripcion=?, fecha_creacion=?, id_cliente=?, estado=?
         WHERE id_pedido=?';
-        $params = array($this->fecha_entrega, $this->monto, $this->direccion, $this->descripcion, $this->fecha_creacion, $this->cliente_id, $this->estado, $this->id_pedido);
+        $params = array($this->fecha_entrega, $this->monto, $this->direccion, $this->descripcion, $this->fecha_creacion, $this->cliente_id, '1', $this->id_pedido);
         return Database::executeRow($sql, $params);
     }
 
@@ -226,6 +230,6 @@ class pedido extends validator
         $sql = 'SELECT id_cliente, nombre_cliente 
         FROM cliente';
         $params = null;
-        return Database::getRow($sql, $params);
+        return Database::getRows($sql, $params);
     }
 }

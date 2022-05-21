@@ -116,9 +116,6 @@ document.getElementById('insert-modal').addEventListener('submit', async (event)
 });
 
 
-
-
-
 // EVENTO PARA UPDATE
 // SE EJECUTARA CUANDO EL BOTON DE TIPO "submit" DEL FORMULARIO CON EL ID 'actualizarConfirmar_buttons' SE CLICKEE
 getElementById('update-modal').addEventListener('submit', async (event) => {
