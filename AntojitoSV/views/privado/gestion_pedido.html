@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../resources/css/style_privada.css">
+    <title>AntojitoSV</title>
+
+</head>
+
+<body>
+    <!-- Encabezado de antojitoSV -->
+    <!-- Navbar de paginas Privadas-->
+    <header class="fixed-top">
+        <!-- Primer navbar -->
+        <nav class="navbar navbar-primary navbar-expand-md" id="primerNavbar">
+            <!-- Dividir el navbar en 2 diferentes columnas -->
+            <div class="container-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-8 bg-primary">
+                            <!-- Primera Mitad, vacia -->
+                        </div>
+                        <div class=" col-4 bg-secondary">
+                            <a class="navbar-brand" href="#">
+                                <!-- Dropdown de idiomas -->
+                                <div class="btn-group">
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="../../resources/img/navbar/el_salvador_35px.png">
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Español</a>
+                                        <a class="dropdown-item" href="#">Ingles</a>
+                                    </ul>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- segundo navbar -->
+        <nav class="navbar navbar-warning bg-light navbar-expand-md" id="segundoNavbar">
+            <div class="container-fluid">
+                <!-- Imagenes de los botones del menu de la pagina publica con mapeo -->
+                <div class="row justify-content-around">
+                    <!-- Imagenes de los botones y sus respectivos textos links-->
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_privado/cake_75px.png" usemap="#producto">
+                        <a href="gestion_producto.html">Producto</a>
+                    </div>
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_privado/packaging_75px.png" usemap="#proveedores">
+                        <a href="gestion_proveedores.html">Proveedor</a>
+                    </div>
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_privado/search_client_75px.png" usemap="#clientes">
+                        <a href="gestion_cliente.html">Clientes</a>
+                    </div>
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_privado/search_75px.png" usemap="#categorias">
+                        <a href="gestion_categoria.html">Categorias</a>
+                    </div>
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_privado/bill_75px.png" usemap="#pedidos">
+                        <a href="gestion_pedido.html">Pedidos</a>
+                    </div>
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_privado/customer_support_75px.png" usemap="#empleados">
+                        <a href="gestion_empleados.html">Empleados</a>
+                    </div>
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_privado/local_delivery_75px.png" usemap="#vehiculo">
+                        <a href="gestion_vehiculo.html">Vehiculo</a>
+                    </div>
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_privado/user_75px.png" usemap="#usuarios">
+                        <a href="gestion_usuario.html">Usuarios</a>
+                    </div>
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_publico/home_75px.png" usemap="#Inicio">
+                        <a href="paginaprivada.html">Inicio</a>
+                    </div>
+                    <!-- Mapeo-->
+                    <map name="producto">
+                        <area shape="rect" coords="10,0,85,75" href="gestion_producto.html">
+                    </map>
+                    <map name="proveedores">
+                        <area shape="rect" coords="10,0,85,75" href="gestion_proveedores.html">
+                    </map>
+                    <map name="clientes">
+                        <area shape="rect" coords="10,0,85,75" href="gestion_cliente.html">
+                    </map>
+                    <map name="categorias">
+                        <area shape="rect" coords="10,0,85,75" href="gestion_categoria.html">
+                    </map>
+                    <map name="pedidos">
+                        <area shape="rect" coords="10,0,85,75" href="gestion_pedido.html">
+                    </map>
+                    <map name="empleados">
+                        <area shape="rect" coords="10,0,85,75" href="gestion_empleados.html">
+                    </map>
+                    <map name="vehiculo">
+                        <area shape="rect" coords="10,0,85,75" href="gestion_vehiculo.html">
+                    </map>
+                    <map name="usuarios">
+                        <area shape="rect" coords="10,0,85,75" href="gestion_usuario.html">
+                    </map>
+                    <map name="Inicio">
+                        <area shape="rect" coords="10,0,85,75" href="paginaprivada.html">
+                    </map>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main-->
+    <main>
+        <!-- Contenedor espaciador-->
+        <div class="container-fluid" id="containerSpacing">
+        </div>
+
+        <!-- Contenedor principal, contienen la tabla de datos-->
+        <div class="container-fluid bg-light" id="containerMain">
+            <div class="container-fluid" id="containerImg">
+                <div class="searchContainer">
+                    <!-- Barra de  Buscador -->
+                    <form method="post" id="search-bar">
+                        <input type="search" id="site-search" name="search" aria-label="buscar información"
+                            class="buscador bg-light" placeholder="Buscar..." required>
+                        <button type="submit" class="searchButton"> <img class="searchImage" id="buscar_icono"
+                                src="../../resources/img/cards/buttons/search.png"></button>
+                    </form>
+                    <!-- Botones de SCRUD, actualizar y agregar -->
+                    <div class="container-fluid d-flex justify-content-left" id="opciones">
+
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-primary" id="btnExternos" data-bs-toggle="modal"
+                                data-bs-target="#agregarform"><a class="nav-link" href="#"><img
+                                        src="../../resources/img/cards/buttons/add_40px.png"></a></button>
+                        </div>
+                    </div>
+                    <!-- Tabla de Datos -->
+                    <div class="container-fluid" id="tabla_datos">
+                        <table class="table table-responsive table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Fecha Entrega</th>
+                                    <th>Monto Total</th>
+                                    <th>Dirección</th>
+                                    <th>Descripcición Adicional</th>
+                                    <th>Fecha Creación</th>
+                                    <th>Cliente</th>
+                                    <th>Estado</th>
+                                    <th>Actualizar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-rowsPedido">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Pie de Pagina -->
+                    <div class="title">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id="pagina">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Anterior</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Siguiente</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="container-fluid" id="containerSpacing">
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulario del CRUD -->
+
+        <!-- Modal de AGREGAR REGISTRO-->
+        <div class="modal fade" id="agregarform" tabindex="-1" aria-labelledby="agregarform" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Agregar Pedido</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Formulario-->
+
+                    <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
+                    <form method="post" id="insert-modal">
+                        <div class="modal-body" id="formModal">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="fecha_entrega" class="form-label">Fecha Entrega</label>
+                                    <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega"
+                                        placeholder="04-06-2022">
+                                    <label for="monto" class="form-label">Monto Total</label>
+                                    <input type="number" class="form-control" id="monto" name="monto"
+                                        placeholder="$25.00">
+                                    <label for="direccion" class="form-label">Dirección</label>
+                                    <textarea id="direccion" name="direccion" rows="4" class="form-control"
+                                        placeholder="KM.131 CARRETERA MEXICO LAREDO"></textarea>
+                                </div>
+                                <div class="col">
+                                    <label for="descripcion" class="form-label">Descripción Adicional</label>
+                                    <textarea id="descripcion" name="descripcion" rows="4" class="form-control"
+                                        placeholder="CASA GRANDE SAN JOSE CASA G4"></textarea>
+                                    <label for="fecha_creacion" class="form-label">Fecha Creación</label>
+                                    <input type="date" class="form-control" id="fecha_creacion" name="fecha_creacion"
+                                        placeholder="25-05-2022">
+                                    <label for="id_cliente_u" class="form-label">Cliente</label>
+                                    <select onchange="seleccionarCliente()" name="id_cliente" class="form-control"
+                                        id="id_cliente_u">
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                        <div class="modal-footer">
+                            <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
+                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
+                                    data-bs-dismiss="modal" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/add_26px.png"></a></button>
+                                <button type="reset" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
+                                        class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de AGREGAR CONFIRMAR -->
+        <div class="modal fade" id="agregarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+            tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Desea agregar esta información como un nuevo registro?
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-target="#agregarform" data-bs-toggle="modal"
+                            id="btnmenu">Volver</button>
+                        <button class="btn btn-primary" data-bs-target="#agregado" data-bs-toggle="modal"
+                            id="btnmenu">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de AGREGAR REALIZADO -->
+        <div class="modal fade" id="agregado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+            tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabel4">Agregado con éxito</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        El registro se ha agregado con éxito.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de ACTUALIZAR REGISTRO -->
+        <div class="modal fade" id="actualizarform" tabindex="-1" aria-labelledby="agregarform" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Actualizar Pedido</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Formulario-->
+
+                    <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
+                    <form method="post" id="update-modal">
+                        <div class="modal-body" id="formModal">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="fecha_entrega" class="form-label">Fecha Entrega</label>
+                                    <input type="date" class="form-control" id="fecha_entrega_update" name="fecha_entrega"
+                                        placeholder="04-06-2022">
+                                    <label for="monto" class="form-label">Monto Total</label>
+                                    <input type="number" class="form-control" id="monto_update" name="monto"
+                                        placeholder="$25.00">
+                                    <label for="direccion" class="form-label">Dirección</label>
+                                    <textarea id="direccion_update" name="direccion" rows="4" class="form-control"
+                                        placeholder="KM.131 CARRETERA MEXICO LAREDO"></textarea>
+                                </div>
+                                <div class="col">
+                                    <label for="descripcion" class="form-label">Descripción Adicional</label>
+                                    <textarea id="descripcion_update" name="descripcion" rows="4" class="form-control"
+                                        placeholder="CASA GRANDE SAN JOSE CASA G4"></textarea>
+                                    <label for="fecha_creacion" class="form-label">Fecha Creación</label>
+                                    <input type="date" class="form-control" id="fecha_creacion_update" name="fecha_creacion"
+                                        placeholder="25-05-2022">
+                                    <label for="id_cliente" class="form-label">Cliente</label>
+                                    <select onchange="seleccionarCliente()" name="id_cliente" class="form-control"
+                                        id="id_cliente_update">
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                        <div class="modal-footer">
+                            <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
+                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
+                                    data-bs-dismiss="modal" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/add_26px.png"></a></button>
+                                <button type="reset" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
+                                        class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de CONFIRMACIÓN -->
+        <div class="modal fade" id="actualizarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+            tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabel">Confirmar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Desea actualizar la información de este registro?
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
+                            id="btnmenu">Volver</button>
+                        <button class="btn btn-primary" data-bs-target="#actualizado" data-bs-toggle="modal"
+                            id="btnmenu">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de ACTUALIZACIÓN REALIZADA -->
+        <div class="modal fade" id="actualizado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3"
+            tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabel3">Actualizado con éxito</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        El registro se ha actualizado con éxito.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de ELIMINAR -->
+        <div class="modal fade" id="eliminarForm" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+            tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Desea Eliminar la información de este registro?
+                    </div>
+                    <div class="modal-footer">
+                        <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
+                        <form id="delete-form">
+                            <input type="hidden" id="id-eliminar" name="id-eliminar">
+                            <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                            <button class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
+                                data-bs-dismiss="modal" id="btnmenu" type="submit">Confirmar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de ELIMINAR REALIZADO -->
+        <div class="modal fade" id="eliminado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+            tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabel4">Eliminado con éxito</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        El registro se ha eliminado con éxito.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer de privados-->
+    <footer class="primary bg-primary  text-white pt-5 pb-4" id="footer">
+        <div class="container text-center text-md-left">
+            <hr class="mb-4">
+            <div class="row text-center text-md-left">
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <i class="fas fa-phone mr-2">+503 66554433/77665544</i>
+                </div>
+
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <p>AntojitoSV derechos reservados - 2022</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Activando Bootstrap desde JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+    <script type="module" src="../../controller/privado/pedido.js"></script>
+
+
+</body>
+
+</html>
+
+<!--
+<div class="row">
+    <div class="col">
+        <label for="formGroupExampleInput" class="form-label">Fecha Entrega</label>
+        <form>
+            <input type="date" class="form-control" id="formGroupExampleInput"
+                placeholder="04-06-2022">
+        </form>
+        <label for="formGroupExampleInput" class="form-label">Monto Total</label>
+        <form>
+            <input type="number" class="form-control" id="formGroupExampleInput"
+                placeholder="$25.00">
+        </form>
+        <label for="formGroupExampleInput" class="form-label">Dirección</label>
+        <textarea name="dirección" rows="4" class="form-control" placeholder="KM.131 CARRETERA MEXICO LAREDO"></textarea>
+    </div>
+    <div class="col">
+        <label for="formGroupExampleInput" class="form-label">Descripción Adicional</label>
+        <textarea name="dirección" rows="4" class="form-control" placeholder="CASA GRANDE SAN JOSE CASA G4"></textarea>
+
+
+        <label for="formGroupExampleInput" class="form-label">Fecha Creación</label>
+        <form>
+            <input type="date" class="form-control" id="formGroupExampleInput"
+                placeholder="25-05-2022">
+        </form>
+        <label for="formGroupExampleInput" class="form-label">Cliente</label>
+        <form>
+            <select name="select" class="form-control">
+                <option value="value1" selected>Jefferson Solórzano</option>
+                <option value="value2">Cristian Parada</option>
+                <option value="value3">Fernando Ortíz</option>
+            </select>
+        </form>
+    </div>
+</div>
+-->

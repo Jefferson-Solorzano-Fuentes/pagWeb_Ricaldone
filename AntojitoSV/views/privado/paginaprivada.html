@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Etiquetas meta requeridas-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Referencias a documentos Bootstrap.css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../../resources/css/style_privada.css">
+    <title>AntojitoSV</title>
+
+</head>
+
+<body>
+    <!-- Encabezado de antojitoSV -->
+    <!-- Navbar de paginas Privadas-->
+    <header class="fixed-top">
+        <!-- Primer navbar -->
+        <nav class="navbar navbar-primary navbar-expand-md" id="primerNavbar">
+            <!-- Dividir el navbar en 2 diferentes columnas -->
+            <div class="container-fluid">
+                <div class="container-fluid">
+                    <div class="row ">
+                        <div id='prueba' class="col-8 bg-primary">
+                            <!-- Primera Mitad, salir de sesion-->
+                            <button onclick="logOut()" type="submit" id="cerrar_sesion" class="btn btn-primary" aria-expanded="false">
+                                <h4>CERRAR SESIÓN</h4>
+                            </button>
+                        </div>
+                        <div class=" col-4 bg-secondary">
+                            <a class="navbar-brand" href="#">
+                                <!-- Dropdown de idiomas -->
+                                <div class="btn-group">
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="../../resources/img/navbar/el_salvador_35px.png">
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Español</a>
+                                        <a class="dropdown-item" href="#">Ingles</a>
+                                    </ul>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- segundo navbar -->
+        <nav class="navbar navbar-warning bg-light navbar-expand-md" id="segundoNavbar">
+            <div class="container-fluid">
+                <!-- Imagenes de los botones del menu de la pagina publica con mapeo -->
+                <div class="row justify-content-around">
+                    <!-- Imagenes de los botones y sus respectivos textos links-->
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_privado/cake_75px.png" usemap="#producto">
+                        <a href="gestion_producto.html">Producto</a>
+                    </div>
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_privado/packaging_75px.png" usemap="#proveedores">
+                        <a href="gestion_proveedores.html">Proveedor</a>
+                    </div>
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_privado/search_client_75px.png" usemap="#clientes">
+                        <a href="gestion_cliente.html">Clientes</a>
+                    </div>
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_privado/search_75px.png" usemap="#categorias">
+                        <a href="gestion_categoria.html">Categorias</a>
+                    </div>
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_privado/bill_75px.png" usemap="#pedidos">
+                        <a href="gestion_pedido.html">Pedidos</a>
+                    </div>
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_privado/customer_support_75px.png" usemap="#empleados">
+                        <a href="gestion_empleados.html">Empleados</a>
+                    </div>
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_privado/local_delivery_75px.png" usemap="#vehiculo">
+                        <a href="gestion_vehiculo.html">Vehiculo</a>
+                    </div>
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_privado/user_75px.png" usemap="#usuarios">
+                        <a href="gestion_usuario.html">Usuarios</a>
+                    </div>
+                    <div class="row col-1 navBarItem">
+                        <img src="../../resources/img/navbar_publico/home_75px.png" usemap="#Inicio">
+                        <a href="paginaprivada.html">Inicio</a>
+                    </div>
+                    <!-- Mapeo-->
+                    <map name="producto">
+                        <area shape="rect" coords="10,0,85,75" href="gestion_producto.html">
+                    </map>
+                    <map name="proveedores">
+                        <area shape="rect" coords="10,0,85,75" href="gestion_proveedores.html">
+                    </map>
+                    <map name="clientes">
+                        <area shape="rect" coords="10,0,85,75" href="gestion_cliente.html">
+                    </map>
+                    <map name="categorias">
+                        <area shape="rect" coords="10,0,85,75" href="gestion_categoria.html">
+                    </map>
+                    <map name="pedidos">
+                        <area shape="rect" coords="10,0,85,75" href="gestion_pedido.html">
+                    </map>
+                    <map name="empleados">
+                        <area shape="rect" coords="10,0,85,75" href="gestion_empleados.html">
+                    </map>
+                    <map name="vehiculo">
+                        <area shape="rect" coords="10,0,85,75" href="gestion_vehiculo.html">
+                    </map>
+                    <map name="usuarios">
+                        <area shape="rect" coords="10,0,85,75" href="gestion_usuario.html">
+                    </map>
+                    <map name="Inicio">
+                        <area shape="rect" coords="10,0,85,75" href="paginaprivada.html">
+                    </map>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Las cards del inicio: muestran algunos datos relevantes para la pagina web -->
+        <div class="container-fluid" id="containerSpacing">
+        </div>
+        <div class="container-fluid bg-light" id="containerMain">
+            <div class="container-fluid" id="containerImg">
+                <div class="row" id="rowCards">
+                    <div class="col-md-5 col-sm-10" id="colCards">
+                        <!-- Primera card, datos de los proveedores -->
+                        <div class="card bg-secondary" id="cardBackground">
+                            <div class="card-body">
+                                <h3 class="card-title text-center">¡Bienvenidos a AntojitoSV!</h3>
+                                <h3 class="card-title">Proveedores:</h3>
+                                <h4 class="card-text"> <img
+                                        src="../../resources/img/cards/buttons/checkmark_yes_50px.png">Cafeteria
+                                    Rosita
+                                </h4>
+                                <h4 class="card-text"> <img
+                                        src="../../resources/img/cards/buttons/checkmark_yes_50px.png">BammBamm
+                                </h4>
+                                <h4 class="card-text"> <img
+                                        src="../../resources/img/cards/buttons/checkmark_yes_50px.png">Gustitos
+                                    Melissa
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Separador -->
+                    <div class="col-2">
+                    </div>
+                    <!-- Segunda card, graficas analiticas -->
+                    <div class="col-5  ">
+                        <div class="card bg-info text-center" style="width: 37rem;">
+                            <div class="card-body">
+                                <h3 class="card-title">Productos Por Categorias</h3>
+                                <!-- Card interna, para guardar datos analiticos -->
+                                <div class="card" style="width: 34.5rem;" id="cardAnalytic">
+                                    <div class="card-body">
+                                        <img src="../../resources/img/cards/analytics.png" alt="analiticas" width="75%">
+                                    </div>
+                                </div>
+                                <a class="btn btn-danger" href="gestion_empleados.html" id="gestionar">Gestionar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer de privados-->
+    <footer class="primary bg-primary  text-white pt-5 pb-4" id="footer">
+        <div class="container text-center text-md-left">
+            <hr class="mb-4">
+            <div class="row text-center text-md-left">
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <i class="fas fa-phone mr-2">+503 66554433/77665544</i>
+                </div>
+
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <p>AntojitoSV derechos reservados - 2022</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!--Referencias a documentos Bootstrap.js para inicializar la plantillas-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+    <script type="module" src="../../controller/privado/pagprivada.js"></script>
+
+
+</body>
+
+</html>
