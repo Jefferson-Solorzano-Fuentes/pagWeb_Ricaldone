@@ -17,7 +17,6 @@ class producto extends validator
     private $visiblidad = true;
     private $id_imagen_p = null;
     private $imagen = null;
-    private $ruta = '../imagenes/producto';
 
     //ReadAll True False
     private $true = true;
@@ -142,7 +141,7 @@ class producto extends validator
 
     //Metodos para obtener los valores de los campos
 
-    public function getRutaImgenes() {
+    public function getRutaImagenes() {
         return '../imagenes/producto/';
     }
 
@@ -210,12 +209,6 @@ class producto extends validator
     public function getImagen()
     {
         return $this->imagen;
-    }
-
-    //Ruta de imagenes
-    public function getRuta()
-    {
-        return $this->ruta;
     }
 
     //Metodos para realizar las operaciones SCRUD(Search, Create, Read, Update, Delete)

@@ -79,18 +79,13 @@ if (isset($_GET[ACTION])) {
             } else if ($producto->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'producto creado existosamente';
-                if ($producto->saveFile($_FILES['imagen_producto'], $producto->getRutaImgenes(), $producto->getImagen())) {
+                if ($producto->saveFile($_FILES['imagen_producto'], $producto->getRutaImagenes(), $producto->getImagen())) {
                     $result[MESSAGE] = 'Imagen ingresada correctanente';
                 } else {
                     $result[MESSAGE] = 'Imagen no se a ingresado correctanente';
                 }
                 if ($result[DATA_SET] = $producto->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
-                    if ($result[DATA_SET] = $compra_existencia->readAll()) {
-                        $result[STATUS] = SUCESS_RESPONSE;
-                    } else {
-                        $result[EXCEPTION] = 'No hay datos registrados';
-                    }
                 } elseif (Database::getException()) {
                     $result[EXCEPTION] = Database::getException();
                 } else {
@@ -135,23 +130,16 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = $producto->getFileError();
             } elseif ($producto->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                if ($result[DATA_SET] = $compra_existencia->readAll()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
-                } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
-                }
                 $result[MESSAGE] = 'Cantidad modificada correctamente';
-                if ($producto->saveFile($_FILES['imagen_producto'], $producto->getRutaImgenes(), $producto->getImagen())) {
+                if ($producto->saveFile($_FILES['imagen_producto'], $producto->getRutaImagenes(), $producto->getImagen())) {
                     $result[MESSAGE] = 'Imagen ingresada correctanente';
+                    if ($result[DATA_SET] = $producto->readAll()) {
+                        $result[STATUS] = SUCESS_RESPONSE;
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
                 } else {
                     $result[MESSAGE] = 'Imagen no se a ingresado correctanente';
-                }
-                if ($result[DATA_SET] = $producto->readAll()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
-                } elseif (Database::getException()) {
-                    $result[EXCEPTION] = Database::getException();
-                } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
                 }
             } else {
                 $result[EXCEPTION] = Database::getException();
@@ -165,11 +153,6 @@ if (isset($_GET[ACTION])) {
                 $result[MESSAGE] = 'Proveedor removido correctamente';
                 if ($result[DATA_SET] = $producto->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
-                    if ($result[DATA_SET] = $compra_existencia->readAll()) {
-                        $result[STATUS] = SUCESS_RESPONSE;
-                    } else {
-                        $result[EXCEPTION] = 'No hay datos registrados';
-                    }
                 } elseif (Database::getException()) {
                     $result[EXCEPTION] = Database::getException();
                 } else {

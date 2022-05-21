@@ -57,9 +57,9 @@ export function fillTableCliente(dataset) {
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
                         <form method="post" id="read-one">
-                            <a onclick="guardarDatosCliente(${row.id_cliente})"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
+                            <a onclick="guardarDatosCliente(${row.id_cliente},'${row.nombre_cliente}','${row.telefono}','${row.correo}')"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
                                 <img src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                            <a  onclick="guardarDatosCliente(${row.id_cliente})" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
+                            <a  onclick="guardarDatosCliente(${row.id_cliente},'${row.nombre_cliente}','${row.telefono}','${row.correo}')" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
                             name="search">
                                 <img src="../../resources/img/cards/buttons/delete_40px.png"></a>
                         </form>
@@ -74,8 +74,16 @@ export function fillTableCliente(dataset) {
 
 // FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE EMPLEADO
 // @ts-ignore
-window.guardarDatosCliente = (id_cliente) => {
+window.guardarDatosCliente = (id_cliente, nombre_cliente, telefono, correo) => {
     datos_cliente.id = id_cliente
+    // SE ACTUALIZA EL VALOR DEL INPUT CON EL ID ESPECIFICADO AL VALOR INGRESADO AL PARAMETRO, ASEGURENSE DE QUE ELINPUT TENGA 
+    //EL ATRIBUTO "value="""
+    //@ts-ignore
+    document.getElementById("nombre_cliente_update").value = String(nombre_cliente)
+    //@ts-ignore
+    document.getElementById("telefono_update").value = String(telefono)
+    //@ts-ignore
+    document.getElementById("correo_update").value = String(correo)
 }
 
 

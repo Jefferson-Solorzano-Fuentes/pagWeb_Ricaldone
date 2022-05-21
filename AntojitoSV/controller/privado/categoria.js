@@ -18,8 +18,8 @@ const CRUD_NAME = "categoria";
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
 let datos_categoria = {
     "id": 0,
-    "nombre_categoria": '',
-    "imagen": ''
+    "nombre_categoria": ' ',
+    "imagen": ' '
 }
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
@@ -48,16 +48,16 @@ export function fillTableCategoria(dataset) {
         // Se crean y concatenan las filas de la tabla con los datos de cada registro.
         content += ` 
             <tr>
-                <td>${row.imagen}</td>
+                <td> <img src="../../api/imagenes/categoria/${row.imagen}" width=100></td>
                 <td>${row.id_categoria}</td>
                 <td>${row.nombre_categoria}</td>
                 
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
                         <form method="post" id="read-one">
-                            <a onclick="guardarDatosCategoria(${row.id_categoria})"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
+                            <a onclick="guardarDatosCategoria(${row.id_categoria},'${row.nombre_categoria}')"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
                                 <img src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                            <a  onclick="guardarDatosCategoria(${row.id_categoria})" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
+                            <a  onclick="guardarDatosCategoria(${row.id_categoria},'${row.nombre_categoria}')" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
                             name="search">
                                 <img src="../../resources/img/cards/buttons/delete_40px.png"></a>
                         </form>
@@ -71,10 +71,14 @@ export function fillTableCategoria(dataset) {
 }
 
 
-// FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE EMPLEADO
+// FUNCION PARA GUARDAR LOS DATOS DEL CATEGORIA
 // @ts-ignore
-window.guardarDatosCategoria = (id_categoria) => {
+window.guardarDatosCategoria = (id_categoria, nombre_categoria) => {
     datos_categoria.id = id_categoria
+    // SE ACTUALIZA EL VALOR DEL INPUT CON EL ID ESPECIFICADO AL VALOR INGRESADO AL PARAMETRO, ASEGURENSE DE QUE ELINPUT TENGA 
+    //EL ATRIBUTO "value="""
+    //@ts-ignore
+    document.getElementById("nombre_categoria_update").value = String(nombre_categoria)
 }
 
 
@@ -87,13 +91,6 @@ getElementById('search-bar').addEventListener('submit', async (event) => {
     await searchRows(API_CATEGORIA, 'search-bar', fillTableCategoria);
 });
 
-// Metodo que se ejecuta al enviar un formulario de update
-/*getElementById('read-one').addEventListener('submit', async (event) => {
-    // Se evita recargar la página web después de enviar el formulario.
-    event.preventDefault();
-    // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
-    await searchRows(API_TIPO_EMPLEADO, 'read-one');
-});*/
 
 // EVENTO PARA INSERT 
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.

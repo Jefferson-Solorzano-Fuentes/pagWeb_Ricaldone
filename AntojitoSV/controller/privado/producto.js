@@ -1,15 +1,14 @@
 //@ts-check
 
 //Importar las constantes y metodos de components.js y api_constant.js
-import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
-import { GET_METHOD, SERVER } from "../constants/api_constant.js";
+import { readRows, saveRow, searchRows, deleteRow, unDeleteRow } from "../components.js";
 import { getElementById } from "../constants/functions.js";
-import { API_CREATE, POST_METHOD, API_UPDATE, API_SUCESS_REQUEST } from "../constants/api_constant.js";
+import { API_CREATE, POST_METHOD, API_UPDATE, API_SUCESS_REQUEST, GET_METHOD, SERVER } from "../constants/api_constant.js";
 import { APIConnection } from "../APIConnection.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_PRODUCTO = SERVER + 'privada/producto.php?action=';
-
+const API_COMENTARIO = SERVER + 'privada/comentario.php?action=';
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
@@ -17,6 +16,15 @@ let datos_producto = {
     "id_producto": 0,
     "id_categoria": 0,
     "id_proveedor": 0
+}
+
+let datos_comentarios ={
+    "id_comentario": 0,
+    "comnetario": ' ',
+    "id_producto": 0,
+    "nombre_producto": ' ',
+    "id_cliente": 0,
+    "nombre_cliente": ' '
 }
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
@@ -84,21 +92,75 @@ window.selectIdCategoria = (idCategoriaCmb) => {
     datos_producto.id_categoria = getElementById(idCategoriaCmb).value
 }
 
-
-
-// FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE EMPLEADO
-// @ts-ignore
-window.guardarDatosCategoria = (id_producto) => {
-    datos_producto.id_producto = id_producto
-}
 //@ts-ignore
 window.guardardarDatosComboBoxProveedor = (idProveedor) => {
     datos_producto.id_proveedor = idProveedor
 }
-//@ts-ignore
-window.guardarDatosComboBoxCategoria = (idCategoria) => {
-    datos_producto.id_categoria = idCategoria
+
+
+// FUNCION PARA GUARDAR LOS DATOS DEL PRODUCTO
+// @ts-ignore
+window.guardarDatosproducto = (id_producto) => {
+    datos_producto.id_producto = id_producto
 }
+
+// FUNCION PARA GUARDAR LOS DATOS DEL COMENTARIO
+// @ts-ignore
+window.guardarDatosComentario = (id_comentario) => {
+    datos_comentarios.id_comentario = id_comentario
+}
+
+//Mandar parametros para realizar search de los comentarios
+// @ts-ignore
+window.guardarProductoComentario = async (id_producto) => {
+    datos_comentarios.id_producto = id_producto;
+    let APIEndpoint = API_COMENTARIO
+
+    let parameters = new FormData();
+    //Se envian el parametro del id para realizar la busqueda
+    //@ts-ignore
+    parameters.append('search',datos_comentarios['id_producto'])
+
+    // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
+    await searchRows(APIEndpoint, null, fillTableComentario, parameters);
+}
+
+export function fillTableComentario(dataset) {
+    let content = '';
+    // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
+    dataset.map(function (row) {
+        // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+        content += ` 
+            <tr>
+                <td>${row.comentario}</td>
+                <td>${row.nombre_cliente}</td>
+                <td>${row.visibilidad}</td>
+                <td class="d-flex justify-content-center">
+                    <div class="btn-group" role="group">
+                        <form method="post" id="read-one">
+                            <a onclick="guardarDatosComentario(${row.id_comentario})"  data-bs-toggle="modal" data-bs-target="#deactivarForm" class="btn btn-primary" data-tooltip="Actualizar">
+                                <img src="../../resources/img/cards/buttons/invisible_40px.png"></a>
+                            <a  onclick="guardarDatosComentario(${row.id_comentario})" data-bs-toggle="modal" data-bs-target="#reactivarForm" class="btn btn-primary" data-tooltip="eliminar" 
+                            name="search">
+                                <img src="../../resources/img/cards/buttons/eye_40px.png"></a>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        `;
+    });
+    getElementById('tbody-rows-comentario').innerHTML = content;
+}
+
+
+getElementById('search-bar').addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
+   event.preventDefault();
+
+   let APIEndpoint = API_PRODUCTO 
+   // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
+    await searchRows(APIEndpoint ,'search-bar', fillTableProductos);
+});
 
 //Metodo para llenar las tablas de datos, utiliza la función readRows()
 export function fillTableProductos(dataset) {
@@ -118,12 +180,16 @@ export function fillTableProductos(dataset) {
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
                         <form method="post" id="read-one">
-                            <a onclick="guardarDatosCategoria(${row.id_producto})"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
+                            <a onclick="guardarDatosproducto(${row.id_producto})"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
                                 <img src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                            <a  onclick="guardarDatosCategoria(${row.id_producto})" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
+                            <a  onclick="guardarDatosproducto(${row.id_producto})" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
                             name="search">
                                 <img src="../../resources/img/cards/buttons/delete_40px.png"></a>
-                        
+                                <form method='post' id='${row.id_producto}'>
+                                    <a onclick="guardarProductoComentario(${row.id_producto})" data-bs-toggle="modal"  type="submit"
+                                    data-bs-target="#comentarioForm" class="btn btn-primary" data-tooltip="comentario" name="search"><img
+                                        src="../../resources/img/cards/buttons/eye_40px.png"></a>
+                                </form>        
                         </form>
                     </div>
                 </td>
@@ -135,16 +201,6 @@ export function fillTableProductos(dataset) {
 }
 
 
-
-getElementById('search-bar').addEventListener('submit', async (event) => {
-    // Se evita recargar la página web después de enviar el formulario.
-
-   event.preventDefault();
-
-   let APIEndpoint = API_PRODUCTO 
-   // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
-    await searchRows(APIEndpoint ,'search-bar', fillTableProductos);
-});
 
 
 // EVENTO PARA INSERT 
@@ -191,8 +247,6 @@ getElementById('update-modal').addEventListener('submit', async (event) => {
 getElementById('delete-form').addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    console.log("eliminanso")
-
     // CONVIRTIENDO EL JSON A FORMDATA
     let parameters = new FormData();
     //@ts-ignore
@@ -200,4 +254,30 @@ getElementById('delete-form').addEventListener('submit', async (event) => {
 
     //API REQUEST
     await deleteRow(API_PRODUCTO, parameters, fillTableProductos);
+});
+
+//EVENTO PARA DEACTIVAR
+getElementById('deactivate-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    // CONVIRTIENDO EL JSON A FORMDATA
+    let parameters = new FormData();
+    //@ts-ignore
+    parameters.append('id', datos_comentarios['id_comentario'])
+
+    //API REQUEST
+    await deleteRow(API_COMENTARIO, parameters, fillTableComentario);
+});
+
+
+//EVENTO PARA DEACTIVAR
+getElementById('reactivate-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    // CONVIRTIENDO EL JSON A FORMDATA
+    let parameters = new FormData();
+    //@ts-ignore
+    parameters.append('id', datos_comentarios['id_comentario'])
+
+    //API REQUEST
+    await unDeleteRow(API_COMENTARIO, parameters, fillTableComentario);
 });

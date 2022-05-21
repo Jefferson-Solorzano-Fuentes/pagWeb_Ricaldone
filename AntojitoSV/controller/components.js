@@ -10,6 +10,7 @@ import {
   API_DELETE,
   SERVER,
   API_READONE,
+  API_UNDELETE,
 } from "./constants/api_constant.js";
 import { getElementById } from "./constants/functions.js";
 
@@ -28,10 +29,12 @@ export async function readRows(ENDPOINT, fillrows) {
 }
 
 // BUSCAR REGISTROS
-export async function searchRows(ENDPOINT, formID,fillrows) {
+export async function searchRows(ENDPOINT, formID, fillrows, parametersJson) {
   let APIEndpoint = ENDPOINT + API_SEARCH;
   //@ts-ignore
-  let parameters = new FormData(getElementById(formID));
+  let parameters = formID ? new FormData(getElementById(formID)) : parametersJson;
+
+
   //Llamar a la función de conexión api para realizar fetch y then
   let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
   //Utilizar la respuesta del api para realizar funciones
@@ -61,6 +64,18 @@ export async function saveRow(ENDPOINT, ACTION, parameters, fillrows) {
 // ELIMINAR REGISTROS
 export async function deleteRow(ENDPOINT, parameters, fillrows) {
   let APIEndpoint = ENDPOINT + API_DELETE;
+
+  let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
+
+  if (APIResponse.status == API_SUCESS_REQUEST) {
+    fillrows(APIResponse.dataset)
+    return;
+  }
+}
+
+// ELIMINAR REGISTROS
+export async function unDeleteRow(ENDPOINT, parameters, fillrows) {
+  let APIEndpoint = ENDPOINT + API_UNDELETE;
 
   let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
 

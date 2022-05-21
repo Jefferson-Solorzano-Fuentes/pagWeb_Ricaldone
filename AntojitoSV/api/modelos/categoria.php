@@ -47,6 +47,12 @@ class categoria extends validator
 
 
     //Metodos para obtener los valores de los campos
+
+    public function getRutaImagenes()
+    {
+        return '../imagenes/categoria/';
+    }
+
     //Id
     public function getId()
     {
@@ -65,11 +71,7 @@ class categoria extends validator
         return $this->imagen;
     }
 
-    //Obtener la ruta para guardar imagenes
-    public function getRuta()
-    {
-        return $this->ruta;
-    }
+
 
     //Metodos para realizar las operaciones SCRUD(Search, Create, Read, Update, Delete)
 
@@ -101,7 +103,7 @@ class categoria extends validator
         $sql = 'UPDATE categoria
         SET nombre_categoria=?, imagen=?
         WHERE id_categoria =?';
-        $params = array($this->nombre_categoria, $this->imagen,$this->id_categoria);
+        $params = array($this->nombre_categoria, $this->imagen, $this->id_categoria);
         return Database::executeRow($sql, $params);
     }
 

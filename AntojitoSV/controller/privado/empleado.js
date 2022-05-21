@@ -28,7 +28,7 @@ let datos_empleado = {
     "id_estado_empleado": 0,
     "nombre_estado_empleado": "",
     "id_tipo_empleado": 0,
-    "nombre_tipo_empleado":""
+    "nombre_tipo_empleado": ""
 }
 
 let datos_estado_empleado = {
@@ -76,7 +76,7 @@ async function fillComboBoxTipoEmpleado() {
         getElementById('tipo_empleado').innerHTML += `<option value="${element.id_tipo_empleado}" > ${element.nombre_tipo} </option>`
     })
     APIResponse.dataset.map(element => {
-        getElementById('tipo_empleado_u').innerHTML += `<option value="${element.id_tipo_empleado}" > ${element.nombre_tipo} </option>`
+        getElementById('tipo_empleado_update').innerHTML += `<option value="${element.id_tipo_empleado}" > ${element.nombre_tipo} </option>`
     })
 }
 
@@ -91,7 +91,7 @@ async function fillComboxEstadoEmpleado() {
         getElementById('estado_empleado').innerHTML += `<option value="${element.id_estado_empleado}" > ${element.nombre_estado} </option>`
     })
     APIResponse.dataset.map(element => {
-        getElementById('estado_empleado_u').innerHTML += `<option value="${element.id_estado_empleado}" > ${element.nombre_estado} </option>`
+        getElementById('estado_empleado_update').innerHTML += `<option value="${element.id_estado_empleado}" > ${element.nombre_estado} </option>`
     })
 }
 
@@ -116,7 +116,7 @@ export function fillTableEmpleado(dataset) {
         // Se crean y concatenan las filas de la tabla con los datos de cada registro.
         content += ` 
             <tr>
-                <td>${row.imagen}</td>
+                <td> <img src="../../api/imagenes/empleado/${row.imagen}" width=100></td>
                 <td>${row.nombre}</td>
                 <td>${row.apellido}</td>
                 <td>${row.telefono}</td>
@@ -127,9 +127,9 @@ export function fillTableEmpleado(dataset) {
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
                         <form method="post" id="read-one">
-                            <a onclick="guardarDatosTipoEmpleado(${row.id_empleado}, ${row.id_tipo_empleado}, ${row.id_tipo_empleado})"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
+                            <a onclick="guardarDatosTipoEmpleado(${row.id_empleado},'${row.nombre}','${row.apellido}','${row.DUI}','${row.NIT}','${row.telefono}','${row.correo}','${row.genero}','${row.fecha_nacimiento}',${row.id_estado_empleado},${row.id_tipo_empleado})"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
                                 <img src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                            <a  onclick="guardarDatosTipoEmpleado(${row.id_empleado})" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
+                            <a onclick="guardarDatosTipoEmpleado(${row.id_empleado},'${row.nombre}','${row.apellido}','${row.DUI}','${row.NIT}','${row.telefono}','${row.correo}','${row.genero}','${row.fecha_nacimiento}',${row.id_estado_empleado},${row.id_tipo_empleado})" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
                             name="search">
                                 <img src="../../resources/img/cards/buttons/delete_40px.png"></a>
                         </form>
@@ -146,15 +146,32 @@ export function fillTableEmpleado(dataset) {
 
 // FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE EMPLEADO
 // @ts-ignore
-window.guardarDatosTipoEmpleado = (id_empleado, id_tipo_empleado,id_estado_empleado) => {
+window.guardarDatosTipoEmpleado = (id_empleado, nombre_empleado, apellido_empleado, dui, nit, telefono, correo, genero, fecha_nacimiento, id_estado_empleado,id_tipo_empleado) => {
     datos_empleado.id = id_empleado
-    
     // datos_empleado.nombre_estado_empleado = nombre_estado
     // getElementById('tipo_empleado').value = nombre_tipo
-    console.log(id_tipo_empleado)
-    console.log(id_estado_empleadon)
-    console.log("EJECUTANDO")
-    console.log(getElementById('tipo_empleado').value)
+    //@ts-ignore
+    document.getElementById("nombre_empleado_update").value = String(nombre_empleado)
+    //@ts-ignore
+    document.getElementById("apellido_empleado_update").value = String(apellido_empleado)
+    //@ts-ignore
+    document.getElementById("dui_update").value = String(dui)
+    //@ts-ignore
+    document.getElementById("nit_update").value = String(nit)
+    //@ts-ignore
+    document.getElementById("telefono_update").value = String(telefono)
+    //@ts-ignore
+    document.getElementById("correo_update").value = String(correo)
+    //@ts-ignore
+    document.getElementById("genero_update").value = String(genero)
+    //@ts-ignore
+    document.getElementById("genero_update").value = String(genero)
+    //@ts-ignore
+    document.getElementById("fecha_nacimiento_update").value = String(fecha_nacimiento)
+    //@ts-ignore
+    console.log(getElementById('tipo_empleado_update').value)
+    //@ts-ignore
+    console.log(getElementById('estado_empleado_update').value)
 }
 
 

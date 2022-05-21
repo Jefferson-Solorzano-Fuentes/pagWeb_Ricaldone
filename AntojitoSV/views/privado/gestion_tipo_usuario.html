@@ -129,10 +129,10 @@
             <div class="container-fluid" id="containerImg">
                 <div class="searchContainer">
                     <!-- Barra de  Buscador -->
-                    <form>
-                        <input type="search" id="site-search" name="buscador_empleado" aria-label="buscar información"
-                            class="buscador bg-light" placeholder="Buscar...">
-                        <button class="searchButton"> <img class="searchImage" id="buscar_icono"
+                    <form method="post" id="search-bar">
+                        <input type="search" id="site-search" name="search" aria-label="buscar información"
+                            class="buscador bg-light" placeholder="Buscar..." required>
+                        <button type="submit" class="searchButton"> <img class="searchImage" id="buscar_icono"
                                 src="../../resources/img/cards/buttons/search.png"></button>
                     </form>
                     <!-- Botones de SCRUD, actualizar y agregar -->
@@ -154,44 +154,9 @@
 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tbody-rowsTU">
                                 <!-- Linea de Informacion -->
-                                <tr>
-                                    <td>1</td>
-                                    <td>Adminsitrador</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a class="btn btn-primary" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                            data-bs-target="#actualizarform"><img
-                                                src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Tecnico</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a class="btn btn-primary" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                            data-bs-target="#actualizarform"><img
-                                                src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Cliente</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a class="btn btn-primary" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                            data-bs-target="#actualizarform"><img
-                                                src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Deshabilitado</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a class="btn btn-primary" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                            data-bs-target="#actualizarform"><img
-                                                src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                                    </td>
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -232,54 +197,34 @@
                         <h5 class="modal-title" id="actualizarformLabel">Agregar Tipo de Usuario</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" id="formModal">
-                        <div class="row">
-                            <div class="col">
-                                <label for="formGroupExampleInput" class="form-label">Tipo de Usuario</label>
-                                <form>
-                                    <input type="text" class="form-control" id="formGroupExampleInput"
+
+                    <!-- Modal formulario-->
+                    <form method="post" id="insert-modal">
+                        <div class="modal-body" id="formModal">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="nombre_tipo_usuario" class="form-label">Tipo de Usuario</label>
+                                    <input type="text" class="form-control" id="nombreTipo" name="nombre_tipo_usuario"
                                         placeholder="Escriba el nombre de un tipo de Usuario">
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                href="#actualizarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/add_26px.png"></a></button>
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                href="#eliminarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/Remove_26px.png"></a></button>
-                            <button type="button" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
-                                    class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                        <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                        <div class="modal-footer">
+                            <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
+                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
+                                    data-bs-dismiss="modal" href="#agregado" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/add_26px.png"></a></button>
+                                <button type="reset" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
+                                        class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <!-- Modal de AGREGAR CONFIRMAR -->
-        <div class="modal fade" id="agregarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-            tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ¿Desea agregar esta información como un nuevo registro?
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#agregarform" data-bs-toggle="modal"
-                            data-bs-dismiss="modal" id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#agregado" data-bs-toggle="modal"
-                            data-bs-dismiss="modal" id="btnmenu">Confirmar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <!-- Modal de AGREGAR REALIZADO -->
         <div class="modal fade" id="agregado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
             tabindex="-1">
@@ -298,6 +243,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Modal de ACTUALIZAR REGISTRO -->
         <div class="modal fade" id="actualizarform" tabindex="-1" aria-labelledby="actualizarform" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -306,31 +252,29 @@
                         <h5 class="modal-title" id="actualizarformLabel">Actualizar Tipo de Usuario</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" id="formModal">
-                        <div class="row">
-                            <div class="col">
-                                <label for="formGroupExampleInput" class="form-label">Tipo de Usuario</label>
-                                <form>
-                                    <input type="text" class="form-control" id="formGroupExampleInput"
+                    <form method="post" id="update-modal">
+                        <div class="modal-body" id="formModal">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="nombre_tipo_update" class="form-label">Tipo de Usuario</label>
+                                    <input type="text" class="form-control" id="nombre_tipo_update" name="nombre_tipo_usuario"
                                         placeholder="Administrador">
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Fotter del modal -->
-                    <div class="modal-footer">
-                        <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                href="#actualizarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/edit_26px.png"></a></button>
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                href="#eliminarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/Remove_26px.png"></a></button>
-                            <button type="button" class="btn btn-light" id="btnmenu" data-bs-toggle="modal"
-                                data-bs-dismiss="modal"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                        <!-- Fotter del modal -->
+                        <div class="modal-footer">
+                            <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
+                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
+                                    data-bs-dismiss="modal" href="#actualizarConfirmar" id="btnmenu"><a
+                                        class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/edit_26px.png"></a></button>
+                                <button type="reset" class="btn btn-light" id="btnmenu" data-bs-toggle="modal"
+                                    data-bs-dismiss="modal"><a class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -348,21 +292,22 @@
                         ¿Desea actualizar la información de este registro?
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
-                            data-bs-dismiss="modal" id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#actualizado" data-bs-toggle="modal"
-                            data-bs-dismiss="modal" id="btnmenu">Confirmar</button>
+                        <form id="actualizarConfirmar_buttons" class="modal-footer">
+                            <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
+                                id="btnmenu">Volver</button>
+                            <button type="submit"  class="btn btn-primary" >Confirmar</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Modal de ACTUALIZACIÓN REALIZADA -->
-        <div class="modal fade" id="actualizado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3"
+        <div class="modal fade" id="actualizado" aria-hidden="true" 
             tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel3">Actualizado con éxito</h5>
+                        <h5 class="modal-title">Actualizado con éxito</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -375,7 +320,7 @@
             </div>
         </div>
         <!-- Modal de ELIMINAR -->
-        <div class="modal fade" id="eliminarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+        <div class="modal fade" id="eliminarForm" aria-hidden="true" 
             tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -389,8 +334,12 @@
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
                             data-bs-dismiss="modal" id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
-                            data-bs-dismiss="modal" id="btnmenu">Confirmar</button>
+                        <form id="delete-form">
+                            <input type="hidden" id="id-eliminar" name="id-eliminar">
+                            <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                            <button class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
+                                data-bs-dismiss="modal" id="btnmenu" type="submit">Confirmar</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -439,7 +388,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
-
+    <script type="module" src="../../controller/privado/tipo_usuario.js"></script>
 </body>
 
 </html>

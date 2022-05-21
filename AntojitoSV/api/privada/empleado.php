@@ -73,7 +73,7 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case CREATE:
-            $_POST = $empleado->validateSpace($_POST); 
+            $_POST = $empleado->validateSpace($_POST);
             if (!$empleado->setNombre($_POST[EMPLEADO_NOMBRE])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
             } else if (!$empleado->setApellido($_POST[EMPLEADO_APELLIDO])) {
@@ -82,11 +82,9 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'DUI no valido';
             } else if (!$empleado->setNIT($_POST[EMPLEADO_NIT])) {
                 $result[EXCEPTION] = 'NIT no valido';
-            }
-            else if (!$empleado->setFechaNacmiento($_POST['fecha_nacimiento'])) {
+            } else if (!$empleado->setFechaNacmiento($_POST['fecha_nacimiento'])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
-            }
-            else if (!$empleado->setTelefono($_POST[EMPLEADO_TELEFONO])) {
+            } else if (!$empleado->setTelefono($_POST[EMPLEADO_TELEFONO])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
             } else if (!$empleado->setCorreo($_POST[EMPLEADO_CORREO])) {
                 $result[EXCEPTION] = 'Correo electronico no valido';
@@ -102,16 +100,21 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Tipo incorrecto';
             } elseif ($empleado->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                if ($result[DATA_SET] = $compra_existencia->readAll()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
-                } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
-                }
                 $result[MESSAGE] = 'Empleado creado existosamente';
-                if ($empleado->saveFile($_FILES[EMPLEADO_ARCHIVO],$empleado->getRutaImagenes(),$empleado->getImagen())) {
+                if ($empleado->saveFile($_FILES[EMPLEADO_ARCHIVO], $empleado->getRutaImagenes(), $empleado->getImagen())) {
                     $result[MESSAGE] = 'Imagen ingresada correctanente';
+                    if ($result[DATA_SET] = $empleado->readAll()) {
+                        $result[STATUS] = SUCESS_RESPONSE;
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
                 } else {
                     $result[MESSAGE] = 'Imagen no se a ingresado correctanente';
+                    if ($result[DATA_SET] = $empleado->readAll()) {
+                        $result[STATUS] = SUCESS_RESPONSE;
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
                 }
             } else {
                 $result[EXCEPTION] = Database::getException();
@@ -138,11 +141,9 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Apellido incorrecto';
             } else if (!$empleado->setDUI($_POST[EMPLEADO_DUI])) {
                 $result[EXCEPTION] = 'DUI no valido';
-            } 
-            else if (!$empleado->setFechaNacmiento($_POST['fecha_nacimiento'])) {
+            } else if (!$empleado->setFechaNacmiento($_POST['fecha_nacimiento'])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
-            }
-            else if (!$empleado->setNIT($_POST[EMPLEADO_NIT])) {
+            } else if (!$empleado->setNIT($_POST[EMPLEADO_NIT])) {
                 $result[EXCEPTION] = 'NIT no valido';
             } else if (!$empleado->setTelefono($_POST[EMPLEADO_TELEFONO])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
@@ -162,12 +163,12 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Tipo incorrecto';
             } elseif ($empleado->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                $result[MESSAGE] = 'EMPLEADO modificada correctamente';
+                if ($result[DATA_SET] = $empleado->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';
                 }
-                $result[MESSAGE] = 'EMPLEADO modificada correctamente';
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
@@ -177,12 +178,12 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Empleado incorrecto';
             } elseif ($empleado->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                $result[MESSAGE] = 'Empleado removido correctamente';
+                if ($result[DATA_SET] = $empleado->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';
                 }
-                $result[MESSAGE] = 'Empleado removido correctamente';
             } else {
                 $result[EXCEPTION] = Database::getException();
             }

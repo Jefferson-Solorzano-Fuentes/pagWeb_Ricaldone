@@ -65,7 +65,7 @@ if (isset($_GET[ACTION])) {
             } elseif ($tipo_empleado->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Tipo de empleado creado existosamente';
-                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                if ($result[DATA_SET] = $tipo_empleado->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';
@@ -96,7 +96,7 @@ if (isset($_GET[ACTION])) {
             } elseif ($tipo_empleado->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Cantidad modificada correctamente';
-                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                if ($result[DATA_SET] = $tipo_empleado->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';
@@ -111,7 +111,7 @@ if (isset($_GET[ACTION])) {
             } elseif ($tipo_empleado->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Tipo de empleado removido correctamente';
-                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                if ($result[DATA_SET] = $tipo_empleado->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';

@@ -18,7 +18,6 @@ class empleado extends validator
     private $imagen = null;
     private $estado_empleado = null;
     private $tipo_empleado = null;
-    private $ruta = '../imagenes/empleado';
 
     private $true = 1;
     private $still_true = 2;
@@ -237,12 +236,6 @@ class empleado extends validator
     public function getTipoEmpleado()
     {
         return $this->tipo_empleado;
-    }
-
-    //Ruta de imagenes
-    public function getRuta()
-    {
-        return $this->ruta;
     }
 
 

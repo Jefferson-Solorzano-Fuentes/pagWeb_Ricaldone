@@ -110,15 +110,14 @@ class comentario extends validator
     //Utilizaremos los campos o (NOMBRE, APELLIDO, TIPO, ESTADO, TELEFONO, DUI, NIT)
     public function searchRows($value)
     {
-        $sql = 'SELECT id_compra_existencia, compra_existencia.id_producto, nombre_producto, id_proveedores, nombre, stock_comprado, fecha_compra, compra_existencia.visibilidad
-        FROM compra_existencia
-        INNER JOIN proveedor 
-        ON proveedor.id_proveedor = compra_existencia.id_proveedores 
+        $sql = 'SELECT id_comentario, comentario, comentario.id_cliente, comentario.id_producto, nombre_producto, nombre_cliente, comentario.visibilidad
+        FROM comentario
+        INNER JOIN cliente
+        ON cliente.id_cliente = comentario.id_cliente
         INNER JOIN producto
-        ON producto.id_producto = compra_existencia.id_producto
-        WHERE nombre_producto ILIKE ? OR nombre ILIKE ?
-        ORDER BY fecha_compra';
-        $params = array("%$value%","%$value%");
+        ON producto.id_producto = comentario.id_producto
+        WHERE comentario.id_producto = ?';
+        $params = array($this->producto_id);
         return Database::getRows($sql, $params);
     }
 
@@ -132,7 +131,7 @@ class comentario extends validator
         return Database::executeRow($sql, $params);
     }
 
-    //Metodo para la eliminación DELETE 
+    //Metodo para la deactivacion 
     public function deleteRow()
     {
         $sql = 'UPDATE comentario
@@ -142,6 +141,7 @@ class comentario extends validator
         return Database::executeRow($sql, $params);
     }
 
+    //Metodo de activación
     public function unDeleteRow()
     {
         $sql = 'UPDATE comentario

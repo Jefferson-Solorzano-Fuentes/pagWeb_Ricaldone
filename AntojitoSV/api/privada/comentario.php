@@ -16,6 +16,7 @@ const READ_ONE = 'readOne';
 const CREATE = 'create';
 const UPDATE = 'update';
 const DELETE = 'delete';
+const UNDELETE = 'unDelete';
 const READ_CLIENTE = 'readCliente';
 const READ_PRODUCTO = 'readProducto';
 const SUCESS_RESPONSE = 1;
@@ -51,8 +52,10 @@ if (isset($_GET[ACTION])) {
             break;
         case SEARCH:
             $_POST = $comentario->validateSpace($_POST);
-            if ($_POST[SEARCH] == '') {
+            if ($_POST[SEARCH] == ' ') {
                 $result[EXCEPTION] = 'Ingrese un valor para buscar';
+            } elseif (!$comentario->setProducto($_POST[SEARCH])) {
+                $result[EXCEPTION] = 'identificador Comentario incorrecto';
             } elseif ($result[DATA_SET] = $comentario->searchRows($_POST[SEARCH])) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Valor encontrado';
@@ -122,15 +125,20 @@ if (isset($_GET[ACTION])) {
             break;
         case DELETE:
             if (!$comentario->setId($_POST[COMENTARIO_ID])) {
-                $result[EXCEPTION] = 'Empleado incorrecto';
+                $result[EXCEPTION] = 'Comentario incorrecto';
             } elseif ($comentario->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Empleado removido correctamente';
-                if ($result[DATA_SET] = $compra_existencia->readAll()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
-                } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
-                }
+                $result[MESSAGE] = 'Comentario removido correctamente';
+            } else {
+                $result[EXCEPTION] = Database::getException();
+            }
+            break;
+        case UNDELETE:
+            if (!$comentario->setId($_POST[COMENTARIO_ID])) {
+                $result[EXCEPTION] = 'Comentario incorrecto';
+            } elseif ($comentario->unDeleteRow()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+                $result[MESSAGE] = 'Comentario reactivado correctamente';
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
