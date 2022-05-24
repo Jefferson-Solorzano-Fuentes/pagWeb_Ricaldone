@@ -123,7 +123,6 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
-            
         case DELETE:
             if (!$comentario->setId($_POST[COMENTARIO_ID])) {
                 $result[EXCEPTION] = 'Comentario incorrecto';
@@ -134,7 +133,6 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
-
         case UNDELETE:
             if (!$comentario->setId($_POST[COMENTARIO_ID])) {
                 $result[EXCEPTION] = 'Comentario incorrecto';
@@ -145,7 +143,6 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
-
         case READ_CLIENTE:
             if ($result[DATA_SET] = $comentario->readCliente()) {
                 $result[STATUS] = SUCESS_RESPONSE;

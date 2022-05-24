@@ -10,23 +10,20 @@ import { getElementById } from "../constants/functions.js";
 const API_VEHICULO = SERVER + 'privada/vehiculo.php?action=';
 // @ts-ignore
 const ENDPOINT__VEHICULO= SERVER + 'privada/vehiculo.php?action=readAll';
-//El nombre del CRUD que es
-const CRUD_NAME = "vehiculo";
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
 let datos_vehiculo = {
-    "vehiculo_id": 0,
-    "disponibilidad": 'Disponible',
-    "VIN" : '',
-    "placa" : '',
-    "vehiculo_imagen" : ''
+    "id": 0,
+    "disponibilidad": true,
+    "vin" : ' ',
+    "placa" : ' ',
+    "imagen" : ' '
 }
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
-
-    console.log("ejecutando")
+    console.log()
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     await readRows(API_VEHICULO, fillTableVehiculo)
     // Se define una variable para establecer las opciones del componente Modal.
@@ -42,6 +39,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
+
+
 //Metodo para llenar las tablas de datos, utiliza la función readRows()
 export function fillTableVehiculo(dataset) {
     let content = '';
@@ -50,7 +49,7 @@ export function fillTableVehiculo(dataset) {
         // Se crean y concatenan las filas de la tabla con los datos de cada registro.
         content += ` 
             <tr>
-                <td>${row.imagen}</td>
+                <td> <img src="../../api/imagenes/vehiculo/${row.imagen}" width=100></td>
                 <td>${row.disponibilidad}</td>
                 <td>${row.VIN}</td>
                 <td>${row.placa}</td>
@@ -59,9 +58,9 @@ export function fillTableVehiculo(dataset) {
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
                         <form method="post" id="read-one">
-                            <a onclick="guardarDatosVehiculo(${row.id_vehiculo})"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
+                            <a onclick="guardarDatosVehiculo(${row.id_vehiculo},'${row.VIN}','${row.placa}')"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
                                 <img src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                            <a  onclick="guardarDatosVehiculo(${row.id_vehiculo})" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
+                            <a  onclick="guardarDatosVehiculo(${row.id_vehiculo},'${row.VIN}','${row.placa}')" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
                             name="search" data>
                                 <img src="../../resources/img/cards/buttons/delete_40px.png"></a>
                         </form>
@@ -77,8 +76,15 @@ export function fillTableVehiculo(dataset) {
 
 // FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE EMPLEADO
 // @ts-ignore
-window.guardarDatosVehiculo = (id_vehiculo) => {
+window.guardarDatosVehiculo = (id_vehiculo, VIN, placa) => {
     datos_vehiculo.id = id_vehiculo
+    // SE ACTUALIZA EL VALOR DEL INPUT CON EL ID ESPECIFICADO AL VALOR INGRESADO AL PARAMETRO, ASEGURENSE DE QUE ELINPUT TENGA 
+    //EL ATRIBUTO "value="""
+    //@ts-ignore
+    document.getElementById("vin_update").value = String(VIN)
+
+    //@ts-ignore
+    document.getElementById("placa_update").value = String(placa)
 }
 
 
@@ -88,21 +94,14 @@ getElementById('search-bar').addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
-    await searchRows(API_VEHICULO, 'search-bar');
+    await searchRows(API_VEHICULO, 'search-bar', fillTableVehiculo);
 });
 
-// Metodo que se ejecuta al enviar un formulario de update
-/*getElementById('read-one').addEventListener('submit', async (event) => {
-    // Se evita recargar la página web después de enviar el formulario.
-    event.preventDefault();
-    // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
-    await searchRows(API_TIPO_EMPLEADO, 'read-one');
-});*/
+
 
 // EVENTO PARA INSERT 
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
 document.getElementById('insert-modal').addEventListener('submit', async (event) => {
-    console.log("ejecutando formulario")
 
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
@@ -112,21 +111,21 @@ document.getElementById('insert-modal').addEventListener('submit', async (event)
     let parameters = new FormData(getElementById('insert-modal'));
 
     // PETICION A LA API POR MEDIO DEL ENPOINT, Y LOS PARAMETROS NECESARIOS PARA LA INSERSION DE DATOS
-    await saveRow(API_VEHICULO, API_CREATE, parameters);
+    await saveRow(API_VEHICULO, API_CREATE, parameters, fillTableVehiculo);
 });
+
 
 
 // EVENTO PARA UPDATE
 // SE EJECUTARA CUANDO EL BOTON DE TIPO "submit" DEL FORMULARIO CON EL ID 'actualizarConfirmar_buttons' SE CLICKEE
 getElementById('update-modal').addEventListener('submit', async (event) => {
     event.preventDefault()
-
     console.log("EJECUTANDO MODAL")
 
     //@ts-ignore
     let parameters = new FormData(getElementById('update-modal'));
     //@ts-ignore
-    parameters.append('id', datos_vehiculo['vehiculo_id'])
+    parameters.append('id', datos_vehiculo['id'])
 
     // API REQUEST
     await saveRow(API_VEHICULO, API_UPDATE, parameters, fillTableVehiculo);
@@ -135,15 +134,13 @@ getElementById('update-modal').addEventListener('submit', async (event) => {
 //EVENTO PARA DELETE
 getElementById('delete-form').addEventListener('submit', async (event) => {
     event.preventDefault();
+    console.log("EJECUTANDO ELIMINACION")
 
     // CONVIRTIENDO EL JSON A FORMDATA
     let parameters = new FormData();
     //@ts-ignore
-    parameters.append('id', datos_vehiculo['vehiculo_id'])
+    parameters.append('id', datos_vehiculo['id'])
 
     //API REQUEST
     await deleteRow(API_VEHICULO, parameters, fillTableVehiculo);
 });
-
-
-

@@ -121,9 +121,9 @@ if (isset($_GET[ACTION])) {
                     $result[EXCEPTION] = 'No hay datos registrados';
                 }
                 break;
-                //case SEARCH:
+            case SEARCH:
                 $_POST = $usuario->validateForm($_POST);
-                if ($_POST[SEARCH] == '') {
+                if ($_POST[SEARCH] == ' ') {
                     $result[EXCEPTION] = 'Ingrese un valor para buscar';
                 } elseif ($result[DATASET] = $usuario->searchRows($_POST[SEARCH])) {
                     $result[STATUS] = 1;

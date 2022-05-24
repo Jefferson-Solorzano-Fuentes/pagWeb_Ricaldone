@@ -136,10 +136,15 @@ class usuario extends validator
     //Utilizaremos los campos o (NOMBRE_TIPO)
     public function searchRows($value)
     {
-        $sql = 'SELECT id_pedido_envio, id_pedido, id_envio, visibilidad
-        FROM pedido_envio
-        WHERE id_pedido =? OR id_envio =?';
-        $params = array($this->pedido_id, $this->envio_id);
+        $sql = 'SELECT id_usuario, nombre_usuario, tipo_usuario.nombre_tipo, nombre_cliente
+        FROM usuario
+        INNER JOIN tipo_usuario
+        ON tipo_usuario.id_tipo_usuario = usuario.id_tipo_usuario
+        INNER JOIN cliente
+        ON cliente.id_cliente = usuario.id_cliente
+        WHERE nombre_usuario ILIKE ? OR nombre_tipo ILIKE ? OR nombre_cliente ILIKE ?
+        ORDER BY nombre_usuario ';
+        $params = array("%$value%", "%$value%", "%$value%");
         return Database::getRows($sql, $params);
     }
 
@@ -174,15 +179,15 @@ class usuario extends validator
         return Database::executeRow($sql, $params);
     }
 
-     //Metodo de activación
-     public function unDeleteRow()
-     {
-         $sql = 'UPDATE usuario
+    //Metodo de activación
+    public function unDeleteRow()
+    {
+        $sql = 'UPDATE usuario
          SET id_tipo_usuario =?
          WHERE id_usuario=?';
-         $params = array($this->tipo_cliente, $this->id_usuario);
-         return Database::executeRow($sql, $params);
-     }
+        $params = array($this->tipo_cliente, $this->id_usuario);
+        return Database::executeRow($sql, $params);
+    }
 
     //Metodo para leer READ
     //Leer todas las filas de la Tabla
@@ -197,7 +202,8 @@ class usuario extends validator
         return Database::getRows($sql, $params);
     }
 
-    public function readAll() {
+    public function readAll()
+    {
         $sql = 'SELECT id_usuario, nombre_usuario, password, tipo_usuario.nombre_tipo, id_empleado,usuario.id_cliente, nombre_cliente
         FROM usuario
         INNER JOIN tipo_usuario
@@ -205,9 +211,7 @@ class usuario extends validator
         INNER JOIN cliente
         ON cliente.id_cliente = usuario.id_cliente';
         $params = null;
-        return Database::getRows($sql, $params); 
-
-
+        return Database::getRows($sql, $params);
     }
 
     public function readAllCliente()

@@ -143,16 +143,11 @@ export function fillTablePedido(dataset) {
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
                         <form method="post" id="read-one">
-                            <a onclick="guardarDatosPedido(${row.id_pedido})"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
+                            <a onclick="guardarDatosPedido(${row.id_pedido},'${row.fecha_entrega}','${row.monto_total}','${row.direccion}','${row.descripcion}','${row.fecha_creacion}')"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
                                 <img src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                            <a  onclick="guardarDatosPedido(${row.id_pedido})" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
+                            <a  onclick="guardarDatosPedido(${row.id_pedido},'${row.fecha_entrega}','${row.monto_total}','${row.direccion}','${row.descripcion}','${row.fecha_creacion}')" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
                             name="search">
                                 <img src="../../resources/img/cards/buttons/delete_40px.png"></a>
-                            <form method='post' id='${row.id_pedido}'>
-                                <a onclick="guardarDetallePedido(${row.id_pedido})" data-bs-toggle="modal"  type="submit"
-                                data-bs-target="#detallePedidoForm" class="btn btn-primary" data-tooltip="comentario" name="search"><img
-                                    src="../../resources/img/cards/buttons/eye_40px.png"></a>
-                            </form>   
                         </form>
                     </div>
                 </td>
@@ -166,9 +161,22 @@ export function fillTablePedido(dataset) {
 
 // FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE EMPLEADO
 // @ts-ignore
-window.guardarDatosPedido = (id_pedido) => {
+window.guardarDatosPedido = (id_pedido, fecha_entrega, monto_total, direccion, descripcion, fecha_creacion) => {
     datos_pedido.id = id_pedido
+    // SE ACTUALIZA EL VALOR DEL INPUT CON EL ID ESPECIFICADO AL VALOR INGRESADO AL PARAMETRO, ASEGURENSE DE QUE ELINPUT TENGA 
+    //EL ATRIBUTO "value="""
+    //@ts-ignore
+    document.getElementById("fecha_entrega_update").value = String(fecha_entrega)
+    //@ts-ignore
+    document.getElementById("monto_update").value = String(monto_total)
+    //@ts-ignore
+    document.getElementById("direccion_update").value = String(direccion)
+    //@ts-ignore
+    document.getElementById("descripcion_update").value = String(descripcion)
+    //@ts-ignore
+    document.getElementById("fecha_creacion_update").value = String(fecha_creacion)   
 }
+
 
 // FUNCION PARA GUARDAR LOS DATOS DEL COMENTARIO
 // @ts-ignore

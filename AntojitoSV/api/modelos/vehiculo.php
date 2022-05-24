@@ -1,4 +1,4 @@
-<?php
+ <?php
 //Maneja la tabla de vehiculo  de la base de datos
 //Contiene validaciones de validator
 
@@ -43,12 +43,8 @@ class vehiculo extends validator
     //Descripcion del producto  - varying char
     public function setVIN($value)
     {
-        if ($this->validateVIN($value)) {
-            $this->descripcion = $value;
+            $this->vin = $value;
             return true;
-        } else {
-            return false;
-        }
     }
 
     //Id del proveedor - integer
@@ -65,16 +61,21 @@ class vehiculo extends validator
     //Imagen del producto - varying char
     public function setImagen($file)
     {
-        if ($this->validateImageFile($file, 500, 500)) {
+        if ($this->validateImageFile($file, 5000, 5000)) {
             $this->imagen = $this->getFileName();
             return true;
-        } else {
-            return false;
-        }
+            } else { 
+                return false;
+            }
     }
 
     //Metodos para obtener los valores de los campos
 
+    //Ruta img
+    public function getRutaImagenes(){
+        return '../imagenes/vehiculo/';
+    }
+    
     //Id 
     public function getId()
     {
@@ -131,7 +132,7 @@ class vehiculo extends validator
         $sql = 'INSERT INTO vehiculo(
             disponibilidad, "VIN", placa, imagen)
             VALUES (?, ?, ?, ?)';
-        $params = array($this->disponibilidad, $this->vin, $this->placa, $this->imagen);
+        $params = array($this->true, $this->vin, $this->placa, $this->imagen);
         return Database::executeRow($sql, $params);
     }
 
@@ -141,7 +142,7 @@ class vehiculo extends validator
         $sql = 'UPDATE vehiculo
         SET disponibilidad=?, "VIN"=?, placa=?, imagen=?
         WHERE id_vehiculo=?';
-        $params = array($this->disponibilidad, $this->vin, $this->placa, $this->imagen, $this->id_vehiculo);
+        $params = array($this->true, $this->vin, $this->placa, $this->imagen, $this->id_vehiculo);
         return Database::executeRow($sql, $params);
     }
 

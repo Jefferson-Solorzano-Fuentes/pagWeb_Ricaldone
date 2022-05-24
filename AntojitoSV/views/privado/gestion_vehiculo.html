@@ -133,10 +133,10 @@
             <div class="container-fluid" id="containerImg">
                 <div class="searchContainer">
                     <!-- Barra de  Buscador -->
-                    <form>
-                        <input type="search" id="site-search" name="buscador_empleado" aria-label="buscar información"
-                            class="buscador bg-light" placeholder="Buscar...">
-                        <button class="searchButton"> <img class="searchImage" id="buscar_icono"
+                    <form method="post" id="search-bar">
+                        <input type="search" id="site-search" name="search" aria-label="buscar información"
+                            class="buscador bg-light" placeholder="Buscar..." required>
+                        <button type="submit" class="searchButton"> <img class="searchImage" id="buscar_icono"
                                 src="../../resources/img/cards/buttons/search.png"></button>
                     </form>
                     <!-- Botones de SCRUD, actualizar y agregar -->
@@ -197,80 +197,51 @@
 
         <!-- Modal de AGREGAR REGISTRO-->
         <div class="modal fade" id="agregarform" tabindex="-1" aria-labelledby="agregarform" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="actualizarformLabel">Agregar Vehículo</h5>
+                        <h5 class="modal-title">Agregar Vehiculo</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" id="formModal">
-                        <div class="row">
-                            <div class="col-6">
-                                <label for="formGroupExampleInput" class="form-label">Disponibilidad</label>
-                                <form>
-                                    <select name="select" class="form-control">
-                                        <option value="value1" selected>Disponible</option>
-                                        <option value="value2">En Mantenimiento</option>
-                                        <option value="value3">Fuera de Uso</option>
-                                    </select>
-                                </form>
-                                <label for="formGroupExampleInput" class="form-label">VIN</label>
-                                <form>
-                                    <input type="text" class="form-control" id="formGroupExampleInput"
-                                        placeholder="Escriba el VIN del Vehiculo">
-                                </form>
-                                <label for="formGroupExampleInput" class="form-label">Placa del Vehiculo</label>
-                                <form>
-                                    <input type="tel" class="form-control" id="formGroupExampleInput"
-                                        placeholder="Escriba la placa del Vehiculo">
-                                </form>
-                                <div class="row">
-                                    <div class="col-10">
-                                        <label for="formGroupExampleInput" class="form-label">Conductor</label>
-                                        <form>
-                                            <select name="select" class="form-control">
-                                                <option value="value1" selected>Andres Alejandro Leon Guzman</option>
-                                                <option value="value2">Jefferson Alxandro Solorzano Reyes</option>
-                                                <option value="value3">Jesus Daniel Ezquivel Flores</option>
-                                                <option value="value4">Rodrigo Almnedaros Bonilla Bonifacio</option>
-                                            </select>
-                                        </form>
-                                    </div>
-                                    <div class="col-1">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-dismiss="modal" href="#agregar_conductor" id="add_conductor"><a
-                                                class="nav-link"><img
-                                                    src="../../resources/img/cards/buttons/add_30px.png"></a></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-1">
+                    <!-- Formulario-->
 
-                            </div>
-                            <div class="col-5">
-                                <label for="formGroupExampleInput" class="form-label">Imagen</label>
-                                <form>
+                    <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
+                    <form method="post" id="insert-modal">
+                        <div class="modal-body" id="formModal">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="vin" class="form-label">VIN</label>
+                                    <input type="text" class="form-control" id="vin" name="vin"
+                                        placeholder="Escriba el VIN del Vehiculo">
+                                    <label for="placa" class="form-label">Placa del Vehiculo</label>
+                                    <input type="tel" class="form-control" id="placa" name="placa"
+                                        placeholder="Escriba la placa del Vehiculo">
+                                </div>
+                                <div class="col-1">
+                                </div>
+                                <div class="col-5">
+                                    <label for="formGroupExampleInput" class="form-label">Imagen</label>
                                     <a class="btn" id="upload_image">
-                                        <input type="file" class="form-control form-control-sm form-Input-Style">
+                                        <input type="file" class="form-control form-control-sm form-Input-Style"
+                                            name="archivo" id="archivo">
                                         <img src="../../resources/img/cards/buttons/download_100px.png">
                                     </a>
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                href="#actualizarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/add_26px.png"></a></button>
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                href="#eliminarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/Remove_26px.png"></a></button>
-                            <button type="button" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
-                                    class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                        <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                        <div class="modal-footer">
+                            <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
+                                <button type="submit" class="btn btn-light" data-bs-target="#agregado" data-bs-toggle="modal" 
+                                    data-bs-dismiss="modal" id="btnmenu"><a
+                                        class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/add_26px.png"></a></button>
+                                <button type="reset" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
+                                        class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -353,7 +324,7 @@
             </div>
         </div>
         <!-- Modal de ACTUALIZAR REGISTRO -->
-        <div class="modal fade" id="actualizarform" tabindex="-1" aria-labelledby="agregarform" aria-hidden="true">
+        <div class="modal fade" id="actualizarform" tabindex="-1" aria-labelledby="actualizarform" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -367,45 +338,29 @@
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col-6">
-                                    <label for="disponibilidad" class="form-label">Disponibilidad</label>
-                                    <select onchange="seleccionarDisponibilidad()" id="disponibilidad"
-                                        name="disponibilidad"></select>
-                                    <label for="VIN" class="form-label">VIN</label>
-                                    <input type="text" class="form-control" id="VIN" name="VIN"
+                                    <label for="vin_update" class="form-label">VIN</label>
+                                    <input type="text" class="form-control" id="vin_update" name="vin"
                                         placeholder="Escriba el VIN del Vehiculo">
-                                    <label for="placa" class="form-label">Placa del Vehículo</label>
-                                    <input type="text" class="form-control" id="placa" name="placa"
-                                        placeholder="Escriba la placa del vehículo">
-                                    <div class="row">
-                                        <div class="col-10">
-                                            <label for="formGroupExampleInput" class="form-label">Conductor</label>
-                                            <select onchange="seleccionarConductor()" id="conductor"
-                                                name="conductor"></select>
-                                        </div>
-                                        <div class="col-1">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-dismiss="modal" href="#agregar_conductor" id="add_conductor"><a
-                                                    class="nav-link"><img
-                                                        src="../../resources/img/cards/buttons/add_30px.png"></a>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <label for="placa_update" class="form-label">Placa del Vehiculo</label>
+                                    <input type="tel" class="form-control" id="placa_update" name="placa"
+                                        placeholder="Escriba la placa del Vehiculo">
+                                </div>
+                                <div class="col-1">
                                 </div>
                                 <div class="col-5">
                                     <label for="formGroupExampleInput" class="form-label">Imagen</label>
-                                    <form>
-                                        <a class="btn" id="upload_image">
-                                            <input type="file" class="form-control form-control-sm form-Input-Style">
-                                            <img src="../../resources/img/cards/buttons/download_100px.png">
-                                        </a>
-                                    </form>
+                                    <a class="btn" id="upload_image">
+                                        <input type="file" class="form-control form-control-sm form-Input-Style"
+                                            name="archivo" id="archivo">
+                                        <img src="../../resources/img/cards/buttons/download_100px.png">
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
                         <div class="modal-footer">
                             <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
+                                <button type="submit" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#actualizado"
                                     data-bs-dismiss="modal" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/cards/buttons/add_26px.png"></a></button>
                                 <button type="reset" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
@@ -498,23 +453,26 @@
         <div class="modal fade" id="eliminarForm" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
             tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
-                <form method="post" id="delete-form">
-                    <div class="modal-content">
-                        <div class="modal-header" id="formHeader">
-                            <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Desea Eliminar la información de este registro?
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
-                                id="btnmenu">Volver</button>
-                            <button type="submit" class="btn btn-primary" data-bs-target="#eliminado"
-                                data-bs-toggle="modal" id="btnmenu">Confirmar</button>
-                        </div>
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                </form>
+                    <div class="modal-body">
+                        ¿Desea Eliminar la información de este registro?
+                    </div>
+                    <div class="modal-footer">
+                        <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
+                        <button class="btn btn-primary" data-bs-dismiss="modal"n data-bs-toggle="modal"
+                        data-bs-dismiss="modal" id="btnmenu">Volver</button>
+                        <form id="delete-form">
+                            <input type="hidden" id="id-eliminar" name="id-eliminar">
+                            <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                            <button class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
+                                data-bs-dismiss="modal" id="btnmenu" type="submit">Confirmar</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Modal de ELIMINAR REALIZADO -->
@@ -570,21 +528,55 @@
 
 <!--
     <div class="row">
-                            <div class="col">
-                                <label for="formGroupExampleInput" class="form-label">Vehiculo</label>
+                            <div class="col-6">
+                                <label for="formGroupExampleInput" class="form-label">Disponibilidad</label>
                                 <form>
                                     <select name="select" class="form-control">
-                                        <option value="value1" selected>Sedan vin: 1FAFP58U0XA209159</option>
+                                        <option value="value1" selected>Disponible</option>
+                                        <option value="value2">En Mantenimiento</option>
+                                        <option value="value3">Fuera de Uso</option>
                                     </select>
                                 </form>
-                                <label for="formGroupExampleInput" class="form-label">Conductor</label>
+                                <label for="formGroupExampleInput" class="form-label">VIN</label>
                                 <form>
-                                    <select name="select" class="form-control">
-                                        <option value="value1" selected>Seleccione al conductor...</option>
-                                        <option value="value2">Alejandro Daniel Reyes Cordoba</option>
-                                        <option value="value3">Jefferson Alxeandro Fuentes Reyes</option>
-                                        <option value="value4">Marlon Josue Mira Guerra</option>
-                                    </select>
+                                    <input type="text" class="form-control" id="formGroupExampleInput"
+                                        placeholder="Escriba el VIN del Vehiculo">
+                                </form>
+                                <label for="formGroupExampleInput" class="form-label">Placa del Vehiculo</label>
+                                <form>
+                                    <input type="tel" class="form-control" id="formGroupExampleInput"
+                                        placeholder="Escriba la placa del Vehiculo">
+                                </form>
+                                <div class="row">
+                                    <div class="col-10">
+                                        <label for="formGroupExampleInput" class="form-label">Conductor</label>
+                                        <form>
+                                            <select name="select" class="form-control">
+                                                <option value="value1" selected>Andres Alejandro Leon Guzman</option>
+                                                <option value="value2">Jefferson Alxandro Solorzano Reyes</option>
+                                                <option value="value3">Jesus Daniel Ezquivel Flores</option>
+                                                <option value="value4">Rodrigo Almnedaros Bonilla Bonifacio</option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                    <div class="col-1">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-dismiss="modal" href="#agregar_conductor" id="add_conductor"><a
+                                                class="nav-link"><img
+                                                    src="../../resources/img/cards/buttons/add_30px.png"></a></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-1">
+
+                            </div>
+                            <div class="col-5">
+                                <label for="formGroupExampleInput" class="form-label">Imagen</label>
+                                <form>
+                                    <a class="btn" id="upload_image">
+                                        <input type="file" class="form-control form-control-sm form-Input-Style">
+                                        <img src="../../resources/img/cards/buttons/download_100px.png">
+                                    </a>
                                 </form>
                             </div>
                         </div>
