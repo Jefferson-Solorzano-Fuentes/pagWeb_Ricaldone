@@ -20,12 +20,12 @@ const SUCESS_RESPONSE = 1;
 
 // NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARIO
 const CLIENTE = 'cliente';
-const ID = 'id';
-const NOMBRE = 'nombre_cliente';
-const TELEFONO = 'telefono';
-const CORREO = 'correo';
+const CLIENTE_ID = 'id';
+const CLIENTE_NOMBRE = 'nombre_cliente';
+const CLIENTE_TELEFONO = 'telefono';
+const CLIENTE_CORREO = 'correo';
 const DIRECCION = 'direccion';
-const ESTADO = 'estado';
+const CLIENTE_ESTADO = 'estado';
 
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
@@ -65,23 +65,28 @@ if (isset($_GET[ACTION])) {
             break;
         case CREATE:
             $_POST = $cliente->validateSpace($_POST);
-            if (!$cliente->setNombre($_POST[NOMBRE])) {
+            if (!$cliente->setNombre($_POST[CLIENTE_NOMBRE])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
-            } else if (!$cliente->setTelefono($_POST[TELEFONO])){
+            } else if (!$cliente->setTelefono($_POST[CLIENTE_TELEFONO])){
                 $result[EXCEPTION] = 'Número de Telefono no valido';
-            } else if (!$cliente->setCorreo($POST[CORREO])) {
+            } else if (!$cliente->setCorreo($_POST[CLIENTE_CORREO])) {
                 $result[EXCEPTION] = 'Correo electronico no valido';
-            } else if (!$cliente->setEstado($POST[ESTADO])){
+            } else if (!$cliente->setEstado($_POST[CLIENTE_ESTADO])){
                 $result[EXCEPTION] = 'Estado incorrecto';
             } elseif ($cliente->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Proveedor creado existosamente';
+                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
         case READ_ONE:
-            if (!$cliente->setId($_POST[ID])) {
+            if (!$cliente->setId($_POST[CLIENTE_ID])) {
                 $result[EXCEPTION] = 'Proveedor incorrecto';
             } elseif ($result[DATA_SET] = $cliente->readOne()) {
                 $result[STATUS] = SUCESS_RESPONSE;
@@ -93,29 +98,37 @@ if (isset($_GET[ACTION])) {
             break;
         case UPDATE:
             $_POST = $cliente->validateSpace($_POST);
-            if (!$cliente->setId($_POST[ID])) {
+            if (!$cliente->setId($_POST[CLIENTE_ID])) {
                 $result[EXCEPTION] = 'Proveedor cliente';
-            } else if(!$cliente->setNombre($_POST[NOMBRE])) {
+            } else if(!$cliente->setNombre($_POST[CLIENTE_NOMBRE])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
-            } else if (!$cliente->setTelefono($_POST[TELEFONO])){
+            } else if (!$cliente->setTelefono($_POST[CLIENTE_TELEFONO])){
                 $result[EXCEPTION] = 'Número de Telefono no valido';
-            } else if (!$cliente->setCorreo($POST[CORREO])) {
+            } else if (!$cliente->setCorreo($_POST[CLIENTE_CORREO])) {
                 $result[EXCEPTION] = 'Correo electronico no valido';
-            } else if (!$cliente->setEstado($POST[ESTADO])){
-                $result[EXCEPTION] = 'Estado incorrecto';
             } elseif ($cliente->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Cantidad modificada correctamente';
+                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
         case DELETE:
-            if (!$cliente->setId($_POST[ID])) {
+            if (!$cliente->setId($_POST[CLIENTE_ID])) {
                 $result[EXCEPTION] = 'Empleado incorrecto';
             } elseif ($cliente->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Proveedor removido correctamente';
+                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }

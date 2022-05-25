@@ -21,12 +21,12 @@ class proveedor extends validator
     //Id
     public function setId($value)
     {
-        // if ($this->validateNaturalNumber($value)) {
-        $this->id_proovedor = $value;
-        return true;
-        // } else {
-        //     return false;
-        // }
+        if ($this->validateNaturalNumber($value)) {
+            $this->id_proovedor = $value;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //Nombre del tipo proovedor

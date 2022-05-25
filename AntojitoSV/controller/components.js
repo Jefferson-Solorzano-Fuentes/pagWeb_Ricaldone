@@ -10,6 +10,7 @@ import {
   API_DELETE,
   SERVER,
   API_READONE,
+  API_UNDELETE,
 } from "./constants/api_constant.js";
 import { getElementById } from "./constants/functions.js";
 
@@ -20,23 +21,25 @@ export async function readRows(ENDPOINT, fillrows) {
   let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, null);
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
+    return
   }
+
+  console.log("HOLA")
   // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo
-  return;
 }
 
 // BUSCAR REGISTROS
-export async function searchRows(ENDPOINT, formID,fillrows) {
+export async function searchRows(ENDPOINT, formID, fillrows, parametersJson) {
   let APIEndpoint = ENDPOINT + API_SEARCH;
   //@ts-ignore
-  let parameters = new FormData(getElementById(formID));
+  let parameters = formID ? new FormData(getElementById(formID)) : parametersJson;
+
+
   //Llamar a la función de conexión api para realizar fetch y then
   let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
-  console.log(APIResponse)
   //Utilizar la respuesta del api para realizar funciones
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
-    console.log("EEJECUTADO")
     // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo
     return;
   }
@@ -51,11 +54,7 @@ export async function saveRow(ENDPOINT, ACTION, parameters, fillrows) {
   // ejecutando request hacia la API
   let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
   // validando respuesta
-  console.log(APIResponse)
-
-
   if (APIResponse.status == API_SUCESS_REQUEST) {
-    console.log(APIResponse.dataset)
     fillrows(APIResponse.dataset)
     return;
   }
@@ -65,6 +64,18 @@ export async function saveRow(ENDPOINT, ACTION, parameters, fillrows) {
 // ELIMINAR REGISTROS
 export async function deleteRow(ENDPOINT, parameters, fillrows) {
   let APIEndpoint = ENDPOINT + API_DELETE;
+
+  let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
+
+  if (APIResponse.status == API_SUCESS_REQUEST) {
+    fillrows(APIResponse.dataset)
+    return;
+  }
+}
+
+// ELIMINAR REGISTROS
+export async function unDeleteRow(ENDPOINT, parameters, fillrows) {
+  let APIEndpoint = ENDPOINT + API_UNDELETE;
 
   let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
 

@@ -205,26 +205,28 @@
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
-                                    <label for="formGroupExampleInput" class="form-label">Nombre Completo</label>
-                                    <input type="text" class="form-control" name="nombre" id="nombre"
+                                    <label for="nombre_cliente" class="form-label">Nombre Completo</label>
+                                    <input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente"
                                         placeholder="Escriba el nombre del cliente">
-                                    <label for="formGroupExampleInput" class="form-label">Teléfono</label>
-                                    <input type="text" class="form-control" id="formGroupExampleInput"
+                                    <label for="telefono" class="form-label">Teléfono</label>
+                                    <input type="text" class="form-control" id="telefono" name="telefono"
                                         placeholder="Escriba su número telefónico">
-                                    <label for="formGroupExampleInput" class="form-label">Correo Electrónico</label>
-                                    <input type="email" class="form-control" id="formGroupExampleInput"
+                                    <label for="correo" class="form-label">Correo Electrónico</label>
+                                    <input type="text" class="form-control" id="correo" name="correo"
                                         placeholder="Escriba su correo electrónico">
                                 </div>
                             </div>
                         </div>
                         <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                        <!-- Fotter del modal -->
                         <div class="modal-footer">
                             <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
                                 <button type="submit" class="btn btn-light" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#agregado" id="btnmenu"><a class="nav-link"><img
-                                            src="../../resources/img/cards/buttons/add_26px.png"></a></button>
-                                <button type="reset" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
+                                    data-bs-dismiss="modal" href="#actualizarConfirmar" id="btnmenu"><a
                                         class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/edit_26px.png"></a></button>
+                                <button type="reset" class="btn btn-light" id="btnmenu" data-bs-toggle="modal"
+                                    data-bs-dismiss="modal"><a class="nav-link"><img
                                             src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
                             </div>
                         </div>
@@ -267,36 +269,26 @@
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
-                                    <label for="formGroupExampleInput" class="form-label">Nombre Completo</label>
-                                    <form>
-                                        <input type="text" class="form-control" id="formGroupExampleInput"
-                                            placeholder="Escriba el nombre del cliente">
-                                    </form>
-                                    <label for="formGroupExampleInput" class="form-label">Teléfono</label>
-                                    <form>
-                                        <input type="text" class="form-control" id="formGroupExampleInput"
-                                            placeholder="Escriba su número telefónico">
-                                    </form>
-                                    <label for="formGroupExampleInput" class="form-label">Correo Electrónico</label>
-                                    <form>
-                                        <input type="email" class="form-control" id="formGroupExampleInput"
-                                            placeholder="Escriba su correo electrónico">
-                                    </form>
+                                    <label for="nombre_cliente" class="form-label">Nombre Completo</label>
+                                    <input type="text" class="form-control" id="nombre_cliente_update" name="nombre_cliente"
+                                        placeholder="Escriba el nombre del cliente">
+                                    <label for="telefono" class="form-label">Teléfono</label>
+                                    <input type="text" class="form-control" id="telefono_update" name="telefono"
+                                        placeholder="Escriba su número telefónico">
+                                    <label for="correo" class="form-label">Correo Electrónico</label>
+                                    <input type="text" class="form-control" id="correo_update" name="correo"
+                                        placeholder="Escriba su correo electrónico">
                                 </div>
                             </div>
                         </div>
                         <!-- Fotter del modal -->
                         <div class="modal-footer">
                             <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                                <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
                                     data-bs-dismiss="modal" href="#actualizarConfirmar" id="btnmenu"><a
                                         class="nav-link"><img
                                             src="../../resources/img/cards/buttons/edit_26px.png"></a></button>
-                                <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#eliminarConfirmar" id="btnmenu"><a
-                                        class="nav-link"><img
-                                            src="../../resources/img/cards/buttons/Remove_26px.png"></a></button>
-                                <button type="button" class="btn btn-light" id="btnmenu" data-bs-toggle="modal"
+                                <button type="reset" class="btn btn-light" id="btnmenu" data-bs-toggle="modal"
                                     data-bs-dismiss="modal"><a class="nav-link"><img
                                             src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
                             </div>
@@ -305,7 +297,7 @@
                 </div>
             </div>
         </div>
-        </div>
+
         <!-- Modal de CONFIRMACIÓN -->
         <div class="modal fade" id="actualizarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
             tabindex="-1">
@@ -318,18 +310,17 @@
                     <div class="modal-body">
                         ¿Desea actualizar la información de este registro?
                     </div>
-                    <div class="modal-footer">
+                    <form id="actualizarConfirmar_buttons" class="modal-footer">
                         <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
                             id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#actualizado" data-bs-toggle="modal"
-                            id="btnmenu">Confirmar</button>
-                    </div>
+                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                    </form>
                 </div>
             </div>
         </div>
+
         <!-- Modal de ACTUALIZACIÓN REALIZADA -->
-        <div class="modal fade" id="actualizado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3"
-            tabindex="-1">
+        <div class="modal fade" id="actualizado" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -340,14 +331,14 @@
                         El registro se ha actualizado con éxito.
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                        <button class="btn btn-primary" class="btn btn-primary" data-bs-dismiss="modal"
+                            id="btnmenu">Aceptar</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Modal de ELIMINAR -->
-        <div class="modal fade" id="eliminarForm" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-            tabindex="-1">
+        <div class="modal fade" id="eliminarForm" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -358,14 +349,14 @@
                         ¿Desea Eliminar la información de este registro?
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
-                            id="btnmenu">Volver</button>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Volver</button>
+                        </div>
                         <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
                         <form id="delete-form">
-                            <input type="hidden" id="id-eliminar" name="id-eliminar">
                             <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
-                            <button class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
-                                data-bs-dismiss="modal" id="btnmenu" type="submit">Confirmar</button>
+                            <button type="submit" class="btn btn-primary" data-bs-target="#eliminado"
+                                data-bs-toggle="modal" id="btnmenu">Confirmar</button>
                         </form>
                     </div>
                 </div>

@@ -132,22 +132,16 @@
             <div class="container-fluid" id="containerImg">
                 <div class="searchContainer">
                     <!-- Barra de  Buscador -->
-                    <form>
-                        <input type="search" id="site-search" name="buscador_empleado" aria-label="buscar información"
-                            class="buscador bg-light" placeholder="Buscar...">
-                        <button class="searchButton"> <img class="searchImage" id="buscar_icono"
+                    <form method="post" id="search-bar">
+                        <input type="search" id="site-search" name="search" aria-label="buscar información"
+                            class="buscador bg-light" placeholder="Buscar..." required>
+                        <button type="submit" class="searchButton"> <img class="searchImage" id="buscar_icono"
                                 src="../../resources/img/cards/buttons/search.png"></button>
                     </form>
                     <!-- Botones de SCRUD, actualizar y agregar -->
                     <div class="container-fluid d-flex justify-content-between" id="opciones">
                         <button type="button" class="btn btn-primary" id="btnExternos">
                             <a href="gestion_tipo_usuario.html">Tipo Usuario</a></button>
-
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-primary" id="btnExternos" data-bs-toggle="modal"
-                                data-bs-target="#agregarform"><a class="nav-link" href="#"><img
-                                        src="../../resources/img/cards/buttons/add_40px.png"></a></button>
-                        </div>
                     </div>
                     <!-- Tabla de Datos -->
                     <div class="container-fluid" id="tabla_datos">
@@ -155,87 +149,14 @@
                             <thead>
                                 <tr>
                                     <th>Nombre Completo</th>
-                                    <th>Clave</th>
                                     <th>Tipo de Usuario</th>
-                                    <th>Empleado</th>
                                     <th>Cliente</th>
-                                    <th>Actualizar</th>
+                                    <th>Gestionar</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tbody-rowsUS">
                                 <!-- Linea de Informacion -->
-                                <tr>
-                                    <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                                    <td>*****************</td>
-                                    <td>Gerente</td>
-                                    <td>Cristian Parada</td>
-                                    <td>Daniela Castro</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a class="btn btn-primary" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                            data-bs-target="#actualizarform"><img
-                                                src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                                    <td>*****************</td>
-                                    <td>Gerente</td>
-                                    <td>Cristian Parada</td>
-                                    <td>Daniela Castro</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a class="btn btn-primary" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                            data-bs-target="#actualizarform"><img
-                                                src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                                    <td>*****************</td>
-                                    <td>Gerente</td>
-                                    <td>Cristian Parada</td>
-                                    <td>Daniela Castro</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a class="btn btn-primary" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                            data-bs-target="#actualizarform"><img
-                                                src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                                    <td>*****************</td>
-                                    <td>Gerente</td>
-                                    <td>Cristian Parada</td>
-                                    <td>Daniela Castro</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a class="btn btn-primary" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                            data-bs-target="#actualizarform"><img
-                                                src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                                    <td>*****************</td>
-                                    <td>Gerente</td>
-                                    <td>Cristian Parada</td>
-                                    <td>Daniela Castro</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a class="btn btn-primary" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                            data-bs-target="#actualizarform"><img
-                                                src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                                    <td>*****************</td>
-                                    <td>Gerente</td>
-                                    <td>Cristian Parada</td>
-                                    <td>Daniela Castro</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a class="btn btn-primary" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                            data-bs-target="#actualizarform"><img
-                                                src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                                    </td>
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -270,226 +191,35 @@
 
         <!-- Formulario del CRUD -->
 
-        <!-- Modal de AGREGAR REGISTRO-->
-        <div class="modal fade" id="agregarform" tabindex="-1" aria-labelledby="agregarform" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="actualizarformLabel">Agregar Usuario</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="formModal">
-                        <div class="row">
-                            <div class="col">
-                                <label for="formGroupExampleInput" class="form-label">Nombre</label>
-                                <form>
-                                    <input type="text" class="form-control" id="formGroupExampleInput"
-                                        placeholder="Escriba el nombre del empleado">
-                                </form>
-                                <label for="formGroupExampleInput" class="form-label">Clave</label>
-                                <form>
-                                    <input type="password" class="form-control" id="formGroupExampleInput"
-                                        placeholder="Escriba su clave">
-                                </form>
-                                <label for="formGroupExampleInput" class="form-label">Tipo de Usuario</label>
-                                <form>
-                                    <select name="select" class="form-control">
-                                        <option value="value1" selected>Gerente</option>
-                                        <option value="value2">Administrador</option>
-                                        <option value="value2">Cajero</option>
-                                    </select>
-                                </form>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="formGroupExampleInput" class="form-label">Empleado</label>
-                                        <form>
-                                            <select name="select" class="form-control">
-                                                <option value="value1" selected>Cristian Parada</option>
-                                                <option value="value2">Jefferson Solorzano</option>
-                                                <option value="value2">Fernando Ortiz</option>
-                                            </select>
-                                        </form>
-                                    </div>
-                                    <div class="col">
-                                        <label for="formGroupExampleInput" class="form-label">Cliente</label>
-                                        <form>
-                                            <select name="select" class="form-control">
-                                                <option value="value1" selected>Daniela Castro</option>
-                                                <option value="value2">Cristian Martínez</option>
-                                                <option value="value2">Isaac Rodríguez</option>
-                                            </select>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                href="#agregarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/add_26px.png"></a></button>
-                            <button type="button" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
-                                    class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal de AGREGAR CONFIRMAR -->
-        <div class="modal fade" id="agregarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-            tabindex="-1">
+
+        <!-- REACTIVAR DE COMENTARIO-->
+        <div class="modal fade" id="reactivarForm" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
+                        <h5 class="modal-title">Confirmar</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        ¿Desea agregar esta información como un nuevo registro?
+                        ¿Desea Reactivar este comentario?
                     </div>
+
                     <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#agregarform" data-bs-toggle="modal"
-                            id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#agregado" data-bs-toggle="modal"
-                            id="btnmenu">Confirmar</button>
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Volver</button>
+                        <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
+                        <form id="reactivate-form">
+                            <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal"
+                                id="btnmenu">Confirmar</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Modal de AGREGAR REALIZADO -->
-        <div class="modal fade" id="agregado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
-            tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel4">Agregado con éxito</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        El registro se ha agregado con éxito.
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal de ACTUALIZAR REGISTRO -->
-        <div class="modal fade" id="actualizarform" tabindex="-1" aria-labelledby="actualizarform" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="actualizarformLabel">Actualizar Usuario</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="formModal">
-                        <div class="row">
-                            <div class="col">
-                                <label for="formGroupExampleInput" class="form-label">Nombre</label>
-                                <form>
-                                    <input type="text" class="form-control" id="formGroupExampleInput"
-                                        placeholder="Rodrigo Almendares Bonilla Bonifacio">
-                                </form>
-                                <label for="formGroupExampleInput" class="form-label">Clave</label>
-                                <form>
-                                    <input type="password" class="form-control" id="formGroupExampleInput"
-                                        placeholder="*****************">
-                                </form>
-                                <label for="formGroupExampleInput" class="form-label">Tipo de Usuario</label>
-                                <form>
-                                    <select name="select" class="form-control">
-                                        <option value="value1" selected>Gerente</option>
-                                        <option value="value2">Administrador</option>
-                                        <option value="value2">Cajero</option>
-                                    </select>
-                                </form>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="formGroupExampleInput" class="form-label">Empleado</label>
-                                        <form>
-                                            <select name="select" class="form-control">
-                                                <option value="value1" selected>Cristian Parada</option>
-                                                <option value="value2">Jefferson Solorzano</option>
-                                                <option value="value2">Fernando Ortiz</option>
-                                            </select>
-                                        </form>
-                                    </div>
-                                    <div class="col">
-                                        <label for="formGroupExampleInput" class="form-label">Cliente</label>
-                                        <form>
-                                            <select name="select" class="form-control">
-                                                <option value="value1" selected>Daniela Castro</option>
-                                                <option value="value2">Cristian Martínez</option>
-                                                <option value="value2">Isaac Rodríguez</option>
-                                            </select>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Fotter del modal -->
-                    <div class="modal-footer">
-                        <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                href="#actualizarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/edit_26px.png"></a></button>
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                href="#eliminarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/Remove_26px.png"></a></button>
-                            <button type="button" class="btn btn-light" id="btnmenu" data-bs-toggle="modal"
-                                data-bs-dismiss="modal"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        <!-- Modal de CONFIRMACIÓN -->
-        <div class="modal fade" id="actualizarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-            tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel">Confirmar</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ¿Desea actualizar la información de este registro?
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
-                            id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#actualizado" data-bs-toggle="modal"
-                            id="btnmenu">Confirmar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal de ACTUALIZACIÓN REALIZADA -->
-        <div class="modal fade" id="actualizado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3"
-            tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel3">Actualizado con éxito</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        El registro se ha actualizado con éxito.
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+
         <!-- Modal de ELIMINAR -->
-        <div class="modal fade" id="eliminarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-            tabindex="-1">
+        <div class="modal fade" id="eliminarForm" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -499,11 +229,16 @@
                     <div class="modal-body">
                         ¿Desea Eliminar la información de este registro?
                     </div>
+
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
                             id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
-                            id="btnmenu">Confirmar</button>
+                        <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
+                        <form id="delete-form">
+                            <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                            <button type="submit" class="btn btn-primary" data-bs-target="#eliminado"
+                                data-bs-toggle="modal" id="btnmenu">Confirmar</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -551,6 +286,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
+    <script type="module" src="../../controller/privado/usuario.js"></script>
 
 </body>
 

@@ -154,7 +154,7 @@
                                     <th>Imagen</th>
                                     <th>Identificador</th>
                                     <th>Nombre de la Categoria</th>
-                                    <th>Actualizar</th>
+                                    <th>Gestionar</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody-rowsCategoria">
@@ -207,10 +207,12 @@
                             <div class="col">
                                 <label for="nombre_categoria" class="form-label">Categoria</label>
                                 <input type="text" class="form-control" id="nombre_categoria" name="nombre_categoria"
-                                    placeholder="Nombre de categoría">
-                                <label for="formGroupExampleInput" class="form-label">Imagen</label>
+                                    placeholder="Nombre de categoría" required="">
+                                <label for="upload_image" class="form-label">Imagen</label>
                                 <a class="btn" id="upload_image">
-                                    <input type="file" class="form-control form-control-sm form-Input-Style">
+                                    <input accept="image/*" type="file"
+                                        class="form-control form-control-sm form-Input-Style" name="archivo"
+                                        id="archivo" required="">
                                     <img src="../../resources/img/cards/buttons/download_100px.png">
                                 </a>
                             </div>
@@ -218,8 +220,7 @@
                         <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
                         <div class="modal-footer">
                             <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" id="btnmenu"><a class="nav-link"><img
+                                <button type="submit" class="btn btn-light" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/cards/buttons/add_26px.png"></a></button>
                                 <button type="reset" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
@@ -230,27 +231,7 @@
                 </div>
             </div>
         </div>
-        <!-- Modal de AGREGAR CONFIRMAR -->
-        <div class="modal fade" id="agregarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-            tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ¿Desea agregar esta información como un nuevo registro?
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#agregarform" data-bs-toggle="modal"
-                            data-bs-dismiss="modal" id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#agregado" data-bs-toggle="modal"
-                            data-bs-dismiss="modal" id="btnmenu">Confirmar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <!-- Modal de AGREGAR REALIZADO -->
         <div class="modal fade" id="agregado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
             tabindex="-1">
@@ -283,13 +264,14 @@
                     <form method="post" id="update-modal">
                         <div class="modal-body" id="formModal">
                             <div class="col">
-                                <label for="nombre_categoria" class="form-label">Nombre de la Categoria</label>
-                                <input type="text" class="form-control" id="nombre_categoria_update" name="nombre_categoria"
-                                    placeholder="Sorbete">
+                                <label for="nombre_categoria" class="form-label">Categoria</label>
+                                <input type="text" class="form-control" id="nombre_categoria_update"
+                                    name="nombre_categoria" placeholder="Sorbete" required>
                                 <label for="formGroupExampleInput" class="form-label">Imagen</label>
                                 <a class="btn" id="upload_image">
-                                    <input type="file" class="form-control form-control-sm form-Input-Style"
-                                        name="imagen" id="archivo">
+                                    <input accept="image/*" type="file"
+                                        class="form-control form-control-sm form-Input-Style" name="archivo"
+                                        id="archivo">
                                     <img src="../../resources/img/cards/buttons/download_100px.png">
                                 </a>
                             </div>
@@ -298,8 +280,9 @@
                         <div class="modal-footer">
                             <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
                                 <button type="submit" class="btn btn-light" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" id="btnmenu"><a class="nav-link"><img
-                                            src="../../resources/img/cards/buttons/add_26px.png"></a></button>
+                                    data-bs-dismiss="modal" href="#actualizarConfirmar" id="btnmenu"><a
+                                        class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/edit_26px.png"></a></button>
                                 <button type="reset" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
                                             src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
@@ -310,8 +293,7 @@
             </div>
         </div>
         <!-- Modal de CONFIRMACIÓN -->
-        <div class="modal fade" id="actualizarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-            tabindex="-1">
+        <div class="modal fade" id="actualizarConfirmar" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -331,8 +313,7 @@
             </div>
         </div>
         <!-- Modal de ACTUALIZACIÓN REALIZADA -->
-        <div class="modal fade" id="actualizado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3"
-            tabindex="-1">
+        <div class="modal fade" id="actualizado" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -349,8 +330,7 @@
             </div>
         </div>
         <!-- Modal de ELIMINAR -->
-        <div class="modal fade" id="eliminarForm" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-            tabindex="-1">
+        <div class="modal fade" id="eliminarForm" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -373,8 +353,7 @@
             </div>
         </div>
         <!-- Modal de ELIMINAR REALIZADO -->
-        <div class="modal fade" id="eliminado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
-            tabindex="-1">
+        <div class="modal fade" id="eliminado" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -416,26 +395,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script type="module" src="../../controller/privado/categoria.js"></script>
 
 </body>
 
 </html>
-
-<!--    BODY DEL MODAL
-<div class="row">
-    <div class="col">
-        <label for="formGroupExampleInput" class="form-label">Categoria</label>
-        <form>
-            <input type="text" class="form-control" id="formGroupExampleInput"
-                placeholder="Sorbetes">
-        </form>
-        <label for="formGroupExampleInput" class="form-label">Imagen</label>
-        <form>
-            <a class="btn" id="upload_image">
-                <input type="file" class="form-control form-control-sm form-Input-Style">
-                <img src="../../resources/img/cards/buttons/download_100px.png">
-            </a>
-        </form>
-    </div>
-</div> -->

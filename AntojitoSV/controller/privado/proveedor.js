@@ -1,7 +1,7 @@
 //Importar las constantes y metodos de components.js y api_constant.js
 // @ts-ignore
 import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
-import { SERVER,  API_CREATE, API_UPDATE } from "../constants/api_constant.js";
+import { SERVER, API_CREATE, API_UPDATE } from "../constants/api_constant.js";
 import { getElementById, validateExistenceOfUser } from "../constants/functions.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
@@ -22,12 +22,12 @@ let datos_proveedor = {
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
-    
+    //Validar que el usuario este en sesión
     validateExistenceOfUser()
 
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     //Declarando cual CRUD es este
-    await readRows(API_PROOVEDOR,fillTableProveedor)
+    await readRows(API_PROOVEDOR, fillTableProveedor)
     // Se define una variable para establecer las opciones del componente Modal.
     // @ts-ignore
     let options = {
@@ -41,9 +41,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 //Metodo para llenar las tablas de datos, utiliza la función readRows()
- function fillTableProveedor(dataset) {
+function fillTableProveedor(dataset) {
     console.log("EXECUTING")
-    
+
     let content = '';
     // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
     dataset.map(function (row) {
@@ -57,9 +57,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
                         <form method="post" id="read-one">
-                            <a onclick="guardarDatosProveedor(${row.id_proveedor})"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
+                            <a onclick="guardarDatosProveedor(${row.id_proveedor},'${row.nombre}','${row.telefono}','${row.correo}','${row.direccion}')"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
                                 <img src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                            <a  onclick="guardarDatosProveedor(${row.id_proveedor})" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
+                            <a  onclick="guardarDatosProveedor(${row.id_proveedor},'${row.nombre}','${row.telefono}','${row.correo}','${row.direccion}')" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
                             name="search">
                                 <img src="../../resources/img/cards/buttons/delete_40px.png"></a>
                         </form>
@@ -74,8 +74,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE EMPLEADO
 // @ts-ignore
-window.guardarDatosProveedor = (id_proveedor) => {
+window.guardarDatosProveedor = (id_proveedor, nombre_proveedor, telefono, correo, direccion) => {
     datos_proveedor.id = id_proveedor;
+    // SE ACTUALIZA EL VALOR DEL INPUT CON EL ID ESPECIFICADO AL VALOR INGRESADO AL PARAMETRO, ASEGURENSE DE QUE ELINPUT TENGA 
+    //EL ATRIBUTO "value="""
+    //@ts-ignore
+    document.getElementById("nombre_proveedor_update").value = String(nombre_proveedor)
+    //@ts-ignore
+    document.getElementById("telefono_update").value = String(telefono)
+    //@ts-ignore
+    document.getElementById("correo_proveedor_update").value = String(correo)
+    //@ts-ignore
+    document.getElementById("direccion_update").value = String(direccion)
 }
 
 
@@ -93,7 +103,7 @@ getElementById('search-bar').addEventListener('submit', async (event) => {
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
 document.getElementById('insert-modal').addEventListener('submit', async (event) => {
 
-    console.log("ejecutanso insercion")
+    console.log("ejecutando insercion")
 
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
@@ -102,7 +112,7 @@ document.getElementById('insert-modal').addEventListener('submit', async (event)
     //OBTIENE LOS DATOS DEL FORMULARIO QUE TENGA COMO ID "'insert-modal'"
     let parameters = new FormData(getElementById('insert-modal'));
     //@ts-ignore
-    parameters.append('estado',true)
+    parameters.append('estado', true)
 
     // PETICION A LA API POR MEDIO DEL ENPOINT, Y LOS PARAMETROS NECESARIOS PARA LA INSERSION DE DATOS
     await saveRow(API_PROOVEDOR, API_CREATE, parameters, fillTableProveedor);
@@ -122,12 +132,12 @@ getElementById('update-modal').addEventListener('submit', async (event) => {
     //@ts-ignore
     parameters.append('id', datos_proveedor['id'])
 
-    var object = {};
-    parameters.forEach(function(value, key){
-    object[key] = value;
-});
-var json = JSON.stringify(object);
-console.log(json)
+//    var object = {};
+//   parameters.forEach(function (value, key) {
+//        object[key] = value;
+//    });
+//    var json = JSON.stringify(object);
+//    console.log(json)
 
     // API REQUEST
     await saveRow(API_PROOVEDOR, API_UPDATE, parameters, fillTableProveedor);

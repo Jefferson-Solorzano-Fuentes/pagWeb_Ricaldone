@@ -9,16 +9,16 @@ import { getElementById } from "../constants/functions.js";
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_VEHICULO = SERVER + 'privada/vehiculo.php?action=';
 // @ts-ignore
-const ENDPOINT__VEHICULO= SERVER + 'privada/vehiculo.php?action=readAll';
+const ENDPOINT__VEHICULO = SERVER + 'privada/vehiculo.php?action=readAll';
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
 let datos_vehiculo = {
     "id": 0,
     "disponibilidad": true,
-    "vin" : ' ',
-    "placa" : ' ',
-    "imagen" : ' '
+    "vin": ' ',
+    "placa": ' ',
+    "imagen": ' '
 }
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
@@ -109,6 +109,9 @@ document.getElementById('insert-modal').addEventListener('submit', async (event)
     //@ts-ignore
     //OBTIENE LOS DATOS DEL FORMULARIO QUE TENGA COMO ID "'insert-modal'"
     let parameters = new FormData(getElementById('insert-modal'));
+    
+    $('#agregado').modal('show');
+    $('#agregarform').modal('hide');
 
     // PETICION A LA API POR MEDIO DEL ENPOINT, Y LOS PARAMETROS NECESARIOS PARA LA INSERSION DE DATOS
     await saveRow(API_VEHICULO, API_CREATE, parameters, fillTableVehiculo);
@@ -144,6 +147,3 @@ getElementById('delete-form').addEventListener('submit', async (event) => {
     //API REQUEST
     await deleteRow(API_VEHICULO, parameters, fillTableVehiculo);
 });
-
-
-

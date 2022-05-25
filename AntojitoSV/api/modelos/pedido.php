@@ -183,7 +183,7 @@ class pedido extends validator
         $sql = 'UPDATE pedido
         SET  fecha_entrega=?, monto_total=?, direccion=?, descripcion=?, fecha_creacion=?, id_cliente=?, estado=?
         WHERE id_pedido=?';
-        $params = array($this->fecha_entrega, $this->monto, $this->direccion, $this->descripcion, $this->fecha_creacion, $this->cliente_id, 1, $this->id_pedido);
+        $params = array($this->fecha_entrega, $this->monto, $this->direccion, $this->descripcion, $this->fecha_creacion, $this->cliente_id, '1', $this->id_pedido);
         return Database::executeRow($sql, $params);
     }
 

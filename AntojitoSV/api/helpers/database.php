@@ -85,7 +85,7 @@ class Database
         }
     }
 
-    
+
 
     //Retorna la ultima fila de registro creada
     public static function getLastRow($query, $values)
@@ -120,7 +120,7 @@ class Database
         // Se toman los errores existentes y se añaden a este switch para generar el mensaje personalizado
         switch ($code) {
             default:
-                self::$error = strval($code) . strval($message);
+                self::$error =  strval($code) . strval($message);
         }
     }
 

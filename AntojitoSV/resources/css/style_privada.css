@@ -12367,3 +12367,10 @@
 .modal label{
   margin-top: 10px;
 }
+
+#button_iniciar_sesion{
+  width: 80%;
+}
+#button_iniciar_sesion h5{
+  color: white;
+}

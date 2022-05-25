@@ -14,13 +14,13 @@ const ENDPOINT_TIPO_EMPLEADO = SERVER + 'privada/tipo_empleado.php?action=readAl
 const CRUD_NAME = "cliente";
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
-// SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
+// SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosCliente"
 let datos_cliente = {
     "id": 0,
     "nombre_cliente": ' ',
     "telefono": ' ',
     "correo": ' ',
-    "estado": '0'
+    "estado": true
 }
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
@@ -57,9 +57,9 @@ export function fillTableCliente(dataset) {
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
                         <form method="post" id="read-one">
-                            <a onclick="guardarDatosTipoEmpleado(${row.id_cliente})"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
+                            <a onclick="guardarDatosCliente(${row.id_cliente},'${row.nombre_cliente}','${row.telefono}','${row.correo}')"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
                                 <img src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                            <a  onclick="guardarDatosTipoEmpleado(${row.id_cliente})" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
+                            <a  onclick="guardarDatosCliente(${row.id_cliente},'${row.nombre_cliente}','${row.telefono}','${row.correo}')" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
                             name="search">
                                 <img src="../../resources/img/cards/buttons/delete_40px.png"></a>
                         </form>
@@ -74,8 +74,16 @@ export function fillTableCliente(dataset) {
 
 // FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE EMPLEADO
 // @ts-ignore
-window.guardarDatosTipoEmpleado = (id_cliente) => {
+window.guardarDatosCliente = (id_cliente, nombre_cliente, telefono, correo) => {
     datos_cliente.id = id_cliente
+    // SE ACTUALIZA EL VALOR DEL INPUT CON EL ID ESPECIFICADO AL VALOR INGRESADO AL PARAMETRO, ASEGURENSE DE QUE ELINPUT TENGA 
+    //EL ATRIBUTO "value="""
+    //@ts-ignore
+    document.getElementById("nombre_cliente_update").value = String(nombre_cliente)
+    //@ts-ignore
+    document.getElementById("telefono_update").value = String(telefono)
+    //@ts-ignore
+    document.getElementById("correo_update").value = String(correo)
 }
 
 
@@ -93,15 +101,18 @@ getElementById('search-bar').addEventListener('submit', async (event) => {
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
 document.getElementById('insert-modal').addEventListener('submit', async (event) => {
 
+    console.log("ejecutando insercion")
+
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
 
     //@ts-ignore
     //OBTIENE LOS DATOS DEL FORMULARIO QUE TENGA COMO ID "'insert-modal'"
     let parameters = new FormData(getElementById('insert-modal'));
-
+    //@ts-ignore
+    parameters.append('estado',true)
     // PETICION A LA API POR MEDIO DEL ENPOINT, Y LOS PARAMETROS NECESARIOS PARA LA INSERSION DE DATOS
-    await saveRow(API_CLIENTE, API_CREATE, parameters, CRUD_NAME);
+    await saveRow(API_CLIENTE, API_CREATE, parameters, fillTableCliente);
 });
 
 

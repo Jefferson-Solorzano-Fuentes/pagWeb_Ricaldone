@@ -1,0 +1,24 @@
+{
+  "name": "antojitosv",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^5.1.3",
+    "jquery": "^3.6.0",
+    "node": "^16.13.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jefferson-Solorzano-Fuentes/pagWeb_Ricaldone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jefferson-Solorzano-Fuentes/pagWeb_Ricaldone/issues"
+  },
+  "homepage": "https://github.com/Jefferson-Solorzano-Fuentes/pagWeb_Ricaldone#readme"
+}

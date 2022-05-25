@@ -14,13 +14,12 @@ class producto extends validator
     private $stock = null;
     private $descuento = null;
     private $categoria = null;
-    private $visiblidad = null;
+    private $visiblidad = true;
     private $id_imagen_p = null;
     private $imagen = null;
-    private $ruta = '../imagenes/producto';
 
     //ReadAll True False
-    private $true = '1';
+    private $true = true;
     private $false = '0';
     private $cero_stock = 0;
 
@@ -28,12 +27,9 @@ class producto extends validator
     //Id - integer
     public function setId($value)
     {
-        if ($this->validateNaturalNumber($value)) {
             $this->id_producto = $value;
             return true;
-        } else {
-            return false;
-        }
+
     }
 
     //Nombre del producto - varying char
@@ -48,7 +44,7 @@ class producto extends validator
     }
 
     //Descripcion del producto  - varying char
-    public function setProducto($value)
+    public function setDescripcion($value)
     {
         if ($this->validateString($value, 1, 100)) {
             $this->descripcion = $value;
@@ -59,14 +55,11 @@ class producto extends validator
     }
 
     //Id del proveedor - integer
-    public function setDUI($value)
+    public function setProveedorId($value)
     {
-        if ($this->validateNaturalNumber($value)) {
             $this->proveedor_id = $value;
             return true;
-        } else {
-            return false;
-        }
+
     }
 
     //Precio del producto - numeric
@@ -138,7 +131,7 @@ class producto extends validator
     //Imagen del producto - varying char
     public function setImagen($file)
     {
-        if ($this->validateImageFile($file, 500, 500)) {
+        if ($this->validateImageFile($file, 5000, 5000)) {
             $this->imagen = $this->getFileName();
             return true;
         } else {
@@ -147,6 +140,10 @@ class producto extends validator
     }
 
     //Metodos para obtener los valores de los campos
+
+    public function getRutaImagenes() {
+        return '../imagenes/producto/';
+    }
 
     //Id 
     public function getId()
@@ -214,19 +211,13 @@ class producto extends validator
         return $this->imagen;
     }
 
-    //Ruta de imagenes
-    public function getRuta()
-    {
-        return $this->ruta;
-    }
-
     //Metodos para realizar las operaciones SCRUD(Search, Create, Read, Update, Delete)
 
     //Metodo para la busqueda
     //Utilizaremos los campos o (NOMBRE, APELLIDO, TIPO, ESTADO, TELEFONO, DUI, NIT)
     public function searchRows($value)
     {
-        $sql = 'SELECT producto.id_producto, nombre_producto, descripcion, proveedor.id_proveedor, proveedor.nombre, precio, stock, descuento, categoria.id_categoria, nombre_categoria, imagen
+        $sql = 'SELECT producto.id_producto, nombre_producto, descripcion, proveedor.id_proveedor, proveedor.nombre, precio, stock, descuento, categoria.id_categoria, nombre_categoria, producto.imagen
         FROM producto
         INNER JOIN categoria
         ON categoria.id_categoria = producto.id_categoria
@@ -242,9 +233,9 @@ class producto extends validator
     public function createRow()
     {
         $sql = 'INSERT INTO producto(
-            nombre_producto, descripcion, id_proveedor, precio, stock, descuento, id_categoria, visibilidad)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre_producto, $this->descripcion, $this->proveedor_id, $this->precio, $this->stock, $this->descuento, $this->categoria, $this->visiblidad);
+            nombre_producto, descripcion, id_proveedor, precio, stock, descuento, id_categoria, visibilidad, imagen)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre_producto, $this->descripcion, $this->proveedor_id, $this->precio, $this->stock, $this->descuento, $this->categoria, $this->true, $this->imagen);
         return Database::executeRow($sql, $params);
     }
 
@@ -262,9 +253,9 @@ class producto extends validator
     public function updateRow()
     {
         $sql = 'UPDATE producto
-        SET  nombre_producto=?, descripcion=?, id_proveedor=?, precio=?, stock=?, descuento=?, id_categoria=?, visibilidad=?, imagen=?
+        SET nombre_producto=?, descripcion=?, id_proveedor=?, precio=?, stock=?, descuento=?, id_categoria=?, imagen=?
         WHERE id_producto=?';
-        $params = array($this->nombre_producto, $this->descripcion, $this->proveedor_id, $this->precio, $this->stock, $this->descuento, $this->categoria, $this->visiblidad, $this->id_producto);
+        $params = array($this->nombre_producto, $this->descripcion, $this->proveedor_id, $this->precio, $this->stock, $this->descuento, $this->categoria, $this->imagen, $this->id_producto);
         return Database::executeRow($sql, $params);
     }
 
@@ -302,7 +293,7 @@ class producto extends validator
     //Leer todas las filas de la Tabla
     public function readAll()
     {
-        $sql = 'SELECT producto.id_producto, nombre_producto, descripcion, proveedor.id_proveedor, proveedor.nombre, precio, stock, descuento, categoria.id_categoria, nombre_categoria, imagen
+        $sql = 'SELECT producto.id_producto, nombre_producto, descripcion, proveedor.id_proveedor, proveedor.nombre, precio, stock, descuento, categoria.id_categoria, nombre_categoria, producto.imagen
         FROM producto
         INNER JOIN categoria
         ON categoria.id_categoria = producto.id_categoria
@@ -335,7 +326,7 @@ class producto extends validator
         $sql = 'SELECT id_proveedor, nombre
         FROM proveedor';
         $params = null;
-        return Database::getRow($sql, $params);
+        return Database::getRows($sql, $params);
     }
 
     //Combobox de categoria
@@ -344,6 +335,6 @@ class producto extends validator
         $sql = 'SELECT id_categoria, nombre_categoria
         FROM categoria';
         $params = null;
-        return Database::getRow($sql, $params);
+        return Database::getRows($sql, $params);
     }
 }

@@ -22,8 +22,9 @@ const SUCESS_RESPONSE = 1;
 const CATEGORIA = 'categoria';
 const CATEGORIA_ID = 'id';
 const CATEGORIA_NOMBRE = 'nombre_categoria';
-const CATEGORIA_IMAGEN = 'imagen';
+const CATEGORIA_ARCHIVO = 'archivo';
 const TMP_NAME = 'tmp_name';
+
 
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
@@ -41,7 +42,6 @@ if (isset($_GET[ACTION])) {
         case READ_ALL:
             if ($result[DATA_SET] = $categoria->readAll()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
             } else {
@@ -65,16 +65,30 @@ if (isset($_GET[ACTION])) {
             $_POST = $categoria->validateSpace($_POST);
             if (!$categoria->setNombre($_POST[CATEGORIA_NOMBRE])) {
                 $result[MESSAGE] = 'Nombre incorrecto';
+            } elseif (!is_uploaded_file($_FILES[CATEGORIA_ARCHIVO][TMP_NAME])) {
+                $result[EXCEPTION] = 'Seleccione una imagen';
+            } elseif (!$categoria->setImagen($_FILES[CATEGORIA_ARCHIVO])) {
+                $result[EXCEPTION] = $categoria->getFileError();
             } elseif ($categoria->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Categoria creada existosamente';
+                if ($categoria->saveFile($_FILES[CATEGORIA_ARCHIVO], $categoria->getRutaImagenes(), $categoria->getImagen())) {
+                    $result[MESSAGE] = 'Imagen ingresada correctanente';
+                    if ($result[DATA_SET] = $categoria->readAll()) {
+                        $result[STATUS] = SUCESS_RESPONSE;
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
+                } else {
+                    $result[MESSAGE] = 'Imagen no se a ingresado correctanente';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
         case READ_ONE:
             if (!$categoria->setId($_POST[CATEGORIA_ID])) {
-                $result[EXCEPTION] = 'Categoria incorrecto';
+                $result[EXCEPTION] = 'Categoria incorrecta';
             } elseif ($result[DATA_SET] = $categoria->readOne()) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } elseif (Database::getException()) {
@@ -89,13 +103,23 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Categoría incorrecta';
             } elseif (!$categoria->setNombre($_POST[CATEGORIA_NOMBRE])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
-            } elseif (!is_uploaded_file($_FILES[CATEGORIA_IMAGEN][TMP_NAME])) {
+            } elseif (!is_uploaded_file($_FILES[CATEGORIA_ARCHIVO][TMP_NAME])) {
                 $result[EXCEPTION] = 'Seleccione una imagen';
-            } elseif (!$categoria->setImagen($_FILES[CATEGORIA_IMAGEN])) {
+            } elseif (!$categoria->setImagen($_FILES[CATEGORIA_ARCHIVO])) {
                 $result[EXCEPTION] = $categoria->getFileError();
             } elseif ($categoria->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Categoria modificada correctamente';
+                if ($categoria->saveFile($_FILES[CATEGORIA_ARCHIVO], $categoria->getRutaImagenes(), $categoria->getImagen())) {
+                    $result[MESSAGE] = 'Imagen ingresada correctanente';
+                    if ($result[DATA_SET] = $categoria->readAll()) {
+                        $result[STATUS] = SUCESS_RESPONSE;
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
+                } else {
+                    $result[MESSAGE] = 'Imagen no se a ingresado correctanente';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
@@ -106,6 +130,11 @@ if (isset($_GET[ACTION])) {
             } elseif ($categoria->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Categoria removida correctamente';
+                if ($result[DATA_SET] = $categoria->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }

@@ -3,9 +3,8 @@
 //Importar las constantes y metodos de components.js y api_constant.js
 // @ts-ignore
 import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
-import { SERVER } from "../constants/api_constant.js";
-import { getElementById } from "../constants/functions.js";
-import { API_CREATE, API_UPDATE } from "../constants/api_constant.js";
+import { SERVER, API_CREATE, API_UPDATE } from "../constants/api_constant.js";
+import { getElementById, validateExistenceOfUser } from "../constants/functions.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_TIPO_EMPLEADO = SERVER + 'privada/tipo_empleado.php?action=';
@@ -22,8 +21,10 @@ let datos_tipo_empleado = {
 }
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
-document.addEventListener('DOMContentLoaded', async (event) => {
-    event.preventDefault()
+document.addEventListener('DOMContentLoaded', async  () => {
+    //Validar que el usuario este en sesión
+    validateExistenceOfUser()
+
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     await readRows(API_TIPO_EMPLEADO, fillTableTipoEmpleado)
     // Se define una variable para establecer las opciones del componente Modal.
@@ -46,8 +47,6 @@ export function fillTableTipoEmpleado(dataset) {
     // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
     dataset.map(function (row) {
         // Se crean y concatenan las filas de la tabla con los datos de cada registro.
-        let idTipoEmpleado = row.id_tipo_empleado
-        let nombre_tipo_empleado = String(row.nombre_tipo)
         content += ` 
             <tr>
                 <td>${row.id_tipo_empleado}</td>
