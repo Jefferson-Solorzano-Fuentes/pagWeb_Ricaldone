@@ -109,6 +109,10 @@ document.getElementById('insert-modal').addEventListener('submit', async (event)
     //@ts-ignore
     //OBTIENE LOS DATOS DEL FORMULARIO QUE TENGA COMO ID "'insert-modal'"
     let parameters = new FormData(getElementById('insert-modal'));
+
+    $('#agregado').modal('show');
+    $('#agregarform').modal('hide');
+    
     //@ts-ignore
     parameters.append('estado',true)
     // PETICION A LA API POR MEDIO DEL ENPOINT, Y LOS PARAMETROS NECESARIOS PARA LA INSERSION DE DATOS

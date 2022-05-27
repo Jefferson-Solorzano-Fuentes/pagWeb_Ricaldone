@@ -114,6 +114,9 @@ document.getElementById('insert-modal').addEventListener('submit', async (event)
     //@ts-ignore
     parameters.append('estado', true)
 
+    $('#agregado').modal('show');
+    $('#agregarform').modal('hide');
+
     // PETICION A LA API POR MEDIO DEL ENPOINT, Y LOS PARAMETROS NECESARIOS PARA LA INSERSION DE DATOS
     await saveRow(API_PROOVEDOR, API_CREATE, parameters, fillTableProveedor);
 });
