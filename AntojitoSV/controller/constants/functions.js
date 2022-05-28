@@ -18,5 +18,7 @@ export async function validateExistenceOfUser() {
        location.href = "index.html";
        return
    }
-   console.log("SESION EN PROGRESO")
-} 
+
+    APIEndpoint = API_USUARIOS + "getUser"
+   let APIResponseGetUset = await APIConnection(APIEndpoint,GET_METHOD,null)
+}  

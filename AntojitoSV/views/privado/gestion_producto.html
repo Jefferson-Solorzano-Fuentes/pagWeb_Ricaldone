@@ -200,62 +200,59 @@
         <!-- Formulario del CRUD -->
 
         <!-- Modal de AGREGAR REGISTRO-->
-        <div class="modal fade" id="agregarform" tabindex="-1" aria-labelledby="agregarform" aria-hidden="true">
+        <div class="modal fade" id="agregarform" tabindex="-1">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
                         <h5 class="modal-title" id="actualizarformLabel">Agregar Producto</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form id="insert-form" method="post">
+                    <form id="insert-modal" method="post">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
-                                    <label for="formGroupExampleInput" class="form-label">Nombre del Producto</label>
-                                    <input type="text" class="form-control" id="formGroupExampl" name="nombre_producto"
-                                        placeholder="Escriba el nombre del producto">
-                                    <label for="formGroupExampleInput" class="form-label">Descripción</label>
-                                    <textarea name="descripcion_producto" rows="3" class="form-control"
-                                        placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio id, quasi beatae."></textarea>
-                                    <label for="descripcion_producto" class="form-label">Proveedor</label>
-
+                                    <label for="nombre_producto" class="form-label">Nombre del Producto</label>
+                                    <input type="text" class="form-control" id="nombre_producto" name="nombre_producto"
+                                        placeholder="Escriba el nombre del producto" required>
+                                    <label for="descripcion_producto" class="form-label">Descripción</label>
+                                    <textarea name="descripcion_producto" id="descripcion_producto" rows="3"
+                                        class="form-control" placeholder="Escriba una descripción para el producto"
+                                        required></textarea>
+                                    <label for="listado_de_proveedores" class="form-label">Proveedor</label>
                                     <!-- listado de proveedores -->
                                     <select onchange="selectIdProveedor('listado_de_proveedores')"
                                         id="listado_de_proveedores" name="proveedores_select" class="form-control">
-
                                     </select>
                                     <div class="row">
                                         <div class="col">
-                                            <label for="formGroupExampleInput" class="form-label">Precio</label>
+                                            <label for="precio_producto" class="form-label">Precio</label>
                                             <input type="number" class="form-control" id="precio_producto"
-                                                name="precio_producto" placeholder="Escriba el precio">
+                                                name="precio_producto" placeholder="Escriba el precio" min="0.01"
+                                                max="999.99" required>
                                         </div>
                                         <div class="col">
-                                            <label for="formGroupExampleInput" class="form-label">Stock</label>
-
+                                            <label for="stock_producto" class="form-label">Stock</label>
                                             <input type="number" class="form-control" id="stock_producto"
-                                                name="stock_producto" placeholder="Escriba el stock">
+                                                name="stock_producto" placeholder="Escriba el stock" min="1" max="999"
+                                                required>
 
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <label for="formGroupExampleInput" class="form-label">Descuento</label>
-
+                                    <label for="descuento_producto" class="form-label">Descuento</label>
                                     <input type="number" class="form-control" id="descuento_producto"
-                                        name="descuento_producto" placeholder="Escriba el descuento">
-
-                                    <label for="formGroupExampleInput" class="form-label">Categoria</label>
-
+                                        name="descuento_producto" placeholder="Escriba el descuento" min="1" max="7"
+                                        required>
+                                    <label for="listado_categorias" class="form-label">Categoria</label>
                                     <!-- listado de categorias -->
                                     <select id="listado_categorias" onchange="selectIdCategoria('listado_categorias')"
                                         class="form-control">
 
                                     </select>
-                                    <label for="formGroupExampleInput" class="form-label">Imagen</label>
-
-                                    <a class="btn" id="upload_image">
-                                        <input name="imagen_producto" id="imimagen_produc" type="file"
+                                    <label for="upload_image" class="form-label">Imagen</label>
+                                    <a class="btn" id="upload_image" required>
+                                        <input name="archivo" id="archivo" type="file"
                                             class="form-control form-control-sm form-Input-Style">
                                         <img src="../../resources/img/cards/buttons/download_100px.png">
                                     </a>
@@ -263,9 +260,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
-                                    data-bs-target="#agregado" id="btnmenu"><a class="nav-link"><img
+                            <div class="btn-group" role="group" id="opcionesModal">
+                                <button type="submit" class="btn btn-light" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/cards/buttons/add_26px.png"></a></button>
                                 <button type="reset" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
@@ -276,17 +272,16 @@
                 </div>
             </div>
         </div>
-
-        <!-- Modal de AGREGAR REALIZADO -->
-        <div class="modal fade" id="agregado" aria-hidden="true" tabindex="-1">
+        <!-- Modal de GUARDADO REALIZADO -->
+        <div class="modal fade" id="guardado" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel4">Agregado con éxito</h5>
+                        <h5 class="modal-title">Guardado con éxito</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        El registro se ha agregado con éxito.
+                        El registro se ha guardado con éxito.
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
@@ -295,7 +290,7 @@
             </div>
         </div>
         <!-- Modal de ACTUALIZAR REGISTRO -->
-        <div class="modal fade" id="actualizarform" tabindex="-1" aria-labelledby="actualizarform" aria-hidden="true">
+        <div class="modal fade" id="actualizarform" tabindex="-1">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -306,51 +301,46 @@
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
-                                    <label for="formGroupExampleInput" class="form-label">Nombre del Producto</label>
-                                    <input type="text" class="form-control" id="formGroupExampl" name="nombre_producto"
-                                        placeholder="Escriba el nombre del producto">
-                                    <label for="formGroupExampleInput" class="form-label">Descripción</label>
-                                    <textarea name="descripcion_producto" rows="3" class="form-control"
-                                        placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio id, quasi beatae."></textarea>
+                                    <label for="nombre_producto_update" class="form-label">Nombre del Producto</label>
+                                    <input type="text" class="form-control" id="nombre_producto_update"
+                                        name="nombre_producto" placeholder="Escriba el nombre del producto" required>
+                                    <label for="descripcion_producto_update" class="form-label">Descripción</label>
+                                    <textarea id="descripcion_producto_update" name="descripcion_producto" rows="3"
+                                        class="form-control" required></textarea>
                                     <label for="descripcion_producto" class="form-label">Proveedor</label>
-
                                     <!-- listado de proveedores -->
                                     <select onchange="selectIdProveedor('listado_de_proveedores_u')"
                                         id="listado_de_proveedores_u" name="proveedores_select" class="form-control">
-
                                     </select>
                                     <div class="row">
                                         <div class="col">
-                                            <label for="formGroupExampleInput" class="form-label">Precio</label>
-                                            <input type="number" class="form-control" id="precio_producto"
-                                                name="precio_producto" placeholder="Escriba el precio">
+                                            <label for="precio_producto_update" class="form-label">Precio</label>
+                                            <input type="number" class="form-control" id="precio_producto_update"
+                                                name="precio_producto" placeholder="Escriba el precio" min="0.01"
+                                                max="999.99" required>
                                         </div>
                                         <div class="col">
-                                            <label for="formGroupExampleInput" class="form-label">Stock</label>
+                                            <label for="stock_producto_update" class="form-label">Stock</label>
 
-                                            <input type="number" class="form-control" id="stock_producto"
-                                                name="stock_producto" placeholder="Escriba el stock">
-
+                                            <input type="number" class="form-control" id="stock_producto_update"
+                                                name="stock_producto" placeholder="Escriba el stock" min="1" max="999"
+                                                required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <label for="formGroupExampleInput" class="form-label">Descuento</label>
-
-                                    <input type="number" class="form-control" id="descuento_producto"
-                                        name="descuento_producto" placeholder="Escriba el descuento">
-
-                                    <label for="formGroupExampleInput" class="form-label">Categoria</label>
-
+                                    <label for="descuento_producto_update" class="form-label">Descuento</label>
+                                    <input type="number" class="form-control" id="descuento_producto_update"
+                                        name="descuento_producto" placeholder="Escriba el descuento" min="0" max="7"
+                                        required>
+                                    <label for="listado_categorias_u" class="form-label">Categoria</label>
                                     <!-- listado de categorias -->
                                     <select id="listado_categorias_u"
                                         onchange="selectIdCategoria('listado_categorias_u')" class="form-control">
-
                                     </select>
-                                    <label for="formGroupExampleInput" class="form-label">Imagen</label>
-
+                                    <label for="upload_image" class="form-label">Imagen</label>
                                     <a class="btn" id="upload_image">
-                                        <input name="imagen_producto" id="imimagen_produc" type="file"
+                                        <input name="archivo" id="archivo" type="file"
                                             class="form-control form-control-sm form-Input-Style">
                                         <img src="../../resources/img/cards/buttons/download_100px.png">
                                     </a>
@@ -360,11 +350,8 @@
                         <!-- Fotter del modal -->
                         <div class="modal-footer">
                             <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#actualizarConfirmar" id="btnmenu"><a
-                                        class="nav-link"><img
+                                <button type="submit" class="btn btn-light" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/cards/buttons/edit_26px.png"></a></button>
-
                                 <button type="reset" class="btn btn-light" id="btnmenu" data-bs-toggle="modal"
                                     data-bs-dismiss="modal"><a class="nav-link"><img
                                             src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
@@ -374,45 +361,8 @@
                 </div>
             </div>
         </div>
-        <!-- Modal de CONFIRMACIÓN -->
-        <div class="modal fade" id="actualizarConfirmar" aria-hidden="true" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel">Confirmar</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ¿Desea actualizar la información de este registro?
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
-                            id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#actualizado" data-bs-toggle="modal"
-                            id="btnmenu">Confirmar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal de ACTUALIZACIÓN REALIZADA -->
-        <div class="modal fade" id="actualizado" aria-hidden="true" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel3">Actualizado con éxito</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        El registro se ha actualizado con éxito.
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- Modal de ELIMINAR -->
-        <div class="modal fade" id="eliminarForm" aria-hidden="true" tabindex="-1">
+        <div class="modal fade" id="eliminarForm" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -424,37 +374,34 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
-                            id="btnmenu">Volver</button>
                         <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
                         <form id="delete-form">
                             <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
-                            <button type="submit" class="btn btn-primary" data-bs-target="#eliminado"
-                                data-bs-toggle="modal" id="btnmenu">Confirmar</button>
+                            <button type="submit" class="btn btn-primary" id="btnmenu">Confirmar</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Modal de ELIMINAR REALIZADO -->
-        <div class="modal fade" id="eliminado" aria-hidden="true" tabindex="-1">
+        <div class="modal fade" id="eliminado" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel4">Eliminado con éxito</h5>
+                        <h5 class="modal-title">Eliminado con éxito</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         El registro se ha eliminado con éxito.
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                        <button class="btn btn-primary" id="btnmenu">Aceptar</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Modal COMENTARIO-->
-        <div class="modal fade bd-example-modal-lg" id="comentarioForm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="comentarioForm" tabindex="-1">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -485,11 +432,11 @@
             </div>
         </div>
         <!-- DEACTIVACIÓN DE COMENTARIO-->
-        <div class="modal fade" id="deactivarForm" aria-hidden="true" tabindex="-1">
+        <div class="modal fade" id="deactivarForm" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
+                        <h5 class="modal-title">Confirmar</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -497,24 +444,23 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Volver</button>
+                        <button class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal"
+                            data-bs-target="#comentarioForm" id="btnmenu">Volver</button>
                         <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
                         <form id="deactivate-form">
                             <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" 
-                                data-bs-toggle="modal" id="btnmenu">Confirmar</button>
+                            <button type="submit" class="btn btn-primary" id="btnmenu">Confirmar</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- REACTIVAR DE COMENTARIO-->
-        <div class="modal fade" id="reactivarForm" aria-hidden="true" tabindex="-1">
+        <div class="modal fade" id="reactivarForm" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" >Confirmar</h5>
+                        <h5 class="modal-title">Confirmar</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -522,18 +468,34 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Volver</button>
+                        <button class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal"
+                            data-bs-target="#comentarioForm" id="btnmenu">Volver</button>
                         <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
                         <form id="reactivate-form">
                             <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" 
-                                data-bs-toggle="modal" id="btnmenu">Confirmar</button>
+                            <button type="submit" class="btn btn-primary" id="btnmenu">Confirmar</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
+        <!-- Modal de PROCESO FALLIDO -->
+        <div class="modal fade" id="error_proceso" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo realizar el proceso debido a que hubo un error.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Footer de privados-->
@@ -559,6 +521,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script type="module" src="../../controller/privado/producto.js"></script>
 
 

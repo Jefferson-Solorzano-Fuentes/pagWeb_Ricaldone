@@ -118,7 +118,7 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Seleccione una imagen';
             } elseif (!$vehiculo->setImagen($_FILES[VEHICULO_ARCHIVO])) {
                 $result[EXCEPTION] = $vehiculo->getFileError();
-            } elseif ($vehiculo->createRow()) {
+            } elseif ($vehiculo->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Cantidad modificada correctamente';
                 if ($vehiculo->saveFile($_FILES[VEHICULO_ARCHIVO], $vehiculo->getRutaImagenes(), $vehiculo->getImagen())) {

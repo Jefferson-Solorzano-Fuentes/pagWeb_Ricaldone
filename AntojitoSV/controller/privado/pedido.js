@@ -3,16 +3,13 @@
 //Importar las constantes y metodos de components.js y api_constant.js
 // @ts-ignore
 import { readRows, saveRow, searchRows, deleteRow, unDeleteRow } from "../components.js";
-import { GET_METHOD, SERVER, API_CREATE, API_UPDATE } from "../constants/api_constant.js";
+import { GET_METHOD, SERVER, API_CREATE, API_UPDATE, DOM_CONTENT_LOADED, SEARCH_BAR, SUBMIT, INSERT_MODAL, UPDATE_MODAL, DELETE_FORM, DEACTIVATE_FORM, REACTIVATE_FORM } from "../constants/api_constant.js";
 import { getElementById, validateExistenceOfUser} from "../constants/functions.js";
 import { APIConnection } from "../APIConnection.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_PEDIDO = SERVER + 'privada/pedido.php?action=';
 const API_DETALLE_PEDIDO = SERVER + 'privada/detalle_pedido.php?action=';
-// @ts-ignore
-const ENDPOINT_PEDIDO = SERVER + 'privada/pedido.php?action=readAll';
-const ENDPOINT_ID_CLIENTE = SERVER + 'privada/pedido.php?action=readCliente';
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
@@ -44,20 +41,10 @@ let datos_detalle_pedido ={
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
+    //Valida que el usuario este logeado
     validateExistenceOfUser();
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     await readRows(API_PEDIDO, fillTablePedido)
-    // Se define una variable para establecer las opciones del componente Modal.
-    // @ts-ignore
-    let options = {
-        dismissible: false,
-        onOpenStart: function () {
-            // Se restauran los elementos del formulario.
-            // @ts-ignore
-            document.getElementById('save-form').reset();
-        }
-    }
-
     //Cargar combo box de id cliente
     await fillComboBoxCliente();
 
@@ -82,9 +69,10 @@ async function fillComboBoxCliente() {
 //Mandar parametros para realizar search de los comentarios
 // @ts-ignore
 window.guardarDetallePedido = async (id_pedido) => {
+    //Captura el dato y lo envia al JSON
     datos_detalle_pedido.pedido_id = id_pedido;
+    //Define el endpoint que se enviara 
     let APIEndpoint = API_DETALLE_PEDIDO
-    console.log(id_pedido)
     let parameters = new FormData();
     //Se envian el parametro del id para realizar la busqueda
     //@ts-ignore
@@ -98,7 +86,7 @@ window.guardarDetallePedido = async (id_pedido) => {
 export function fillTableDetallePedido(dataset) {
     let content = '';
     // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
-    dataset.map(function (row) {
+    dataset.map(row => {
         // Se crean y concatenan las filas de la tabla con los datos de cada registro.
         content += ` 
             <tr>
@@ -128,7 +116,7 @@ export function fillTableDetallePedido(dataset) {
 export function fillTablePedido(dataset) {
     let content = '';
     // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
-    dataset.map(function (row) {
+    dataset.map( row => {
         // Se crean y concatenan las filas de la tabla con los datos de cada registro.
         content += ` 
             <tr>
@@ -137,18 +125,22 @@ export function fillTablePedido(dataset) {
                 <td>${row.direccion}</td>
                 <td>${row.descripcion}</td>
                 <td>${row.fecha_creacion}</td>
-                <td>${row.id_cliente}</td>
+                <td>${row.nombre_cliente}</td>
                 <td>${row.estado}</td>
                 
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
                         <form method="post" id="read-one">
-                            <a onclick="guardarDatosPedido(${row.id_pedido},'${row.fecha_entrega}','${row.monto_total}','${row.direccion}','${row.descripcion}','${row.fecha_creacion}')"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
+                            <a onclick="guardarDatosPedidoDeactivar(${row.id_pedido})" class="btn btn-primary" >
                                 <img src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                            <a  onclick="guardarDatosPedido(${row.id_pedido},'${row.fecha_entrega}','${row.monto_total}','${row.direccion}','${row.descripcion}','${row.fecha_creacion}')" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
-                            name="search">
+                            <a  onclick="guardarDatosPedidoReactivar(${row.id_pedido})"  class="btn btn-primary" name="search">
                                 <img src="../../resources/img/cards/buttons/delete_40px.png"></a>
                         </form>
+                        <form method='post' id='${row.id_pedido}'>
+                        <a onclick="guardarDetallePedido(${row.id_pedido})" data-bs-toggle="modal"  type="submit"
+                        data-bs-target="#detallePedidoForm" class="btn btn-primary"  name="search"><img
+                            src="../../resources/img/cards/buttons/eye_40px.png"></a>
+                    </form>        
                     </div>
                 </td>
             </tr>
@@ -161,22 +153,17 @@ export function fillTablePedido(dataset) {
 
 // FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE EMPLEADO
 // @ts-ignore
-window.guardarDatosPedido = (id_pedido, fecha_entrega, monto_total, direccion, descripcion, fecha_creacion) => {
+window.guardarDatosPedidoDeactivar = (id_pedido) => {
     datos_pedido.id = id_pedido
-    // SE ACTUALIZA EL VALOR DEL INPUT CON EL ID ESPECIFICADO AL VALOR INGRESADO AL PARAMETRO, ASEGURENSE DE QUE ELINPUT TENGA 
-    //EL ATRIBUTO "value="""
-    //@ts-ignore
-    document.getElementById("fecha_entrega_update").value = String(fecha_entrega)
-    //@ts-ignore
-    document.getElementById("monto_update").value = String(monto_total)
-    //@ts-ignore
-    document.getElementById("direccion_update").value = String(direccion)
-    //@ts-ignore
-    document.getElementById("descripcion_update").value = String(descripcion)
-    //@ts-ignore
-    document.getElementById("fecha_creacion_update").value = String(fecha_creacion)   
+    $("#eliminarForm").modal("show");
 }
 
+// FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE EMPLEADO
+// @ts-ignore
+window.guardarDatosPedidoReactivar = (id_pedido) => {
+    datos_pedido.id = id_pedido
+    $("#reactivarForm").modal("show");
+}
 
 // FUNCION PARA GUARDAR LOS DATOS DEL COMENTARIO
 // @ts-ignore
@@ -200,49 +187,12 @@ getElementById('search-bar').addEventListener('submit', async (event) => {
     await searchRows(API_PEDIDO, 'search-bar', fillTablePedido);
 });
 
-
-// EVENTO PARA INSERT 
-// Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
-document.getElementById('insert-modal').addEventListener('submit', async (event) => {
-    console.log("EXECUTING")
-    // Se evita recargar la página web después de enviar el formulario.
-    event.preventDefault();
-
-    //@ts-ignore
-    //OBTIENE LOS DATOS DEL FORMULARIO QUE TENGA COMO ID "'insert-modal'"
-    let parameters = new FormData(getElementById('insert-modal'));
-
-    // PETICION A LA API POR MEDIO DEL ENPOINT, Y LOS PARAMETROS NECESARIOS PARA LA INSERSION DE DATOS
-    await saveRow(API_PEDIDO, API_CREATE, parameters, fillTablePedido);
-});
-
-
-
-// EVENTO PARA UPDATE
-// SE EJECUTARA CUANDO EL BOTON DE TIPO "submit" DEL FORMULARIO CON EL ID 'actualizarConfirmar_buttons' SE CLICKEE
-getElementById('update-modal').addEventListener('submit', async (event) => {
-    event.preventDefault();
-    console.log("EJECUTANDO")
-
-    //@ts-ignore
-    let parameters = new FormData(getElementById('update-modal'));
-    //@ts-ignore
-    parameters.append('id', datos_pedido['id'])
-
-    var object = {};
-    parameters.forEach((value, key) => object[key] = value);
-var json = JSON.stringify(object);
-
-    console.log(json)
-    // API REQUEST
-    await saveRow(API_PEDIDO, API_UPDATE, parameters, fillTablePedido);
-
-});
-
 //EVENTO PARA DELETE
 getElementById('delete-form').addEventListener('submit', async (event) => {
-    event.preventDefault();
-
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();    
+    // Se cierra el formulario de registro
+    $("#eliminarForm").modal("hide");
     // CONVIRTIENDO EL JSON A FORMDATA
     let parameters = new FormData();
     //@ts-ignore
@@ -255,7 +205,10 @@ getElementById('delete-form').addEventListener('submit', async (event) => {
 
 //EVENTO PARA DEACTIVAR
 getElementById('deactivate-form').addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.    
     event.preventDefault();
+    // Se cierra el formulario de registro
+    $("eliminarForm").modal("hide");
     // CONVIRTIENDO EL JSON A FORMDATA
     let parameters = new FormData();
     //@ts-ignore
@@ -268,13 +221,14 @@ getElementById('deactivate-form').addEventListener('submit', async (event) => {
 
 //EVENTO PARA DEACTIVAR
 getElementById('reactivate-form').addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.    
     event.preventDefault();
-
+    // Se cierra el formulario de registro
+    $("reactivarForm").modal("hide");
     // CONVIRTIENDO EL JSON A FORMDATA
     let parameters = new FormData();
     //@ts-ignore
     parameters.append('id', datos_detalle_pedido['id'])
-
     //API REQUEST
     await unDeleteRow(API_DETALLE_PEDIDO, parameters, fillTableDetallePedido);
 });

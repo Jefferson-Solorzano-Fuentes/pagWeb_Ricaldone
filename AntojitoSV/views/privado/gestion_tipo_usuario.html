@@ -190,7 +190,7 @@
         <!-- Formulario del CRUD -->
 
         <!-- Modal de AGREGAR REGISTRO-->
-        <div class="modal fade" id="agregarform" tabindex="-1" aria-labelledby="agregarform" aria-hidden="true">
+        <div class="modal fade" id="agregarform" tabindex="-1">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -205,15 +205,14 @@
                                 <div class="col">
                                     <label for="nombre_tipo_usuario" class="form-label">Tipo de Usuario</label>
                                     <input type="text" class="form-control" id="nombreTipo" name="nombre_tipo_usuario"
-                                        placeholder="Escriba el nombre de un tipo de Usuario">
+                                        placeholder="Escriba el nombre de un tipo de Usuario" required>
                                 </div>
                             </div>
                         </div>
                         <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
                         <div class="modal-footer">
                             <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#agregado" id="btnmenu"><a class="nav-link"><img
+                                <button type="submit" class="btn btn-light" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/cards/buttons/add_26px.png"></a></button>
                                 <button type="reset" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
@@ -224,18 +223,16 @@
                 </div>
             </div>
         </div>
-
-        <!-- Modal de AGREGAR REALIZADO -->
-        <div class="modal fade" id="agregado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
-            tabindex="-1">
+        <!-- Modal de GUARDADO REALIZADO -->
+        <div class="modal fade" id="guardado" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel4">Agregado con éxito</h5>
+                        <h5 class="modal-title">Guardado con éxito</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        El registro se ha agregado con éxito.
+                        El registro se ha guardado con éxito.
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
@@ -243,9 +240,8 @@
                 </div>
             </div>
         </div>
-
         <!-- Modal de ACTUALIZAR REGISTRO -->
-        <div class="modal fade" id="actualizarform" tabindex="-1" aria-labelledby="actualizarform" aria-hidden="true">
+        <div class="modal fade" id="actualizarform" tabindex="-1">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -257,16 +253,15 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="nombre_tipo_update" class="form-label">Tipo de Usuario</label>
-                                    <input type="text" class="form-control" id="nombre_tipo_update" name="nombre_tipo_usuario"
-                                        placeholder="Administrador">
+                                    <input type="text" class="form-control" id="nombre_tipo_update"
+                                        name="nombre_tipo_usuario" placeholder="Administrador" required>
                                 </div>
                             </div>
                         </div>
                         <!-- Fotter del modal -->
                         <div class="modal-footer">
                             <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#actualizarConfirmar" id="btnmenu"><a
+                                <button type="submit" class="btn btn-light" id="btnmenu"><a
                                         class="nav-link"><img
                                             src="../../resources/img/cards/buttons/edit_26px.png"></a></button>
                                 <button type="reset" class="btn btn-light" id="btnmenu" data-bs-toggle="modal"
@@ -278,50 +273,8 @@
                 </div>
             </div>
         </div>
-        </div>
-        <!-- Modal de CONFIRMACIÓN -->
-        <div class="modal fade" id="actualizarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-            tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel">Confirmar</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ¿Desea actualizar la información de este registro?
-                    </div>
-                    <div class="modal-footer">
-                        <form id="actualizarConfirmar_buttons" class="modal-footer">
-                            <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
-                                id="btnmenu">Volver</button>
-                            <button type="submit"  class="btn btn-primary" >Confirmar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal de ACTUALIZACIÓN REALIZADA -->
-        <div class="modal fade" id="actualizado" aria-hidden="true" 
-            tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title">Actualizado con éxito</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        El registro se ha actualizado con éxito.
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- Modal de ELIMINAR -->
-        <div class="modal fade" id="eliminarForm" aria-hidden="true" 
-            tabindex="-1">
+        <div class="modal fade" id="eliminarForm" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -332,21 +285,17 @@
                         ¿Desea Eliminar la información de este registro?
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
-                            data-bs-dismiss="modal" id="btnmenu">Volver</button>
                         <form id="delete-form">
                             <input type="hidden" id="id-eliminar" name="id-eliminar">
                             <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
-                            <button class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
-                                data-bs-dismiss="modal" id="btnmenu" type="submit">Confirmar</button>
+                            <button class="btn btn-primary" id="btnmenu" type="submit">Confirmar</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Modal de ELIMINAR REALIZADO -->
-        <div class="modal fade" id="eliminado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
-            tabindex="-1">
+        <div class="modal fade" id="eliminado" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -355,6 +304,23 @@
                     </div>
                     <div class="modal-body">
                         El registro se ha eliminado con éxito.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de PROCESO FALLIDO -->
+        <div class="modal fade" id="error_proceso" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo realizar el proceso debido a que hubo un error.
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>

@@ -191,9 +191,8 @@
 
         <!-- Formulario del CRUD -->
 
-
         <!-- REACTIVAR DE COMENTARIO-->
-        <div class="modal fade" id="reactivarForm" aria-hidden="true" tabindex="-1">
+        <div class="modal fade" id="reactivarForm" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -209,17 +208,14 @@
                         <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
                         <form id="reactivate-form">
                             <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal"
-                                id="btnmenu">Confirmar</button>
+                            <button type="submit" class="btn btn-primary" id="btnmenu">Confirmar</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
-
         <!-- Modal de ELIMINAR -->
-        <div class="modal fade" id="eliminarForm" aria-hidden="true" tabindex="-1">
+        <div class="modal fade" id="eliminarForm" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -231,21 +227,17 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
-                            id="btnmenu">Volver</button>
                         <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
                         <form id="delete-form">
                             <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
-                            <button type="submit" class="btn btn-primary" data-bs-target="#eliminado"
-                                data-bs-toggle="modal" id="btnmenu">Confirmar</button>
+                            <button type="submit" class="btn btn-primary" id="btnmenu">Confirmar</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Modal de ELIMINAR REALIZADO -->
-        <div class="modal fade" id="eliminado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
-            tabindex="-1">
+        <div class="modal fade" id="eliminado" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -254,6 +246,23 @@
                     </div>
                     <div class="modal-body">
                         El registro se ha eliminado con éxito.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de GUARDADO REALIZADO -->
+        <div class="modal fade" id="guardado" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Guardado con éxito</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        El registro se ha guardado con éxito.
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>

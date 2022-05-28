@@ -206,8 +206,6 @@ class usuario extends validator
         ON cliente.id_cliente = usuario.id_cliente';
         $params = null;
         return Database::getRows($sql, $params); 
-
-
     }
 
     public function readAllCliente()
