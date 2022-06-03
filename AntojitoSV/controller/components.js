@@ -84,3 +84,15 @@ export async function unDeleteRow(ENDPOINT, parameters, fillrows) {
     return;
   }
 }
+
+// CARGAR REGISTROS
+export async function readOne(ENDPOINT, parameters, fillrows) {
+  let APIEndpoint = ENDPOINT + API_READONE;
+
+  let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
+
+  if (APIResponse.status == API_SUCESS_REQUEST) {
+    fillrows(APIResponse.dataset)
+    return;
+  }
+}

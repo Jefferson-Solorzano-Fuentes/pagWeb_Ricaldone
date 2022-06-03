@@ -50,7 +50,7 @@ function fillTableUsuario(dataset) {
         // Se crean y concatenan las filas de la tabla con los datos de cada registro.
         content += ` 
             <tr>
-                <td>${row.nombre_usuario}</td>
+               
                 <td>${row.nombre_tipo}</td>
                 <td>${row.nombre_cliente}</td>
                 <td class="d-flex justify-content-center">

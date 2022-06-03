@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="../css/style_publica.css">
+    <link rel="stylesheet" href="../../resources/css/style_publica.css">
     <title>AntojitoSV</title>
 
 </head>
@@ -29,14 +29,14 @@
                         <!-- Primera mitad del navbar -->
                         <div class="col-8 bg-primary">
                             <!-- Imagenes de las redes sociales -->
-                            <img class="redesSociales" id="Instagram" src="../img/navbar/Instagram_35px.png"
-                                alt="Instagram" usemap="#Instagram">
-                            <img class="redesSociales" id="Facebook" src="../img/navbar/Facebook_35px.png"
+                            <img class="redesSociales" id="Instagram"
+                                src="../../resources/img/navbar/Instagram_35px.png" alt="Instagram" usemap="#Instagram">
+                            <img class="redesSociales" id="Facebook" src="../../resources/img/navbar/Facebook_35px.png"
                                 alt="Facebook" usemap="#Facebook">
-                            <img class="redesSociales" id="WhatsApp" src="../img/navbar/whatsapp_35px.png"
+                            <img class="redesSociales" id="WhatsApp" src="../../resources/img/navbar/whatsapp_35px.png"
                                 alt="Whatsapp" usemap="#WhatsApp">
-                            <img class="redesSociales" id="Gmail" src="../img/navbar/gmail_35px.png" alt="Gmail"
-                                usemap="#Gmail">
+                            <img class="redesSociales" id="Gmail" src="../../resources/img/navbar/gmail_35px.png"
+                                alt="Gmail" usemap="#Gmail">
                             <map name="Instagram">
                                 <area shape="rect" coords="0,0,45,45" href="https://www.instagram.com">
                             </map>
@@ -56,11 +56,13 @@
                             <a class="navbar-brand" href="#">
                                 <!-- Boton de registrarse-->
                                 <a class="btn btn-danger" href="login.html" id="registrate"><img
-                                        src="../img/navbar/user_25px.png"> Registrate</a>
+                                        src="../../resources/img/navbar/user_25px.png"> Registrate</a>
                                 <!-- Imagenes para ordenes/recibo -->
-                                <img class="redesSociales" src="../img/navbar/shopping_cart_with_money_35px.png"
+                                <img class="redesSociales"
+                                    src="../../resources/img/navbar/shopping_cart_with_money_35px.png"
                                     usemap="#historial">
-                                <img class="redesSociales" src="../img/navbar/bill_35px.png" usemap="#historial">
+                                <img class="redesSociales" src="../../resources/img/navbar/bill_35px.png"
+                                    usemap="#historial">
                                 <map name="historial">
                                     <area shape="rect" coords="15,0,35,35" href="historial_compras.html">
                                 </map>
@@ -68,7 +70,7 @@
                                 <div class="btn-group">
                                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="../img/navbar/el_salvador_35px.png">
+                                        <img src="../../resources/img/navbar/el_salvador_35px.png">
                                     </button>
                                     <ul class="dropdown-menu">
                                         <a class="dropdown-item" href="#">Español</a>
@@ -90,18 +92,19 @@
                         <a class="navbar-brand" href="#">
                             <!-- Imagenes de los botones del menu de la pagina publica con mapeo -->
                             <img class="navCategorias" id="Sorbete"
-                                src="../img/navbar_publico/ice_cream_sundae_75px.png" usemap="#categoriass">
-                            <img class="navCategorias" src="../img/navbar_publico/christmas_candy_75px.png"
+                                src="../../resources/img/navbar_publico/ice_cream_sundae_75px.png"
+                                usemap="#categoriass">
+                            <img class="navCategorias" src="../../resources/img/navbar_publico/christmas_candy_75px.png"
                                 usemap="#categorias">
-                            <img class="navCategorias" src="../img/navbar_publico/croissant_75px.png"
+                            <img class="navCategorias" src="../../resources/img/navbar_publico/croissant_75px.png"
                                 usemap="#categorias">
-                            <img class="navCategorias" src="../img/navbar_publico/Pelmeni_75px.png"
+                            <img class="navCategorias" src="../../resources/img/navbar_publico/Pelmeni_75px.png"
                                 usemap="#categorias">
-                            <img class="navCategorias" src="../img/navbar_publico/discount_75px.png"
+                            <img class="navCategorias" src="../../resources/img/navbar_publico/discount_75px.png"
                                 usemap="#categorias">
-                            <img class="navCategorias" id="Inicio" src="../img/navbar_publico/home_75px.png"
-                                usemap="#categorias">
-                            <img class="navCategorias" id="Logo" src="../img/navbar_publico/logoX125px.png"
+                            <img class="navCategorias" id="Inicio"
+                                src="../../resources/img/navbar_publico/home_75px.png" usemap="#categorias">
+                            <img class="navCategorias" id="Logo" src="../../resources/img/navbar_publico/logoX125px.png"
                                 usemap="#Inicio">
 
                             <!-- Imagenes de los botones del menu de la pagina privada con mapeo -->
@@ -133,19 +136,22 @@
     <main>
         <!-- contenedor padre -->
         <div class="container-fluid" id="promo">
-            <h1 id="titulo">Antojos</h1>
+            <tbody id="titulo">
+
+            </tbody>
+
             <div class="row">
                 <div class="col-xl-4 col-md-2 col-lg-4" id="separador">
                     <div class="card" id="promociones">
                         <div class="imgBx">
-                            <img src="../img/cards/productos/antojos/nuegado.png">
+                            <img src="../../resources/img/cards/productos/antojos/nuegado.png">
                         </div>
                         <div class="contentBx">
                             <h3>Tamal</h3>
                             <h2 class="precio">$1.00</h2>
                             <button class="comprar ">
                                 <i class="fa fa-cart-plus"></i>
-                                <a href="detalle_producto.html">Pide Ahora</a>
+                                <a href="detalle_producto.html?id_producto=1">Pide Ahora</a>
                             </button>
                         </div>
                     </div>
@@ -153,14 +159,14 @@
                 <div class="col-xl-4 col-md-2 col-lg-4" id="separador">
                     <div class="card col-8" id="promociones">
                         <div class="imgBx">
-                            <img src="../img/cards/productos/antojos/pastelito.png">
+                            <img src="../../resources/img/cards/productos/antojos/pastelito.png">
                         </div>
                         <div class="contentBx">
                             <h3>Yuca Frita</h3>
                             <h2 class="precio">$0.75</h2>
                             <button class="comprar">
                                 <i class="fa fa-cart-plus"></i>
-                                <a href="detalle_producto.html">Pide Ahora</a>
+                                <a href="detalle_producto.html?id_producto=2">Pide Ahora</a>
                             </button>
                         </div>
                     </div>
@@ -168,14 +174,14 @@
                 <div class="col-xl-4 col-md-2 col-lg-4" id="separador">
                     <div class="card" id="promociones">
                         <div class="imgBx">
-                            <img src="../img/cards/productos/antojos/tamal1.png">
+                            <img src="../../resources/img/cards/productos/antojos/tamal1.png">
                         </div>
                         <div class="contentBx">
                             <h3>Tamal</h3>
                             <h2 class="precio">$1.00</h2>
                             <button class="comprar ">
                                 <i class="fa fa-cart-plus"></i>
-                                <a href="detalle_producto.html">Pide Ahora</a>
+                                <a href="detalle_producto.html?id_producto=3">Pide Ahora</a>
                             </button>
                         </div>
                     </div>
@@ -185,14 +191,14 @@
                 <div class="col-xl-4 col-md-2 col-lg-4" id="separador">
                     <div class="card" id="promociones">
                         <div class="imgBx">
-                            <img src="../img/cards/productos/antojos/taml2.png">
+                            <img src="../../resources/img/cards/productos/antojos/taml2.png">
                         </div>
                         <div class="contentBx">
                             <h3>Tamal</h3>
                             <h2 class="precio">$1.00</h2>
                             <button class="comprar ">
                                 <i class="fa fa-cart-plus"></i>
-                                <a href="detalle_producto.html">Pide Ahora</a>
+                                <a href="detalle_producto.html?id_producto=4">Pide Ahora</a>
                             </button>
                         </div>
                     </div>
@@ -200,14 +206,14 @@
                 <div class="col-xl-4 col-md-2 col-lg-4" id="separador">
                     <div class="card col-8" id="promociones">
                         <div class="imgBx">
-                            <img src="../img/cards/productos/antojos/yuca.png">
+                            <img src="../../resources/img/cards/productos/antojos/yuca.png">
                         </div>
                         <div class="contentBx">
                             <h3>Yuca Frita</h3>
                             <h2 class="precio">$0.75</h2>
                             <button class="comprar">
                                 <i class="fa fa-cart-plus"></i>
-                                <a href="detalle_producto.html">Pide Ahora</a>
+                                <a href="detalle_producto.html?id_producto=5">Pide Ahora</a>
                             </button>
                         </div>
                     </div>
@@ -215,14 +221,14 @@
                 <div class="col-xl-4 col-md-2 col-lg-4" id="separador">
                     <div class="card" id="promociones">
                         <div class="imgBx">
-                            <img src="../img/cards/productos/antojos/nuegado.png">
+                            <img src="../../resources/img/cards/productos/antojos/nuegado.png">
                         </div>
                         <div class="contentBx">
                             <h3>Nuegado</h3>
                             <h2 class="precio">$1.00</h2>
                             <button class="comprar">
                                 <i class="fa fa-cart-plus"></i>
-                                <a href="detalle_producto.html">Pide Ahora</a>
+                                <a href="detalle_producto.html?id_producto=6">Pide Ahora</a>
                             </button>
                         </div>
                     </div>
@@ -273,14 +279,14 @@
                 <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
                     <ul class="list unstyled list-inline">
                         <!-- Imagenes de las redes sociales -->
-                        <img class="redesSociales" id="Instagram" src="../img/navbar/Instagram_35px.png" alt="Instagram"
-                            usemap="#Instagram">
-                        <img class="redesSociales" id="Facebook" src="../img/navbar/Facebook_35px.png" alt="Facebook"
-                            usemap="#Facebook">
-                        <img class="redesSociales" id="WhatsApp" src="../img/navbar/whatsapp_35px.png" alt="Whatsapp"
-                            usemap="#WhatsApp">
-                        <img class="redesSociales" id="Gmail" src="../img/navbar/gmail_35px.png" alt="Gmail"
-                            usemap="#Gmail">
+                        <img class="redesSociales" id="Instagram" src="../../resources/img/navbar/Instagram_35px.png"
+                            alt="Instagram" usemap="#Instagram">
+                        <img class="redesSociales" id="Facebook" src="../../resources/img/navbar/Facebook_35px.png"
+                            alt="Facebook" usemap="#Facebook">
+                        <img class="redesSociales" id="WhatsApp" src="../../resources/img/navbar/whatsapp_35px.png"
+                            alt="Whatsapp" usemap="#WhatsApp">
+                        <img class="redesSociales" id="Gmail" src="../../resources/img/navbar/gmail_35px.png"
+                            alt="Gmail" usemap="#Gmail">
                     </ul>
                 </div>
             </div>
@@ -295,5 +301,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
+    <script type="module" src="../../controller/publico/sorbetes.js"></script>
 
 </body>
