@@ -184,6 +184,16 @@ class usuario extends validator
         return Database::executeRow($sql, $params);
     }
 
+     //Metodo de activación
+     public function unDeleteRow()
+     {
+         $sql = 'UPDATE usuario
+         SET id_tipo_usuario =?
+         WHERE id_usuario=?';
+         $params = array($this->tipo_cliente, $this->id_usuario);
+         return Database::executeRow($sql, $params);
+     }
+
     //Metodo para leer READ
     //Leer todas las filas de la Tabla
     public function readAllEmpleado()
@@ -197,9 +207,6 @@ class usuario extends validator
         return Database::getRows($sql, $params);
     }
 
-<<<<<<< Updated upstream
-    public function readAllCliente()
-=======
     public function readAll() {
         $sql = 'SELECT id_usuario, nombre_usuario, password, tipo_usuario.nombre_tipo, id_empleado,usuario.id_cliente, nombre_cliente
         FROM usuario
@@ -212,7 +219,6 @@ class usuario extends validator
     }
 
     public function readLastCliente()
->>>>>>> Stashed changes
     {
         $sql = 'SELECT id_usuario, nombre_usuario, password, tipo_usuario.id_tipo_usuario, cliente.id_cliente, nombre_cliente
         FROM public.usuario
@@ -230,7 +236,7 @@ class usuario extends validator
     //Leer solamente una fila de la Tabla
     public function readOne()
     {
-        $sql = 'SELECT id_usuario, nombre_usuario, password, tipo_usuario.id_tipo_usuario, empleado.id_empleado, nombre, apellido
+        $sql = 'SELECT id_usuario, nombre_usuario, password, tipo_usuario.id_tipo_usuario, empleado.id  _empleado, nombre, apellido
         FROM public.usuario
         INNER JOIN tipo_usuario
         ON tipo_usuario.id_tipo_usuario = usuario.id_tipo_usuario

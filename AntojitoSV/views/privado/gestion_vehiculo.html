@@ -133,10 +133,10 @@
             <div class="container-fluid" id="containerImg">
                 <div class="searchContainer">
                     <!-- Barra de  Buscador -->
-                    <form>
-                        <input type="search" id="site-search" name="buscador_empleado" aria-label="buscar información"
-                            class="buscador bg-light" placeholder="Buscar...">
-                        <button class="searchButton"> <img class="searchImage" id="buscar_icono"
+                    <form method="post" id="search-bar">
+                        <input type="search" id="site-search" name="search" aria-label="buscar información"
+                            class="buscador bg-light" placeholder="Buscar..." required>
+                        <button type="submit" class="searchButton"> <img class="searchImage" id="buscar_icono"
                                 src="../../resources/img/cards/buttons/search.png"></button>
                     </form>
                     <!-- Botones de SCRUD, actualizar y agregar -->
@@ -196,86 +196,56 @@
         <!-- Formulario del CRUD -->
 
         <!-- Modal de AGREGAR REGISTRO-->
-        <div class="modal fade" id="agregarform" tabindex="-1" aria-labelledby="agregarform" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal fade" id="agregarform" tabindex="-1" >
+            <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="actualizarformLabel">Agregar Vehículo</h5>
+                        <h5 class="modal-title">Agregar Vehiculo</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" id="formModal">
-                        <div class="row">
-                            <div class="col-6">
-                                <label for="formGroupExampleInput" class="form-label">Disponibilidad</label>
-                                <form>
-                                    <select name="select" class="form-control">
-                                        <option value="value1" selected>Disponible</option>
-                                        <option value="value2">En Mantenimiento</option>
-                                        <option value="value3">Fuera de Uso</option>
-                                    </select>
-                                </form>
-                                <label for="formGroupExampleInput" class="form-label">VIN</label>
-                                <form>
-                                    <input type="text" class="form-control" id="formGroupExampleInput"
-                                        placeholder="Escriba el VIN del Vehiculo">
-                                </form>
-                                <label for="formGroupExampleInput" class="form-label">Placa del Vehiculo</label>
-                                <form>
-                                    <input type="tel" class="form-control" id="formGroupExampleInput"
-                                        placeholder="Escriba la placa del Vehiculo">
-                                </form>
-                                <div class="row">
-                                    <div class="col-10">
-                                        <label for="formGroupExampleInput" class="form-label">Conductor</label>
-                                        <form>
-                                            <select name="select" class="form-control">
-                                                <option value="value1" selected>Andres Alejandro Leon Guzman</option>
-                                                <option value="value2">Jefferson Alxandro Solorzano Reyes</option>
-                                                <option value="value3">Jesus Daniel Ezquivel Flores</option>
-                                                <option value="value4">Rodrigo Almnedaros Bonilla Bonifacio</option>
-                                            </select>
-                                        </form>
-                                    </div>
-                                    <div class="col-1">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-dismiss="modal" href="#agregar_conductor" id="add_conductor"><a
-                                                class="nav-link"><img
-                                                    src="../../resources/img/cards/buttons/add_30px.png"></a></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-1">
+                    <!-- Formulario-->
 
-                            </div>
-                            <div class="col-5">
-                                <label for="formGroupExampleInput" class="form-label">Imagen</label>
-                                <form>
-                                    <a class="btn" id="upload_image">
-                                        <input type="file" class="form-control form-control-sm form-Input-Style">
+                    <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
+                    <form method="post" id="insert-modal">
+                        <div class="modal-body" id="formModal">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="vin" class="form-label">VIN</label>
+                                    <input type="text" class="form-control" id="vin" name="vin"
+                                        placeholder="Escriba el VIN del Vehiculo" required>
+                                    <label for="placa" class="form-label">Placa del Vehiculo</label>
+                                    <input type="tel" class="form-control" id="placa" name="placa"
+                                        placeholder="Escriba la placa del Vehiculo" required>
+                                </div>
+                                <div class="col-1">
+                                </div>
+                                <div class="col-5">
+                                    <label for="formGroupExampleInput" class="form-label">Imagen</label>
+                                    <a class="btn" id="upload_image" required>
+                                        <input type="file" class="form-control form-control-sm form-Input-Style"
+                                            name="archivo" id="archivo">
                                         <img src="../../resources/img/cards/buttons/download_100px.png">
                                     </a>
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                href="#actualizarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/add_26px.png"></a></button>
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-dismiss="modal"
-                                href="#eliminarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/Remove_26px.png"></a></button>
-                            <button type="button" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
-                                    class="nav-link"><img
-                                        src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                        <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                        <div class="modal-footer">
+                            <div class="btn-group" role="group" id="opcionesModal">
+                                <button type="submit" class="btn btn-light" id="btnmenu"><a
+                                        class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/add_26px.png"></a></button>
+                                <button type="reset" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
+                                        class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
         <!-- Modal de para AGREGAR conductores -->
-        <div class="modal fade" id="agregar_conductor" tabindex="-1" aria-labelledby="agregar_conductor"
+        <div class="modal fade" id="agregar_conductor" tabindex="-1" 
             aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
@@ -313,38 +283,16 @@
                 </div>
             </div>
         </div>
-        <!-- Modal de AGREGAR CONFIRMAR -->
-        <div class="modal fade" id="agregarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-            tabindex="-1">
+        <!-- Modal de GUARDADO REALIZADO -->
+        <div class="modal fade" id="guardado"  tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
+                        <h5 class="modal-title">Guardado con éxito</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Desea agregar esta información como un nuevo registro?
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#agregarform" data-bs-toggle="modal"
-                            id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#agregado" data-bs-toggle="modal"
-                            id="btnmenu">Confirmar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal de AGREGAR REALIZADO -->
-        <div class="modal fade" id="agregado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
-            tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel4">Agregado con éxito</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        El registro se ha agregado con éxito.
+                        El registro se ha guardado con éxito.
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
@@ -357,56 +305,51 @@
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="actualizarformLabel">Actualizar Tipo de Usuario</h5>
+                        <h5 class="modal-title">Actualizar Vehiculo</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post" id="update-modal-prueba">
+                    <!-- Formulario-->
+
+                    <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
+                    <form method="post" id="update-modal">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col-6">
-                                    <!-- <label for="formGroupExampleInput" class="form-label">Disponibilidad</label> -->
-                                    <!-- <select name="select" class="form-control">
-                                        <option value="value1" selected>Disponible</option>
-                                        <option value="value2">En Mantenimiento</option>
-                                        <option value="value3">Fuera de Uso</option>
-                                    </select> -->
-                                    <label for="formGroupExampleInput" class="form-label">VIN</label>
-                                    <input type="text" class="form-control" id="VIN_id" name="VIN"
-                                        placeholder="1FAFP58U0XA209159">
-                                    <label for="formGroupExampleInput" class="form-label">Placa del Vehiculo</label>
-                                    <input type="tel" class="form-control" id="placa_id" name="placa"
-                                        placeholder="P249-139">
-                                    <div class="row">
-                                        <div class="col-10">
-                                            <label for="formGroupExampleInput" class="form-label">Conductor</label>
-                                            <select name="select" class="form-control">
-                                                <option value="value1" selected>Andres Alejandro Leon Guzman
-                                                </option>
-                                                <option value="value2">Jefferson Alxandro Solorzano Reyes</option>
-                                                <option value="value3">Jesus Daniel Ezquivel Flores</option>
-                                                <option value="value4">Rodrigo Almnedaros Bonilla Bonifacio</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-1">
-                                        </div>
-                                    </div>
+                                    <label for="vin_update" class="form-label">VIN</label>
+                                    <input type="text" class="form-control" id="vin_update" name="vin"
+                                        placeholder="Escriba el VIN del Vehiculo" required>
+                                    <label for="placa_update" class="form-label">Placa del Vehiculo</label>
+                                    <input type="tel" class="form-control" id="placa_update" name="placa"
+                                        placeholder="Escriba la placa del Vehiculo" required>
+                                </div>
+                                <div class="col-1">
+                                </div>
+                                <div class="col-5">
+                                    <label for="formGroupExampleInput" class="form-label">Imagen</label>
+                                    <a class="btn" id="upload_image" required>
+                                        <input type="file" class="form-control form-control-sm form-Input-Style"
+                                            name="archivo" id="archivo">
+                                        <img src="../../resources/img/cards/buttons/download_100px.png">
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <!-- Fotter del modal -->
+                        <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
                         <div class="modal-footer">
-                                <button type="  "> <img
-                                        src="../../resources/img/cards/buttons/edit_26px.png"></button>
-                                <button type="button" class="btn btn-light" id="btnmenu" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal"><a class="nav-link"><img
+                            <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
+                                <button type="submit" class="btn btn-light" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/cards/buttons/edit_26px.png"></a></button>
+                                <button type="reset" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
+                                        class="nav-link"><img
                                             src="../../resources/img/cards/buttons/Close_26px.png"></a></button>
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         <!-- Modal de para ACTUALIZAR conductores -->
-        <div class="modal fade" id="actualizar_conductor" tabindex="-1" aria-labelledby="actualizar_conductor"
+        <div class="modal fade" id="actualizar_conductor" tabindex="-1" 
             aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
@@ -443,47 +386,8 @@
                 </div>
             </div>
         </div>
-        <!-- Modal de CONFIRMACIÓN -->
-        <div class="modal fade" id="actualizarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-            tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel">Confirmar</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ¿Desea actualizar la información de este registro?
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
-                            id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#actualizado" data-bs-toggle="modal"
-                            id="btnmenu">Confirmar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal de ACTUALIZACIÓN REALIZADA -->
-        <div class="modal fade" id="actualizado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3"
-            tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel3">Actualizado con éxito</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        El registro se ha actualizado con éxito.
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- Modal de ELIMINAR -->
-        <div class="modal fade" id="eliminarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+        <div class="modal fade" id="eliminarForm" tabindex="-1"  
             tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -492,19 +396,23 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Desea Eliminar la información de este registro?
+                        ¿Desea Eliminar la información de este registro?
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
-                            id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
-                            id="btnmenu">Confirmar</button>
+                        <!-- EL ID DEL FORMULARIO AL CUAL SE HACE REFERENCIA -->
+                        <button class="btn btn-primary" data-bs-dismiss="modal" n data-bs-toggle="modal"
+                            data-bs-dismiss="modal" id="btnmenu">Volver</button>
+                        <form id="delete-form">
+                            <input type="hidden" id="id-eliminar" name="id-eliminar">
+                            <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
+                            <button class="btn btn-primary" id="btnmenu" type="submit">Confirmar</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Modal de ELIMINAR REALIZADO -->
-        <div class="modal fade" id="eliminado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+        <div class="modal fade" id="eliminado" tabindex="-1"
             tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -514,6 +422,23 @@
                     </div>
                     <div class="modal-body">
                         El registro se ha eliminado con éxito.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de PROCESO FALLIDO -->
+        <div class="modal fade" id="error_proceso"  tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo realizar el proceso debido a que hubo un error.
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
@@ -547,9 +472,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="../../controller/privado/vehiculo.js"></script>
-
 
 </body>
 
 </html>
+

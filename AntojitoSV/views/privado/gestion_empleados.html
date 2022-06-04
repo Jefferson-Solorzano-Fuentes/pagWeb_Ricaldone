@@ -202,7 +202,7 @@
         <!-- Formulario del CRUD -->
 
         <!-- Modal de AGREGAR REGISTRO-->
-        <div class="modal fade" id="agregarform" tabindex="-1" aria-labelledby="agregarform" aria-hidden="true">
+        <div class="modal fade" id="agregarform" tabindex="-1">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -218,19 +218,20 @@
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Nombre</label>
                                     <input type="text" class="form-control" id="nombre_empleado" name="nombre_empleado"
-                                        placeholder="Escriba el nombre del empleado">
+                                        placeholder="Escriba el nombre del empleado" required>
                                     <label for="formGroupExampleInput" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="apellido_empleado"
-                                        name="apellido_empleado" placeholder="Escriba el apellido del empleado">
+                                        name="apellido_empleado" placeholder="Escriba el apellido del empleado"
+                                        required>
                                     <label for="formGroupExampleInput" class="form-label">Teléfono</label>
                                     <input type="text" class="form-control" id="telefono" name="telefono"
-                                        placeholder="Escriba su número telefónico">
+                                        placeholder="Escriba su número telefónico" required>
                                     <label for="formGroupExampleInput" class="form-label">Correo Electrónico</label>
                                     <input type="email" class="form-control" id="correo" name="correo"
-                                        placeholder="Escriba su correo electrónico">
+                                        placeholder="Escriba su correo electrónico" required>
                                     <label for="formGroupExampleInput" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento"
-                                        name="fecha_nacimiento">
+                                        name="fecha_nacimiento" required>
                                 </div>
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Género</label>
@@ -241,10 +242,10 @@
 
                                     <label for="formGroupExampleInput" class="form-label">DUI</label>
                                     <input type="text" class="form-control" id="dui" name="dui"
-                                        placeholder="Escriba su DUI">
+                                        placeholder="Escriba su DUI" required>
                                     <label for="formGroupExampleInput" class="form-label">NIT</label>
                                     <input type="text" class="form-control" id="nit" name="nit"
-                                        placeholder="Escriba su NIT">
+                                        placeholder="Escriba su NIT" required>
                                     <label for="formGroupExampleInput" class="form-label">Tipo de Empleado</label>
                                     <select onchange="seleccionarTipoEmpleado()" id="tipo_empleado"
                                         name="tipo_empleado">
@@ -258,8 +259,9 @@
                                 </div>
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Imagen</label>
-                                    <a class="btn" id="upload_image">
-                                        <input type="file" class="form-control form-control-sm form-Input-Style" name="archivo" id="archivo">
+                                    <a class="btn" id="upload_image" required>
+                                        <input type="file" class="form-control form-control-sm form-Input-Style"
+                                            name="archivo" id="archivo">
                                         <img src="../../resources/img/cards/buttons/download_100px.png">
                                     </a>
                                 </div>
@@ -268,9 +270,8 @@
                         <!-- Fotter del modal -->
                         <!-- Boton de insert -->
                         <div class="modal-footer">
-                            <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#agregado" id="btnmenu"><a class="nav-link"><img
+                            <div class="btn-group" role="group" id="opcionesModal">
+                                <button type="submit" class="btn btn-light" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/cards/buttons/add_26px.png"></a></button>
                                 <button type="reset" class="btn btn-light" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
@@ -281,18 +282,16 @@
                 </div>
             </div>
         </div>
-
-        <!-- Modal de AGREGAR REALIZADO -->
-        <div class="modal fade" id="agregado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
-            tabindex="-1">
+        <!-- Modal de GUARDADO REALIZADO -->
+        <div class="modal fade" id="guardado" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel4">Agregado con éxito</h5>
+                        <h5 class="modal-title">Guardado con éxito</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        El registro se ha agregado con éxito.
+                        El registro se ha guardado con éxito.
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
@@ -300,9 +299,8 @@
                 </div>
             </div>
         </div>
-
         <!-- Modal de ACTUALIZAR REGISTRO -->
-        <div class="modal fade" id="actualizarform" tabindex="-1" aria-labelledby="actualizarform" aria-hidden="true">
+        <div class="modal fade" id="actualizarform" tabindex="-1">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -315,50 +313,52 @@
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
-                                    <label for="formGroupExampleInput" class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre_empleado" name="nombre_empleado"
-                                        placeholder="Escriba el nombre del empleado">
-                                    <label for="formGroupExampleInput" class="form-label">Apellido</label>
-                                    <input type="text" class="form-control" id="apellido_empleado"
-                                        name="apellido_empleado" placeholder="Escriba el apellido del empleado">
-                                    <label for="formGroupExampleInput" class="form-label">Teléfono</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono"
-                                        placeholder="Escriba su número telefónico">
-                                    <label for="formGroupExampleInput" class="form-label">Correo Electrónico</label>
-                                    <input type="email" class="form-control" id="correo" name="correo"
-                                        placeholder="Escriba su correo electrónico">
-                                    <label for="formGroupExampleInput" class="form-label">Fecha de Nacimiento</label>
-                                    <input type="date" class="form-control" id="fecha_nacimiento"
-                                        name="fecha_nacimiento">
+                                    <label for="nombre_empleado_update" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre_empleado_update"
+                                        name="nombre_empleado" placeholder="Escriba el nombre del empleado" required>
+                                    <label for="apellido_empleado_update" class="form-label">Apellido</label>
+                                    <input type="text" class="form-control" id="apellido_empleado_update"
+                                        name="apellido_empleado" placeholder="Escriba el apellido del empleado"
+                                        required>
+                                    <label for="telefono_update" class="form-label">Teléfono</label>
+                                    <input type="text" class="form-control" id="telefono_update" name="telefono"
+                                        placeholder="Escriba su número telefónico" required>
+                                    <label for="correo_update" class="form-label">Correo Electrónico</label>
+                                    <input type="email" class="form-control" id="correo_update" name="correo"
+                                        placeholder="Escriba su correo electrónico" required>
+                                    <label for="fecha_nacimiento_update" class="form-label">Fecha de Nacimiento</label>
+                                    <input type="date" class="form-control" id="fecha_nacimiento_update"
+                                        name="fecha_nacimiento" required>
                                 </div>
                                 <div class="col">
-                                    <label for="formGroupExampleInput" class="form-label">Género</label>
-                                    <select id="genero" name="genero" class="form-control">
+                                    <label for="genero_update" class="form-label">Género</label>
+                                    <select id="genero_update" name="genero" class="form-control">
                                         <option value="H" selected>Masculino</option>
                                         <option value="M">Femenino</option>
                                     </select>
 
-                                    <label for="formGroupExampleInput" class="form-label">DUI</label>
-                                    <input type="text" class="form-control" id="dui" name="dui"
-                                        placeholder="Escriba su DUI">
-                                    <label for="formGroupExampleInput" class="form-label">NIT</label>
-                                    <input type="text" class="form-control" id="nit" name="nit"
-                                        placeholder="Escriba su NIT">
-                                    <label for="formGroupExampleInput" class="form-label">Tipo de Empleado</label>
-                                    <select onchange="seleccionarTipoEmpleado()" id="tipo_empleado_u"
+                                    <label for="dui_update" class="form-label">DUI</label>
+                                    <input type="text" class="form-control" id="dui_update" name="dui"
+                                        placeholder="Escriba su DUI" required>
+                                    <label for="nit_update" class="form-label">NIT</label>
+                                    <input type="text" class="form-control" id="nit_update" name="nit"
+                                        placeholder="Escriba su NIT" required>
+                                    <label for="tipo_empleado_update" class="form-label">Tipo de Empleado</label>
+                                    <select onchange="seleccionarTipoEmpleado()" id="tipo_empleado_update"
                                         name="tipo_empleado">
 
                                     </select>
-                                    <label for="formGroupExampleInput" class="form-label">Estado de Empleado</label>
-                                    <select onchange="seleccionarEstadoEmpleado()" id="estado_empleado_u"
+                                    <label for="estado_empleado_update" class="form-label">Estado de Empleado</label>
+                                    <select onchange="seleccionarEstadoEmpleado()" id="estado_empleado_update"
                                         name="estado_empleado">
 
                                     </select>
                                 </div>
                                 <div class="col">
-                                    <label for="formGroupExampleInput" class="form-label">Imagen</label>
-                                    <a class="btn" id="upload_image">
-                                        <input type="file" class="form-control form-control-sm form-Input-Style" name="archivo" id="archivo">
+                                    <label for="upload_image" class="form-label">Imagen</label>
+                                    <a class="btn" id="upload_image" required>
+                                        <input type="file" class="form-control form-control-sm form-Input-Style"
+                                            name="archivo" id="archivo">
                                         <img src="../../resources/img/cards/buttons/download_100px.png">
                                     </a>
                                 </div>
@@ -367,9 +367,7 @@
                         <!-- Fotter del modal -->
                         <div class="modal-footer">
                             <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                                <button type="submit" class="btn btn-light" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal" href="#actualizarConfirmar" id="btnmenu"><a
-                                        class="nav-link"><img
+                                <button type="submit" class="btn btn-light" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/cards/buttons/edit_26px.png"></a></button>
                                 <button type="button" class="btn btn-light" id="btnmenu" data-bs-toggle="modal"
                                     data-bs-dismiss="modal"><a class="nav-link"><img
@@ -380,51 +378,8 @@
                 </div>
             </div>
         </div>
-
-        <!-- Modal de CONFIRMACIÓN -->
-        <div class="modal fade" id="actualizarConfirmar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-            tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel">Confirmar</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ¿Desea actualizar la información de este registro?
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
-                            id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#actualizado" data-bs-toggle="modal"
-                            id="btnmenu">Confirmar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal de ACTUALIZACIÓN REALIZADA -->
-        <div class="modal fade" id="actualizado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3"
-            tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel3">Actualizado con éxito</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        El registro se ha actualizado con éxito.
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Modal de ELIMINAR -->
-        <div class="modal fade" id="eliminarForm" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-            tabindex="-1">
+        <div class="modal fade" id="eliminarForm" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -439,11 +394,10 @@
                         <form id="delete-form">
                             <input type="hidden" id="id-eliminar" name="id-eliminar">
                             <!-- BOTON DE TIPO SUBMIT QUE EJECUTARA EL EVENTO -->
-                            <button class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
-                            data-bs-dismiss="modal" id="btnmenu" type="submit">Confirmar</button>
+                            <button class="btn btn-primary" id="btnmenu" type="submit">Confirmar</button>
 
-                            <button type="submit" class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
-                            id="btnmenu">Confirmar</button>
+                            <button type="submit" class="btn btn-primary" data-bs-target="#eliminado"
+                                data-bs-toggle="modal" id="btnmenu">Confirmar</button>
                         </form>
 
                     </div>
@@ -451,8 +405,7 @@
             </div>
         </div>
         <!-- Modal de ELIMINAR REALIZADO -->
-        <div class="modal fade" id="eliminado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
-            tabindex="-1">
+        <div class="modal fade" id="eliminado" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -461,6 +414,23 @@
                     </div>
                     <div class="modal-body">
                         El registro se ha eliminado con éxito.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de PROCESO FALLIDO -->
+        <div class="modal fade" id="error_proceso" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo realizar el proceso debido a que hubo un error.
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
@@ -493,6 +463,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="../../controller/privado/empleado.js"></script>
 
 </body>

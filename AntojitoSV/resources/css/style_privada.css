@@ -12006,18 +12006,6 @@
     align-items: center;
   }
   
-
-
-  .logInContainer {
-    width: 30%;
-    height: 70%;
-    background-color: white;
-    border-radius: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
   .logIndButton {
     border-radius: 25px;
   }
@@ -12050,18 +12038,7 @@
   }
   
   /*Jefferson Solorzano, SCRUD*/
-  
-  .logoContainer {
-    width: 60%;
-    height: 90%;
-    background-color: #f8e4d4;
-    border-radius: 25px;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
+
   .logInContainer {
     width: 30%;
     height: 70%;
@@ -12229,36 +12206,6 @@
 
 /*Jefferson Solorzano, privatePage*/
 
-.bodyLogInContainer {
-  background-image: url("../img/navbarPrivimg/fondo.png");
-  width: 100%;
-  height: 700px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.logoContainer {
-  width: 60%;
-  height: 90%;
-  background-color: #f8e4d4;
-  border-radius: 25px;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.logInContainer {
-  width: 30%;
-  height: 70%;
-  background-color: white;
-  border-radius: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .logIndButton {
   border-radius: 25px;
 }
@@ -12284,11 +12231,7 @@
   font-family: justbubble;
 }
 
-#welcomeParagrah {
-  display: inline;
-  font-size: 115px;
-  font-family: justbubble;
-}
+
 
 /*Tablas de la parte privada*/
 
@@ -12366,4 +12309,11 @@
 
 .modal label{
   margin-top: 10px;
+}
+
+#button_iniciar_sesion{
+  width: 80%;
+}
+#button_iniciar_sesion h5{
+  color: white;
 }

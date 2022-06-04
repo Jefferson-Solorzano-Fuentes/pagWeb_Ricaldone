@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="../css/style_publica.css">
+    <link rel="stylesheet" href="../../resources/css/style_publica.css">
     <title>AntojitoSV</title>
 
 </head>
@@ -27,14 +27,14 @@
                         <!-- Primera mitad del navbar -->
                         <div class="col-8 bg-primary">
                             <!-- Imagenes de las redes sociales -->
-                            <img class="redesSociales" id="Instagram" src="../img/navbar/Instagram_35px.png"
-                                alt="Instagram" usemap="#Instagram">
-                            <img class="redesSociales" id="Facebook" src="../img/navbar/Facebook_35px.png"
+                            <img class="redesSociales" id="Instagram"
+                                src="../../resources/img/navbar/Instagram_35px.png" alt="Instagram" usemap="#Instagram">
+                            <img class="redesSociales" id="Facebook" src="../../resources/img/navbar/Facebook_35px.png"
                                 alt="Facebook" usemap="#Facebook">
-                            <img class="redesSociales" id="WhatsApp" src="../img/navbar/whatsapp_35px.png"
+                            <img class="redesSociales" id="WhatsApp" src="../../resources/img/navbar/whatsapp_35px.png"
                                 alt="Whatsapp" usemap="#WhatsApp">
-                            <img class="redesSociales" id="Gmail" src="../img/navbar/gmail_35px.png" alt="Gmail"
-                                usemap="#Gmail">
+                            <img class="redesSociales" id="Gmail" src="../../resources/img/navbar/gmail_35px.png"
+                                alt="Gmail" usemap="#Gmail">
                             <map name="Instagram">
                                 <area shape="rect" coords="0,0,45,45" href="https://www.instagram.com">
                             </map>
@@ -51,28 +51,8 @@
                         </div>
                         <!-- Segunda mitad del navbar -->
                         <div class="col-4 bg-secondary">
-                            <a class="navbar-brand" href="#">
-                                <!-- Boton de registrarse-->
-                                <a class="btn btn-danger" href="login.html" id="registrate"><img
-                                        src="../img/navbar/user_25px.png"> Registrate</a>
-                                <!-- Imagenes para ordenes/recibo -->
-                                <img class="redesSociales" src="../img/navbar/shopping_cart_with_money_35px.png"
-                                    usemap="#historial">
-                                <img class="redesSociales" src="../img/navbar/bill_35px.png" usemap="#historial">
-                                <map name="historial">
-                                    <area shape="rect" coords="15,0,35,35" href="historial_compras.html">
-                                </map>
-                                <!-- Dropdown de idiomas -->
-                                <div class="btn-group">
-                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="../img/navbar/el_salvador_35px.png">
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Español</a>
-                                        <a class="dropdown-item" href="#">Ingles</a>
-                                    </ul>
-                                </div>
+                            <a class="navbar-brand" href="#" id="segunda_mitad_navbar">
+
                             </a>
                         </div>
                     </div>
@@ -89,38 +69,50 @@
                         <div class="row justify-content-around">
                             <!-- Imagenes de los botones y sus respectivos textos links-->
                             <div class="row col-1 navBarItem">
-                                <img src="../img/navbar_publico/ice_cream_sundae_75px.png" usemap="#menu_item">
-                                <a href="categoria.html">Sorbetes</a>
+                                <img src="../../resources/img/navbar_publico/ice_cream_sundae_75px.png"
+                                    usemap="menu_sorbete">
+                                <a href="categoria.html?id=4">Sorbetes</a>
                             </div>
                             <div class="row col-1 navBarItem">
-                                <img src="../img/navbar_publico/christmas_candy_75px.png" usemap="#menu_item">
-                                <a href="categoria.html">Dulces</a>
+                                <img src="../../resources/img/navbar_publico/christmas_candy_75px.png"
+                                    usemap="#menu_dulces">
+                                <a href="categoria.html?id=2">Dulces</a>
                             </div>
                             <div class="row col-1 navBarItem">
-                                <img src="../img/navbar_publico/croissant_75px.png" usemap="#menu_item">
-                                <a href="categoria.html">Pan Dulce</a>
+                                <img src="../../resources/img/navbar_publico/croissant_75px.png" usemap="#menu_pan">
+                                <a href="categoria.html?id=3">Pan Dulce</a>
                             </div>
                             <div class="row col-1 navBarItem">
-                                <img src="../img/navbar_publico/Pelmeni_75px.png" usemap="#menu_item">
-                                <a href="categoria.html">Antojos</a>
+                                <img src="../../resources/img/navbar_publico/Pelmeni_75px.png" usemap="#menu_antojitos">
+                                <a href="categoria.html?id=1">Antojos</a>
                             </div>
                             <div class="row col-1 navBarItem">
-                                <img src="../img/navbar_publico/discount_75px.png" usemap="#menu_item">
-                                <a href="categoria.html">Promociones</a>
+                                <img onclick="abrirDescuento()"
+                                    src="../../resources/img/navbar_publico/discount_75px.png">
+                                <a onclick="abrirDescuento()">Promociones</a>
                             </div>
                             <div class="row col-1 navBarItem">
-                                <img src="../img/navbar_publico/home_75px.png" usemap="#Inicio">
+                                <img src="../../resources/img/navbar_publico/home_75px.png" usemap="#Inicio">
                                 <a href="index.html">Inicio</a>
                             </div>
                             <div class="row col-1 navBarItem">
-                                <img src="../img/navbar_publico/logoX125px.png" usemap="#Logo">
+                                <img src="../../resources/img/navbar_publico/logoX125px.png" usemap="#Logo">
                             </div>
                             <!-- Mapeo-->
                             <map name="categorias">
                                 <area shape="rect" coords="10,0,85,75" href="menu_principal.html">
                             </map>
-                            <map name="menu_item">
-                                <area shape="rect" coords="10,0,85,75" href="categoria.html">
+                            <map name="menu_sorbete">
+                                <area shape="rect" coords="10,0,85,75" href="categoria.html?id=4">
+                            </map>
+                            <map name="menu_dulces">
+                                <area shape="rect" coords="10,0,85,75" href="categoria.html?id=2">
+                            </map>
+                            <map name="menu_pan">
+                                <area shape="rect" coords="10,0,85,75" href="categoria.html?id=3">
+                            </map>
+                            <map name="menu_antojitos">
+                                <area shape="rect" coords="10,0,85,75" href="categoria.html?id=1">
                             </map>
                             <map name="Inicio">
                                 <area shape="rect" coords="10,0,85,75" href="index.html">
@@ -156,13 +148,16 @@
                                 </div>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img src="../img/index/carrusel/1.jpg" class="d-block w-100" alt="...">
+                                        <img src="../../resources/img/index/carrusel/1.jpg" class="d-block w-100"
+                                            alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="../img/index/carrusel/2.jpg" class="d-block w-100" alt="...">
+                                        <img src="../../resources/img/index/carrusel/2.jpg" class="d-block w-100"
+                                            alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="../img/index/carrusel/3.jpg" class="d-block w-100" alt="...">
+                                        <img src="../../resources/img/index/carrusel/3.jpg" class="d-block w-100"
+                                            alt="...">
                                     </div>
                                 </div>
                                 <button class="carousel-control-prev" type="button"
@@ -184,11 +179,11 @@
                     <div class="card-body">
                         <h1 class="card-title">Inicia tu orden</h1>
                         <div class="container" id="cuadro">
-                            <img src="../img/index/cartas/bolsa.png" id="img">
+                            <img src="../../resources/img/index/cartas/bolsa.png" id="img">
                         </div>
                         <div class="container" id="cuadro2">
                             <a href="menu_principal.html" id="boton">Pide ahora<img class="carrito"
-                                    src="../img/index/iconos/carrito.png"></a>
+                                    src="../../resources/img/index/iconos/carrito.png"></a>
                         </div>
                     </div>
                 </div>
@@ -201,14 +196,14 @@
                     <div class="card-body">
                         <div class="container" id="R">
                             <div class="container">
-                                <img src="../img/index/cartas/media.png" id="media">
+                                <img src="../../resources/img/index/cartas/media.png" id="media">
                             </div>
                             <div class="container">
                                 <div class="container" id="titulo-card5">
                                     <h3>Conoce nuestro menú y elige tu favorito</h3>
                                     <div class="container" id="btn-card5">
                                         <a href="menu_principal.html" id="boton">Ir al menu<img class="carrito"
-                                                src="../img/index/iconos/carrito.png"></a>
+                                                src="../../resources/img/index/iconos/carrito.png"></a>
                                     </div>
                                 </div>
                             </div>
@@ -220,12 +215,12 @@
                     <div class="card-body">
                         <div class="container" id="tex1">
                             <div>
-                                <img src="../img/index/cartas/time.png" id="img">
+                                <img src="../../resources/img/index/cartas/time.png" id="img">
                             </div>
                             <h3 class="card-title">Programa tu pedido</h3>
                             <div class="container" id="btn-card3">
                                 <a href="menu_principal.html" id="boton">Programar<img class="carrito"
-                                        src="../img/index/iconos/carrito.png"></a>
+                                        src="../../resources/img/index/iconos/carrito.png"></a>
                             </div>
                         </div>
                     </div>
@@ -238,10 +233,10 @@
                         </div>
                         <div class="container" id="cuadro">
                             <div class="container">
-                                <img src="../img/index/iconos/Website_125px.png" id="f">
-                                <img src="../img/index/iconos/whatsapp_125px.png" id="f">
-                                <img src="../img/index/iconos/Instagram_125px.png" id="f">
-                                <img src="../img/index/iconos/phone_125px.png" id="f">
+                                <img src="../../resources/img/index/iconos/Website_125px.png" id="f">
+                                <img src="../../resources/img/index/iconos/whatsapp_125px.png" id="f">
+                                <img src="../../resources/img/index/iconos/Instagram_125px.png" id="f">
+                                <img src="../../resources/img/index/iconos/phone_125px.png" id="f">
                             </div>
                             <div class="container" id="izq">
                                 <p>AntojitoSV</p>
@@ -297,14 +292,14 @@
                 <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
                     <ul class="list unstyled list-inline">
                         <!-- Imagenes de las redes sociales -->
-                        <img class="redesSociales" id="Instagram" src="../img/navbar/Instagram_35px.png" alt="Instagram"
-                            usemap="#Instagram">
-                        <img class="redesSociales" id="Facebook" src="../img/navbar/Facebook_35px.png" alt="Facebook"
-                            usemap="#Facebook">
-                        <img class="redesSociales" id="WhatsApp" src="../img/navbar/whatsapp_35px.png" alt="Whatsapp"
-                            usemap="#WhatsApp">
-                        <img class="redesSociales" id="Gmail" src="../img/navbar/gmail_35px.png" alt="Gmail"
-                            usemap="#Gmail">
+                        <img class="redesSociales" id="Instagram" src="../../resources/img/navbar/Instagram_35px.png"
+                            alt="Instagram" usemap="#Instagram">
+                        <img class="redesSociales" id="Facebook" src="../../resources/img/navbar/Facebook_35px.png"
+                            alt="Facebook" usemap="#Facebook">
+                        <img class="redesSociales" id="WhatsApp" src="../../resources/img/navbar/whatsapp_35px.png"
+                            alt="Whatsapp" usemap="#WhatsApp">
+                        <img class="redesSociales" id="Gmail" src="../../resources/img/navbar/gmail_35px.png"
+                            alt="Gmail" usemap="#Gmail">
                     </ul>
                 </div>
             </div>
@@ -318,6 +313,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
+    <script type="module" src="../../controller/publico/index.js"></script>
+    <script type="module" src="../../controller/publico/navbar.js"></script>
 
 </body>
 

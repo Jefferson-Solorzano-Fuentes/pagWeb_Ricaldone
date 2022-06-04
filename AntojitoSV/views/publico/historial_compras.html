@@ -12,16 +12,16 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="../css/style_publica.css">
+    <link rel="stylesheet" href="../../resources/css/style_publica.css">
     <title>AntojitoSV</title>
 
 </head>
 
 <body>
     <!-- Encabezado de antojitoSV -->
-    <header>
+    <header class="fixed-top">
         <!-- Primer navbar -->
-        <nav class="navbar fixed-top navbar-primary navbar-expand-md" id="primerNavbar">
+        <nav class="navbar navbar-primary navbar-expand-md" id="primerNavbar">
             <!-- Dividir el navbar en 2 diferentes columnas -->
             <div class="container-fluid">
                 <div class="container-fluid">
@@ -29,14 +29,14 @@
                         <!-- Primera mitad del navbar -->
                         <div class="col-8 bg-primary">
                             <!-- Imagenes de las redes sociales -->
-                            <img class="redesSociales" id="Instagram" src="../img/navbar/Instagram_35px.png"
-                                alt="Instagram" usemap="#Instagram">
-                            <img class="redesSociales" id="Facebook" src="../img/navbar/Facebook_35px.png"
+                            <img class="redesSociales" id="Instagram"
+                                src="../../resources/img/navbar/Instagram_35px.png" alt="Instagram" usemap="#Instagram">
+                            <img class="redesSociales" id="Facebook" src="../../resources/img/navbar/Facebook_35px.png"
                                 alt="Facebook" usemap="#Facebook">
-                            <img class="redesSociales" id="WhatsApp" src="../img/navbar/whatsapp_35px.png"
+                            <img class="redesSociales" id="WhatsApp" src="../../resources/img/navbar/whatsapp_35px.png"
                                 alt="Whatsapp" usemap="#WhatsApp">
-                            <img class="redesSociales" id="Gmail" src="../img/navbar/gmail_35px.png" alt="Gmail"
-                                usemap="#Gmail">
+                            <img class="redesSociales" id="Gmail" src="../../resources/img/navbar/gmail_35px.png"
+                                alt="Gmail" usemap="#Gmail">
                             <map name="Instagram">
                                 <area shape="rect" coords="0,0,45,45" href="https://www.instagram.com">
                             </map>
@@ -56,11 +56,13 @@
                             <a class="navbar-brand" href="#">
                                 <!-- Boton de registrarse-->
                                 <a class="btn btn-danger" href="login.html" id="registrate"><img
-                                        src="../img/navbar/user_25px.png"> Registrate</a>
+                                        src="../../resources/img/navbar/user_25px.png"> Registrate</a>
                                 <!-- Imagenes para ordenes/recibo -->
-                                <img class="redesSociales" src="../img/navbar/shopping_cart_with_money_35px.png"
+                                <img class="redesSociales"
+                                    src="../../resources/img/navbar/shopping_cart_with_money_35px.png"
                                     usemap="#historial">
-                                <img class="redesSociales" src="../img/navbar/bill_35px.png" usemap="#historial">
+                                <img class="redesSociales" src="../../resources/img/navbar/bill_35px.png"
+                                    usemap="#historial">
                                 <map name="historial">
                                     <area shape="rect" coords="15,0,35,35" href="historial_compras.html">
                                 </map>
@@ -68,7 +70,7 @@
                                 <div class="btn-group">
                                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="../img/navbar/el_salvador_35px.png">
+                                        <img src="../../resources/img/navbar/el_salvador_35px.png">
                                     </button>
                                     <ul class="dropdown-menu">
                                         <a class="dropdown-item" href="#">Español</a>
@@ -86,43 +88,53 @@
             <!-- Dividir el navbar en 2 diferentes columnas -->
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12">
-                        <a class="navbar-brand" href="#">
-                            <!-- Imagenes de los botones del menu de la pagina publica con mapeo -->
-                            <img class="navCategorias" id="Sorbete"
-                                src="../img/navbar_publico/ice_cream_sundae_75px.png" usemap="#categoriass">
-                            <img class="navCategorias" src="../img/navbar_publico/christmas_candy_75px.png"
-                                usemap="#categorias">
-                            <img class="navCategorias" src="../img/navbar_publico/croissant_75px.png"
-                                usemap="#categorias">
-                            <img class="navCategorias" src="../img/navbar_publico/Pelmeni_75px.png"
-                                usemap="#categorias">
-                            <img class="navCategorias" src="../img/navbar_publico/discount_75px.png"
-                                usemap="#categorias">
-                            <img class="navCategorias" id="Inicio" src="../img/navbar_publico/home_75px.png"
-                                usemap="#categorias">
-                            <img class="navCategorias" id="Logo" src="../img/navbar_publico/logoX125px.png"
-                                usemap="#Inicio">
-
-                            <!-- Imagenes de los botones del menu de la pagina privada con mapeo -->
-                            <map name="categoriass">
-                                <area shape="rect" coords="50,0,75,75" href="categoria.html">
-                            </map>
+                    <div class="container-fluid">
+                        <!-- Imagenes de los botones del menu de la pagina publica con mapeo -->
+                        <div class="row justify-content-around">
+                            <!-- Imagenes de los botones y sus respectivos textos links-->
+                            <div class="row col-1 navBarItem">
+                                <img src="../../resources/img/navbar_publico/ice_cream_sundae_75px.png"
+                                    usemap="#menu_item">
+                                <a href="categoria.html">Sorbetes</a>
+                            </div>
+                            <div class="row col-1 navBarItem">
+                                <img src="../../resources/img/navbar_publico/christmas_candy_75px.png"
+                                    usemap="#menu_item">
+                                <a href="categoria.html">Dulces</a>
+                            </div>
+                            <div class="row col-1 navBarItem">
+                                <img src="../../resources/img/navbar_publico/croissant_75px.png" usemap="#menu_item">
+                                <a href="categoria.html">Pan Dulce</a>
+                            </div>
+                            <div class="row col-1 navBarItem">
+                                <img src="../../resources/img/navbar_publico/Pelmeni_75px.png" usemap="#menu_item">
+                                <a href="categoria.html">Antojos</a>
+                            </div>
+                            <div class="row col-1 navBarItem">
+                                <img src="../../resources/img/navbar_publico/discount_75px.png" usemap="#menu_item">
+                                <a href="categoria.html">Promociones</a>
+                            </div>
+                            <div class="row col-1 navBarItem">
+                                <img src="../../resources/img/navbar_publico/home_75px.png" usemap="#Inicio">
+                                <a href="index.html">Inicio</a>
+                            </div>
+                            <div class="row col-1 navBarItem">
+                                <img src="../../resources/img/navbar_publico/logoX125px.png" usemap="#Logo">
+                            </div>
+                            <!-- Mapeo-->
                             <map name="categorias">
-                                <area shape="rect" coords="125,0,200,75" href="categoria.html">
+                                <area shape="rect" coords="10,0,85,75" href="menu_principal.html">
+                            </map>
+                            <map name="menu_item">
+                                <area shape="rect" coords="10,0,85,75" href="categoria.html">
                             </map>
                             <map name="Inicio">
-                                <area shape="rect" coords="200,0,275,275" href="index.html">
+                                <area shape="rect" coords="10,0,85,75" href="index.html">
                             </map>
-                        </a>
-                    </div>
-                    <div class="col-12">
-                        <a href="categoria.html" class="navCategoriastxt" id="Sorbetetxt">Sorbetes</a>
-                        <a href="categoria.html" class="navCategoriastxt">Dulces</a>
-                        <a href="categoria.html" class="navCategoriastxt">Pan Dulce</a>
-                        <a href="categoria.html" class="navCategoriastxt">Antojos</a>
-                        <a href="categoria.html" class="navCategoriastxt" id="Promocionestxt">Promociones</a>
-                        <a href="index.html" class="navCategorias" id="Iniciotxt">Inicio</a>
+                            <map name="Logo">
+                                <area shape="rect" coords="10,0,125,95" href="index.html">
+                            </map>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -133,114 +145,43 @@
         <div class="container-fluid" id="promo">
             <div class="container-fluid" id="carro">
                 <h1 id="reseñasT">Tus Compras</h1>
-                <div class="row">
-                    <div class="card" id="compras">
-                        <div class="row g-0">
-                            <div class="col-md-6">
-                                <img src="../img/cards/productos/sorbete/plato.png" class="img-fluid rounded-start"
-                                    alt="img del producto">
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card-body">
-                                    <a href="carrito.html" id="comprasProd">
-                                        <h2 class="card-title">Sorbete de Carretón</h2>
-                                    </a>
-                                    <p class="card-text" id="cantidad">Cantidad: 3</p>
-                                    <p class="card-text"><small class="text-muted">06/03/2022</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card" id="compras">
-                        <div class="row g-0">
-                            <div class="col-md-6">
-                                <img src="../img/cards/promociones/yuca.png" class="img-fluid rounded-start"
-                                    alt="img del producto">
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card-body">
-                                    <a href="carrito.html" id="comprasProd">
-                                        <h2 class="card-title">Pastelito</h2>
-                                    </a>
-                                    <p class="card-text" id="cantidad">Cantidad: 6</p>
-                                    <p class="card-text"><small class="text-muted">01/03/2022</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card" id="compras">
-                        <div class="row g-0">
-                            <div class="col-md-6">
-                                <img src="../img/cards/promociones/dulce.png" class="img-fluid rounded-start"
-                                    alt="img del producto">
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card-body">
-                                    <a href="carrito.html" id="comprasProd">
-                                        <h2 class="card-title">Dulce</h2>
-                                    </a>
-                                    <p class="card-text" id="cantidad">Cantidad: 3</p>
-                                    <p class="card-text"><small class="text-muted">26/02/2022</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="" id="historial">
+
                 </div>
-                <div class="row">
-                    <div class="card" id="compras">
-                        <div class="row g-0">
-                            <div class="col-md-6">
-                                <img src="../img/cards/promociones/pastelito.png" class="img-fluid rounded-start"
-                                    alt="img del producto">
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card-body">
-                                    <h2 class="card-title">Pastelito</h2>
-                                    <p class="card-text" id="cantidad">Cantidad: 3</p>
-                                    <p class="card-text"><small class="text-muted">06/03/2022</small>
-                                    </p>
-                                </div>
-                            </div>
+            </div>
+        </div>
+
+        <!-- Modal DETALLE PEDIDO-->
+        <div class="modal fade " id="detallePedidoForm" tabindex="-1">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="actualizarformLabel">Comentario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid" id="tabla_datos">
+                            <table class="table table-responsive table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Cantidad</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="historialDetalle">
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="card" id="compras">
-                        <div class="row g-0">
-                            <div class="col-md-6">
-                                <img src="../img/cards/promociones/pastelito.png" class="img-fluid rounded-start"
-                                    alt="img del producto">
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card-body">
-                                    <h2 class="card-title">Pastelito</h2>
-                                    <p class="card-text" id="cantidad">Cantidad: 6</p>
-                                    <p class="card-text"><small class="text-muted">01/03/2022</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card" id="compras">
-                        <div class="row g-0">
-                            <div class="col-md-6">
-                                <img src="../img/cards/promociones/yuca.png" class="img-fluid rounded-start"
-                                    alt="img del producto">
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card-body">
-                                    <h2 class="card-title">Dulce</h2>
-                                    <p class="card-text" id="cantidad">Cantidad: 3</p>
-                                    <p class="card-text"><small class="text-muted">26/02/2022</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Cerrar</button>
                     </div>
                 </div>
             </div>
         </div>
+        
     </main>
     <!-- Footer de antojitoSV -->
     <footer class="primary bg-primary text-white pt-5 pb-4">
@@ -284,14 +225,14 @@
                 <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
                     <ul class="list unstyled list-inline">
                         <!-- Imagenes de las redes sociales -->
-                        <img class="redesSociales" id="Instagram" src="../img/navbar/Instagram_35px.png" alt="Instagram"
-                            usemap="#Instagram">
-                        <img class="redesSociales" id="Facebook" src="../img/navbar/Facebook_35px.png" alt="Facebook"
-                            usemap="#Facebook">
-                        <img class="redesSociales" id="WhatsApp" src="../img/navbar/whatsapp_35px.png" alt="Whatsapp"
-                            usemap="#WhatsApp">
-                        <img class="redesSociales" id="Gmail" src="../img/navbar/gmail_35px.png" alt="Gmail"
-                            usemap="#Gmail">
+                        <img class="redesSociales" id="Instagram" src="../../resources/img/navbar/Instagram_35px.png"
+                            alt="Instagram" usemap="#Instagram">
+                        <img class="redesSociales" id="Facebook" src="../../resources/img/navbar/Facebook_35px.png"
+                            alt="Facebook" usemap="#Facebook">
+                        <img class="redesSociales" id="WhatsApp" src="../../resources/img/navbar/whatsapp_35px.png"
+                            alt="Whatsapp" usemap="#WhatsApp">
+                        <img class="redesSociales" id="Gmail" src="../../resources/img/navbar/gmail_35px.png"
+                            alt="Gmail" usemap="#Gmail">
                     </ul>
                 </div>
             </div>
@@ -305,6 +246,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
+    <script type="module" src="../../controller/publico/historial.js"></script>
 
 </body>
 

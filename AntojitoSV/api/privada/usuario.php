@@ -9,7 +9,7 @@ const ACTION = 'action';
 const STATUS = 'status';
 const SESSION = "session";
 const MESSAGE = 'message';
-const EXCEPTION ='exception';
+const EXCEPTION = 'exception';
 const DATASET = "dataset";
 const USERNAME = 'username';
 const ID_USUARIO = 'id_usuario';
@@ -17,7 +17,11 @@ const NOMBRES = 'nombres';
 const ACTUAL = 'actual';
 const NUEVA = 'nueva';
 const SEARCH = 'search';
-
+const READ_ALL = 'readAll';
+const CREATE = 'create';
+const DELETE = 'delete';
+const UNDELETE = 'unDelete';
+const SUCESS_RESPONSE = 1;
 //NOMBRES DE PARAMETROS
 const CLAVE = 'clave';
 const ID = 'id';
@@ -60,140 +64,65 @@ if (isset($_GET[ACTION])) {
                     $result[EXCEPTION] = 'Ocurrió un problema al cerrar la sesión';
                 }
                 break;
-            // case 'readProfile':
-            //     if ($result[DATASET] = $usuario->readProfile()) {
-            //         $result[STATUS] = 1;
-            //     } elseif (Database::getException()) {
-            //         $result[EXCEPTION] = Database::getException();
-            //     } else {
-            //         $result[EXCEPTION] = 'Usuario inexistente';
-            //     }
-            //     break;
-            // case 'editProfile':
-            //     $_POST = $usuario->validateForm($_POST);
-            //     if (!$usuario->setNombres($_POST[NOMBRES])) {
-            //         $result[EXCEPTION] = 'Nombres incorrectos';
-            //     } elseif (!$usuario->setApellidos($_POST[APELLIDOS])) {
-            //         $result[EXCEPTION] = 'Apellidos incorrectos';
-            //     } elseif (!$usuario->setCorreo($_POST[CORREO])) {
-            //         $result[EXCEPTION] = 'Correo incorrecto';
-            //     } elseif ($usuario->editProfile()) {
-            //         $result[STATUS] = 1;
-            //         $result[MESSAGE] = 'Perfil modificado correctamente';
-            //     } else {
-            //         $result[EXCEPTION] = Database::getException();
-            //     }
-            //     break;
-            // case 'changePassword':
-            //     $_POST = $usuario->validateForm($_POST);
-            //     if (!$usuario->setId($_SESSION[ID_USUARIO])) {
-            //         $result[EXCEPTION] = 'Usuario incorrecto';
-            //     } elseif (!$usuario->checkPassword($_POST[ACTUAL])) {
-            //         $result[EXCEPTION] = 'Clave actual incorrecta';
-            //     } elseif ($_POST[NUEVA] != $_POST[CONFIRMAR]) {
-            //         $result[EXCEPTION] = 'Claves nuevas diferentes';
-            //     } elseif (!$usuario->setClave($_POST[NUEVA])) {
-            //         $result[EXCEPTION] = $usuario->getPasswordError();
-            //     } elseif ($usuario->changePassword()) {
-            //         $result[STATUS] = 1;
-            //         $result[MESSAGE] = 'Contraseña cambiada correctamente';
-            //     } else {
-            //         $result[EXCEPTION] = Database::getException();
-            //     }
-            //     break;
-            // case 'readAll':
-            //     if ($result[DATASET] = $usuario->readAll()) {
-            //         $result[STATUS] = 1;
-            //     } elseif (Database::getException()) {
-            //         $result[EXCEPTION] = Database::getException();
-            //     } else {
-            //         $result[EXCEPTION] = 'No hay datos registrados';
-            //     }
-            //     break;
-            // case SEARCH:
-            //     $_POST = $usuario->validateForm($_POST);
-            //     if ($_POST[SEARCH] == '') {
-            //         $result[EXCEPTION] = 'Ingrese un valor para buscar';
-            //     } elseif ($result[DATASET] = $usuario->searchRows($_POST[SEARCH])) {
-            //         $result[STATUS] = 1;
-            //         $result[MESSAGE] = 'Valor encontrado';
-            //     } elseif (Database::getException()) {
-            //         $result[EXCEPTION] = Database::getException();
-            //     } else {
-            //         $result[EXCEPTION] = 'No hay coincidencias';
-            //     }
-            //     break;
-            // case 'create':
-            //     $_POST = $usuario->validateForm($_POST);
-            //     if (!$usuario->setNombres($_POST[NOMBRES])) {
-            //         $result[EXCEPTION] = 'Nombres incorrectos';
-            //     } elseif (!$usuario->setApellidos($_POST[APELLIDOS])) {
-            //         $result[EXCEPTION] = 'Apellidos incorrectos';
-            //     } elseif (!$usuario->setCorreo($_POST[CORREO])) {
-            //         $result[EXCEPTION] = 'Correo incorrecto';
-            //     } elseif (!$usuario->setAlias($_POST['alias'])) {
-            //         $result[EXCEPTION] = 'Alias incorrecto';
-            //     } elseif ($_POST[CLAVE] != $_POST[CONFIRMAR]) {
-            //         $result[EXCEPTION] = 'Claves diferentes';
-            //     } elseif (!$usuario->setClave($_POST[CLAVE])) {
-            //         $result[EXCEPTION] = $usuario->getPasswordError();
-            //     } elseif ($usuario->createRow()) {
-            //         $result[STATUS] = 1;
-            //         $result[MESSAGE] = 'Usuario creado correctamente';
-            //     } else {
-            //         $result[EXCEPTION] = Database::getException();
-            //     }
-            //     break;
-            case 'readOne':
-                if (!$usuario->setId($_POST[ID
-                ])) {
-                    $result[EXCEPTION] = 'Usuario incorrecto';
-                } elseif ($result[DATASET] = $usuario->readOne()) {
+            case READ_ALL:
+                if ($result[DATASET] = $usuario->readAll()) {
                     $result[STATUS] = 1;
+                } elseif (Database::getException()) {
+                    $result[EXCEPTION] = Database::getException(); 
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
+                break;
+                //case SEARCH:
+                $_POST = $usuario->validateForm($_POST);
+                if ($_POST[SEARCH] == '') {
+                    $result[EXCEPTION] = 'Ingrese un valor para buscar';
+                } elseif ($result[DATASET] = $usuario->searchRows($_POST[SEARCH])) {
+                    $result[STATUS] = 1;
+                    $result[MESSAGE] = 'Valor encontrado';
                 } elseif (Database::getException()) {
                     $result[EXCEPTION] = Database::getException();
                 } else {
-                    $result[EXCEPTION] = 'Usuario inexistente';
+                    $result[EXCEPTION] = 'No hay coincidencias';
                 }
                 break;
-            // case 'update':
-            //     $_POST = $usuario->validateForm($_POST);
-            //     if (!$usuario->setId($_POST[ID
-            //     ])) {
-            //         $result[EXCEPTION] = 'Usuario incorrecto';
-            //     } elseif (!$usuario->readOne()) {
-            //         $result[EXCEPTION] = 'Usuario inexistente';
-            //     } elseif (!$usuario->setNombres($_POST[NOMBRES])) {
-            //         $result[EXCEPTION] = 'Nombres incorrectos';
-            //     } elseif (!$usuario->setApellidos($_POST[APELLIDOS])) {
-            //         $result[EXCEPTION] = 'Apellidos incorrectos';
-            //     } elseif (!$usuario->setCorreo($_POST[CORREO])) {
-            //         $result[EXCEPTION] = 'Correo incorrecto';
-            //     } elseif ($usuario->updateRow()) {
-            //         $result[STATUS] = 1;
-            //         $result[MESSAGE] = 'Usuario modificado correctamente';
-            //     } else {
-            //         $result[EXCEPTION] = Database::getException();
-            //     }
-            //     break;
-            case 'delete':
-                if ($_POST[ID
-                ] == $_SESSION[ID_USUARIO]) {
-                    $result[EXCEPTION] = 'No se puede eliminar a sí mismo';
-                } elseif (!$usuario->setId($_POST[ID
-                ])) {
-                    $result[EXCEPTION] = 'Usuario incorrecto';
-                } elseif (!$usuario->readOne()) {
-                    $result[EXCEPTION] = 'Usuario inexistente';
+            case DELETE:
+                if (!$usuario->setId($_POST['id'])) {
+                    $result[EXCEPTION] = 'Comentario incorrecto';
                 } elseif ($usuario->deleteRow()) {
-                    $result[STATUS] = 1;
-                    $result[MESSAGE] = 'Usuario eliminado correctamente';
+                    $result[STATUS] = SUCESS_RESPONSE;
+                    $result[MESSAGE] = 'Comentario removido correctamente';
+                    if ($result[DATASET] = $usuario->readAll()) {
+                        $result[STATUS] = 1;
+                    } elseif (Database::getException()) {
+                        $result[EXCEPTION] = Database::getException();
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
+                    break;
                 } else {
                     $result[EXCEPTION] = Database::getException();
                 }
                 break;
+            case UNDELETE:
+                if (!$usuario->setId($_POST['id'])) {
+                    $result[EXCEPTION] = 'Comentario incorrecto';
+                } elseif ($usuario->unDeleteRow()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                    $result[MESSAGE] = 'Comentario reactivado correctamente';
+                    if ($result[DATASET] = $usuario->readAll()) {
+                        $result[STATUS] = 1;
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
+                    break;
+                } else {
+                    $result[EXCEPTION] = Database::getException();
+                }
+                break;
+                
             default:
-                $result[EXCEPTION] = 'Acción no disponible dentro de la sesión';
+                $result[EXCEPTION] = 'Acción  de la sesión';
         }
     } else {
         // Se compara la acción a realizar cuando el administrador no ha iniciado sesión.
@@ -235,7 +164,7 @@ if (isset($_GET[ACTION])) {
                 }
                 break;
             case 'checkSession':
-                if (!isset($_SESSION['usuario'])){
+                if (isset($_SESSION['usuario'])) {
                     $result[STATUS] = 1;
                 }
                 break;

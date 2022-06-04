@@ -24,7 +24,6 @@ const CLIENTE_ID = 'id';
 const CLIENTE_NOMBRE = 'nombre_cliente';
 const CLIENTE_TELEFONO = 'telefono';
 const CLIENTE_CORREO = 'correo';
-const DIRECCION = 'direccion';
 const CLIENTE_ESTADO = 'estado';
 
 
@@ -76,6 +75,11 @@ if (isset($_GET[ACTION])) {
             } elseif ($cliente->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Proveedor creado existosamente';
+                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
@@ -104,6 +108,11 @@ if (isset($_GET[ACTION])) {
             } elseif ($cliente->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Cantidad modificada correctamente';
+                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
@@ -114,6 +123,11 @@ if (isset($_GET[ACTION])) {
             } elseif ($cliente->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Proveedor removido correctamente';
+                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }

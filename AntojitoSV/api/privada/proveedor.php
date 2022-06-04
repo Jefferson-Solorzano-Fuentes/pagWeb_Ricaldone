@@ -78,6 +78,11 @@ if (isset($_GET[ACTION])) {
             } else if ($proveedor->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Proveedor creado existosamente';
+                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
@@ -108,6 +113,11 @@ if (isset($_GET[ACTION])) {
             } elseif ($proveedor->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Cantidad modificada correctamente';
+                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
@@ -118,6 +128,11 @@ if (isset($_GET[ACTION])) {
             } elseif ($proveedor->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Proveedor removido correctamente';
+                if ($result[DATA_SET] = $compra_existencia->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }

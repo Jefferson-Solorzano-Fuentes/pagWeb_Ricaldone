@@ -30,6 +30,7 @@ const CORREO = 'correo';
 const NOMBRE_USUARIO = 'nombre_usuario';
 const APELLIDOS = 'apellidos';
 const CONFIRMAR = 'confirmar';
+const ID_CLIENTE = 'id_cliente';
 
 
 
@@ -41,8 +42,7 @@ if (isset($_GET[ACTION])) {
     $usuario = new usuario;
 
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array(STATUS => 0, SESSION => 0, MESSAGE => null, EXCEPTION => null, DATASET => null, USERNAME => null);
-
+    $result = array(STATUS => 0, SESSION => 0, MESSAGE => null, EXCEPTION => null, DATASET => null, USERNAME => null, 'id_cliente' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se ejecutara lo especificado  "else".
     if (isset($_SESSION[ID_USUARIO])) {
         $result[SESSION] = 1;
@@ -52,6 +52,8 @@ if (isset($_GET[ACTION])) {
                 if (isset($_SESSION[ALIAS_USUARIO])) {
                     $result[STATUS] = 1;
                     $result[USERNAME] = $_SESSION[ALIAS_USUARIO];
+                    $result['id_cliente'] = $_SESSION[ID_CLIENTE];
+
                 } else {
                     $result[EXCEPTION] = 'Alias de usuario indefinido';
                 }
@@ -136,19 +138,11 @@ if (isset($_GET[ACTION])) {
                 }
                 break;
             default:
-                $result[EXCEPTION] = 'Acción  de la sesión';
+                $result[EXCEPTION] = "SOMETHING WENT WRONG";
         }
     } else {
         // Se compara la acción a realizar cuando el administrador no ha iniciado sesión.
         switch ($_GET[ACTION]) {
-            case 'readClienteUsers':
-                if ($usuario->readLastCliente()) {
-                    $result[STATUS] = 1;
-                    $result[MESSAGE] = 'Existe al menos un usuario registrado';
-                } else {
-                    $result[EXCEPTION] = 'No existen usuarios registrados';
-                }
-                break;
             case 'registerClienteUser':
                 $_POST = $usuario->validateForm($_POST);
                 if (!$usuario->setNombre($_POST[NOMBRE_USUARIO])) {
@@ -173,19 +167,20 @@ if (isset($_GET[ACTION])) {
                     $result[MESSAGE] = 'Autenticación correcta';
                     $_SESSION[ID_USUARIO] = $usuario->getId();
                     $_SESSION[ALIAS_USUARIO] = $usuario->getNombre();
+                    $_SESSION[ID_CLIENTE] = $usuario->getCliente();
                 } else {
                     $result[EXCEPTION] = 'Clave incorrecta';
                 }
                 break;
             case 'checkSession':
-                if (!isset($_SESSION['usuario'])) {
+                if (isset($_SESSION[ID_USUARIO])) {
                     $result[STATUS] = 1;
                 }
                 break;
             default:
                 $result[EXCEPTION] = 'Acción no disponible fuera de la sesión';
         }
-    }
+    } 
     // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
     header('content-type: application/json; charset=utf-8');
     // Se imprime el resultado en formato JSON y se retorna al controlador.

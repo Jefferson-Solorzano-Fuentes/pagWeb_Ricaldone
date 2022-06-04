@@ -6,7 +6,6 @@ import {
   GET_METHOD,
   SERVER,
   API_CREATE,
-  API_READ_CLIENTE_USERS,
   API_REGISTRAR_CLIENTE_USER
 } from "../constants/api_constant.js";
 import { saveRow } from "../components.js";
