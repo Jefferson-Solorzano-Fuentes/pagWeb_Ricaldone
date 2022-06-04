@@ -43,6 +43,7 @@ if (isset($_GET[ACTION])) {
         case READ_ALL:
             if ($result[DATA_SET] = $vehiculo->readAll()) {
                 $result[STATUS] = SUCESS_RESPONSE;
+                
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
             } else {
@@ -74,7 +75,7 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = $vehiculo->getFileError();
             } elseif ($vehiculo->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Vehiculo agregado existosamente';
+                $result[MESSAGE] = 'Categoria creada existosamente';
                 if ($vehiculo->saveFile($_FILES[VEHICULO_ARCHIVO], $vehiculo->getRutaImagenes(), $vehiculo->getImagen())) {
                     $result[MESSAGE] = 'Imagen ingresada correctanente';
                     if ($result[DATA_SET] = $vehiculo->readAll()) {
@@ -96,13 +97,13 @@ if (isset($_GET[ACTION])) {
             break;
         case READ_ONE:
             if (!$vehiculo->setId($_POST[VEHICULO_ID])) {
-                $result[EXCEPTION] = 'Vehiculo incorrecto';
+                $result[EXCEPTION] = 'Categoria incorrecto';
             } elseif ($result[DATA_SET] = $vehiculo->readOne()) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
             } else {
-                $result[EXCEPTION] = 'Vehiculo inexistente';
+                $result[EXCEPTION] = 'Categoria inexistente';
             }
             break;
         case UPDATE:
@@ -117,9 +118,9 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Seleccione una imagen';
             } elseif (!$vehiculo->setImagen($_FILES[VEHICULO_ARCHIVO])) {
                 $result[EXCEPTION] = $vehiculo->getFileError();
-            } elseif ($vehiculo->createRow()) {
+            } elseif ($vehiculo->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Vehiculo modificado correctamente';
+                $result[MESSAGE] = 'Cantidad modificada correctamente';
                 if ($vehiculo->saveFile($_FILES[VEHICULO_ARCHIVO], $vehiculo->getRutaImagenes(), $vehiculo->getImagen())) {
                     $result[MESSAGE] = 'Imagen ingresada correctanente';
                     if ($result[DATA_SET] = $vehiculo->readAll()) {
@@ -141,12 +142,13 @@ if (isset($_GET[ACTION])) {
             break;
         case DELETE:
             if (!$vehiculo->setId($_POST['id'])) {
-                $result[EXCEPTION] = 'Vehiculo incorrecto';
+                $result[EXCEPTION] = 'Categoria incorrecta';
             } elseif ($vehiculo->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Vehiculo removido correctamente';
+                $result[MESSAGE] = 'Categoria removida correctamente';
                 if ($result[DATA_SET] = $vehiculo->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
+                    
                 } elseif (Database::getException()) {
                     $result[EXCEPTION] = Database::getException();
                 } else {

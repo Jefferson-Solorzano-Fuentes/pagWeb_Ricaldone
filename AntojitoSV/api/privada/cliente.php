@@ -24,7 +24,6 @@ const CLIENTE_ID = 'id';
 const CLIENTE_NOMBRE = 'nombre_cliente';
 const CLIENTE_TELEFONO = 'telefono';
 const CLIENTE_CORREO = 'correo';
-const DIRECCION = 'direccion';
 const CLIENTE_ESTADO = 'estado';
 
 

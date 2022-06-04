@@ -158,6 +158,18 @@ class empleado extends validator
         }
     }
 
+    
+    //Imagen representativa de la categoria
+    public function setImagen($file)
+    {
+        if ($this->validateImageFile($file, 500, 500)) {
+            $this->imagen = $this->getFileName();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     //Metodos para obtener los valores de los campos
 
@@ -272,9 +284,9 @@ class empleado extends validator
     public function updateRow()
     {
         $sql = 'UPDATE public.empleado
-        SET  nombre= ?, apellido= ?, "DUI"= ?, "NIT"= ?, telefono= ?, correo= ?, genero= ?, fecha_nacimiento= ?, id_estado_empleado= ?, id_tipo_empleado= ?
+        SET  nombre= ?, apellido= ?, "DUI"= ?, "NIT"= ?, telefono= ?, correo= ?, genero= ?, fecha_nacimiento= ?, id_estado_empleado= ?, id_tipo_empleado= ?, imagen= ?
         WHERE id_empleado = ?';
-        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->nit, $this->telefono, $this->correo, $this->genero, $this->fecha_nacimiento, $this->estado_empleado, $this->tipo_empleado, $this->id_empleado);
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->nit, $this->telefono, $this->correo, $this->genero, $this->fecha_nacimiento, $this->estado_empleado, $this->tipo_empleado,$this->imagen, $this->id_empleado);
         return Database::executeRow($sql, $params);
     }
 

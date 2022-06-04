@@ -88,7 +88,7 @@ if (isset($_GET[ACTION])) {
             break;
         case READ_ONE:
             if (!$categoria->setId($_POST[CATEGORIA_ID])) {
-                $result[EXCEPTION] = 'Categoria incorrecta';
+                $result[EXCEPTION] = 'Categoria incorrecto';
             } elseif ($result[DATA_SET] = $categoria->readOne()) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } elseif (Database::getException()) {

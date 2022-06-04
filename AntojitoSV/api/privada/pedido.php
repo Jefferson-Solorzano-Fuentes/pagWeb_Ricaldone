@@ -47,6 +47,7 @@ if (isset($_GET[ACTION])) {
         case READ_ALL:
             if ($result[DATA_SET] = $pedido->readAll()) {
                 $result[STATUS] = SUCESS_RESPONSE;
+                
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
             } else {
@@ -69,9 +70,9 @@ if (isset($_GET[ACTION])) {
         case CREATE:
             $_POST = $pedido->validateSpace($_POST);
             if (!$pedido->setId($_POST['id'])) {
-                $result[EXCEPTION] = 'Id incorrecto';
+                $result[EXCEPTION] = 'id incorrecta';
             } elseif (!$pedido->setEntrega($_POST['fecha_entrega'])) {
-                $result[EXCEPTION] = 'Fecha de entrega incorrecta';
+                $result[EXCEPTION] = 'Fecha entrega  incorrecta';
             } elseif (!$pedido->setMonto($_POST[PEDIDO_MONTO])) {
                 $result[EXCEPTION] = 'Monto incorrecto';
             } elseif (!$pedido->setDireccion($_POST['direccion'])) {
@@ -79,12 +80,12 @@ if (isset($_GET[ACTION])) {
             } elseif (!$pedido->setDescripcion($_POST[PEDIDO_DESCRIPCION])) {
                 $result[EXCEPTION] = 'Descripcion incorrecta';
             } elseif (!$pedido->setCreacion($_POST[FECHA_CREACION])) {
-                $result[EXCEPTION] = 'Fecha de creación incorrecta';
+                $result[EXCEPTION] = 'Fecha incorrecta no ingresada ';
             } elseif (!$pedido->setCliente($_POST[CLIENTE_ID])) {
                 $result[EXCEPTION] = 'Cliente incorrecto';
             } elseif ($pedido->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Pedido creado existosamente';
+                $result[MESSAGE] = 'Categoria creada existosamente';
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
@@ -103,9 +104,9 @@ if (isset($_GET[ACTION])) {
         case UPDATE:
             $_POST = $pedido->validateSpace($_POST);
             if (!$pedido->setId($_POST['id'])) {
-                $result[EXCEPTION] = 'Id incorrecto';
+                $result[EXCEPTION] = 'id incorrecta';
             } elseif (!$pedido->setEntrega($_POST['fecha_entrega'])) {
-                $result[EXCEPTION] = 'Fecha de entrega incorrecta';
+                $result[EXCEPTION] = 'Fecha entrega  incorrecta';
             } elseif (!$pedido->setMonto($_POST[PEDIDO_MONTO])) {
                 $result[EXCEPTION] = 'Monto incorrecto';
             } elseif (!$pedido->setDireccion($_POST['direccion'])) {
@@ -113,47 +114,40 @@ if (isset($_GET[ACTION])) {
             } elseif (!$pedido->setDescripcion($_POST[PEDIDO_DESCRIPCION])) {
                 $result[EXCEPTION] = 'Descripcion incorrecta';
             } elseif (!$pedido->setCreacion($_POST[FECHA_CREACION])) {
-                $result[EXCEPTION] = 'Fecha de creación incorrecta';
+                $result[EXCEPTION] = 'Fecha incorrecta no ingresada ';
             } elseif (!$pedido->setCliente($_POST[CLIENTE_ID])) {
                 $result[EXCEPTION] = 'Cliente incorrecto';
             } elseif ($pedido->updateRow()) {
                 if ($result[DATA_SET] = $pedido->readAll()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
-                } else {
+                    $result[STATUS] = SUCESS_RESPONSE;  
+                }else {
                     $result[STATUS] = 0;
                 }
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Pedido modificado correctamente';
+                $result[MESSAGE] = 'Cantidad modificada correctamente';
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
         case DELETE:
-            if (!$pedido->setId($_POST['id'])) {
-                $result[EXCEPTION] = 'Pedido incorrecta';
+            if (!$pedido->setId($_POST[ID])) {
+                $result[EXCEPTION] = 'Categoria incorrecta';
             } elseif ($pedido->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Pedido removido correctamente';
-                if ($result[DATA_SET] = $pedido->readAll()) {
+                $result[MESSAGE] = 'Categoria removida correctamente';
+            } else {
+                $result[EXCEPTION] = Database::getException();
+            }
+            break;
+        case READ_CLIENTE:
+                if ($result[DATA_SET] = $pedido->readCliente()) {
                     $result[STATUS] = SUCESS_RESPONSE;
+                    
                 } elseif (Database::getException()) {
                     $result[EXCEPTION] = Database::getException();
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';
                 }
-            } else {
-                $result[EXCEPTION] = Database::getException();
-            }
-            
-            break;
-        case READ_CLIENTE:
-            if ($result[DATA_SET] = $pedido->readCliente()) {
-                $result[STATUS] = SUCESS_RESPONSE;
-            } elseif (Database::getException()) {
-                $result[EXCEPTION] = Database::getException();
-            } else {
-                $result[EXCEPTION] = 'No hay datos registrados';
-            }
             break;
         default:
             $result[EXCEPTION] = 'Acción no disponible dentro de la sesión';

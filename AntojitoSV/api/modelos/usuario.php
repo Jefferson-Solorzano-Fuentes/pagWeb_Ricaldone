@@ -152,14 +152,24 @@ class usuario extends validator
         $params = array($this->nombre_usuario, $this->password, $this->tipo_administrador);
         return Database::executeRow($sql, $params);
     }
+    //Metodo para la actualización UPDATE
+    public function updateRowCliente()
+    {
+        $sql = 'UPDATE usuario
+        SET nombre_usuario=?, password=?
+        WHERE id_cliente = (SELECT max(id_cliente) from cliente)';
+        $params = array($this->nombre_usuario, $this->password);
+        return Database::executeRow($sql, $params);
+    }
+
 
     //Metodo para la actualización UPDATE
     public function updateRow()
     {
         $sql = 'UPDATE usuario
-        SET nombre_usuario=?, id_tipo_usuario=?, id_empleado=?, id_cliente=?
+        SET nombre_usuario=?, password=?
         WHERE id_usuario=?';
-        $params = array($this->nombre_usuario, $this->tipo_usuario, $this->empleado_id, $this->cliente_id, $this->id_usuario);
+        $params = array($this->nombre_usuario, $this->tipo_usuario, $this->id_usuario);
         return Database::executeRow($sql, $params);
     }
 
@@ -193,7 +203,7 @@ class usuario extends validator
         INNER JOIN tipo_usuario
         ON tipo_usuario.id_tipo_usuario = usuario.id_tipo_usuario
         WHERE usuario.id_tipo_usuario =? OR usuario.id_tipo_usuario =?';
-        $params = array($this->tipo_administrador, $this->tipo_empleado);
+        $params = array($this->tipo_administrador, $this->password);
         return Database::getRows($sql, $params);
     }
 
@@ -206,11 +216,9 @@ class usuario extends validator
         ON cliente.id_cliente = usuario.id_cliente';
         $params = null;
         return Database::getRows($sql, $params); 
-
-
     }
 
-    public function readAllCliente()
+    public function readLastCliente()
     {
         $sql = 'SELECT id_usuario, nombre_usuario, password, tipo_usuario.id_tipo_usuario, cliente.id_cliente, nombre_cliente
         FROM public.usuario
@@ -218,10 +226,12 @@ class usuario extends validator
         ON tipo_usuario.id_tipo_usuario = usuario.id_tipo_usuario
         INNER JOIN cliente
         ON cliente.id_cliente = usuario.id_cliente
-        WHERE id_tipo_usuario =?';
+        WHERE usuario.id_cliente = (SELECT max(id_cliente) from cliente) AND tipo_usuario.id_tipo_usuario =?';
         $params = array($this->tipo_cliente);
-        return Database::getRows($sql, $params);
+        return Database::getRow($sql, $params);
     }
+
+
 
     //Leer solamente una fila de la Tabla
     public function readOne()

@@ -20,4 +20,4 @@ export async function APIConnection (APIEndpoint, Metodo, parametrosDePeticion) 
             console.log(error);
             return error;
         }
-    }
+    } 

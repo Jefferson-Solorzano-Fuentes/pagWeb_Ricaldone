@@ -3,14 +3,12 @@
 //Importar las constantes y metodos de components.js y api_constant.js
 // @ts-ignore
 import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
-import { GET_METHOD, SERVER,  API_CREATE, API_UPDATE } from "../constants/api_constant.js";
+import { GET_METHOD, SERVER,  API_CREATE, API_UPDATE, DOM_CONTENT_LOADED, SEARCH_BAR, SUBMIT, INSERT_MODAL, UPDATE_MODAL, DELETE_FORM } from "../constants/api_constant.js";
 import { getElementById, validateExistenceOfUser} from "../constants/functions.js";
 import { APIConnection } from "../APIConnection.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_COMPRA_EXISTENCIA = SERVER + 'privada/compra_existencia.php?action=';
-// @ts-ignore
-const ENDPOINT_COMPRA_EXISTENCIA= SERVER + 'privada/compra_existencia.php?action=readTipoEmpleado';
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
@@ -30,24 +28,13 @@ let datos_productos = {
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
+    //Valida que el usuario este logeado
     validateExistenceOfUser();
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     //Declarando cual CRUD es este
     await readRows(API_COMPRA_EXISTENCIA, fillTableCompraExistencia)
-    // Se define una variable para establecer las opciones del componente Modal.
-    // @ts-ignore
-    let options = {
-        dismissible: false,
-        onOpenStart: function () {
-            // Se restauran los elementos del formulario.
-            // @ts-ignore
-            document.getElementById('save-form').reset();
-        }
-    }
-
     //Carfar combo box de estado empleado
     await fillComboxProducto()
-
 });
 
 
@@ -66,6 +53,7 @@ async function fillComboxProducto(){
      })
 }
 
+//Obtener el producto para usarlo para rellenar el Combobox
 //@ts-ignore
 window.selectProduct=() => {
     //@ts-ignore
@@ -78,7 +66,7 @@ window.selectProduct=() => {
 export function fillTableCompraExistencia(dataset) {
     let content = '';
     // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
-    dataset.map(function (row) {
+    dataset.map(row =>{
         // Se crean y concatenan las filas de la tabla con los datos de cada registro.
         content += ` 
             <tr>
@@ -90,9 +78,9 @@ export function fillTableCompraExistencia(dataset) {
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
                         <form method="post" id="read-one">
-                            <a onclick="guardarDatosTipoEmpleado(${row.id_compra_existencia})"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
+                            <a onclick="guardarDatosCompraUpdate(${row.id_compra_existencia}, ${row.fecha_compra}, ${row.stock_comprado})"  data-bs-toggle="modal" data-bs-target="#actualizarform" class="btn btn-primary" data-tooltip="Actualizar">
                                 <img src="../../resources/img/cards/buttons/edit_40px.png"></a>
-                            <a  onclick="guardarDatosTipoEmpleado(${row.id_compra_existencia})" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
+                            <a  onclick="guardarDatosCompraDelete(${row.id_compra_existencia})" data-bs-toggle="modal" data-bs-target="#eliminarForm" class="btn btn-primary" data-tooltip="eliminar" 
                             name="search">
                                 <img src="../../resources/img/cards/buttons/delete_40px.png"></a>
                         </form>
@@ -109,10 +97,23 @@ export function fillTableCompraExistencia(dataset) {
 
 // FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE EMPLEADO
 // @ts-ignore
-window.guardarDatosTipoEmpleado = (id_compra_existencia) => {
+window.guardarDatosCompraUpdate = (id_compra_existencia, fecha_compra, stock_comprado) => {
     datos_compra_existencia.id = id_compra_existencia
+    $("#actualizarform").modal("show");
+    // SE ACTUALIZA EL VALOR DEL INPUT CON EL ID ESPECIFICADO AL VALOR INGRESADO AL PARAMETRO, ASEGURENSE DE QUE ELINPUT TENGA
+    //EL ATRIBUTO "value="""
+    //@ts-ignore
+    document.getElementById("fecha_compra_update").value = String(fecha_compra);
+    //@ts-ignore
+    document.getElementById("cantidad_update").value = String(stock_comprado);
 }
 
+// FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE EMPLEADO
+// @ts-ignore
+window.guardarDatosCompraDelete = (id_compra_existencia) => {
+    datos_compra_existencia.id = id_compra_existencia
+    $("#eliminarForm").modal("show");
+}
 
 
 // Método que se ejecuta al enviar un formulario de busqueda
@@ -126,22 +127,14 @@ getElementById('search-bar').addEventListener('submit', async (event) => {
 
 // EVENTO PARA INSERT 
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
-document.getElementById('insert-modal').addEventListener('submit', async (event) => {
+getElementById('insert-modal').addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
-
+    // Se cierra el formulario de registro
+    $("#agregarform").modal("hide");
     //@ts-ignore
     //OBTIENE LOS DATOS DEL FORMULARIO QUE TENGA COMO ID "'insert-modal'"
     let parameters = new FormData(getElementById('insert-modal'));
-
-    var object = {};
-    parameters.forEach(function(value, key){
-        object[key] = value;
-    });
-    var json = JSON.stringify(object);
-
-    console.log(json)
-
     // PETICION A LA API POR MEDIO DEL ENPOINT, Y LOS PARAMETROS NECESARIOS PARA LA INSERSION DE DATOS
     await saveRow(API_COMPRA_EXISTENCIA, API_CREATE, parameters, fillTableCompraExistencia);
 });
@@ -151,10 +144,10 @@ document.getElementById('insert-modal').addEventListener('submit', async (event)
 // EVENTO PARA UPDATE
 // SE EJECUTARA CUANDO EL BOTON DE TIPO "submit" DEL FORMULARIO CON EL ID 'actualizarConfirmar_buttons' SE CLICKEE
 getElementById('update-modal').addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
-
-    console.log("UPDATING MODAL")
-
+    // Se cierra el formulario de registro
+    $("#actualizarform").modal("hide");
     //@ts-ignore
     let parameters = new FormData(getElementById('update-modal'));
     //@ts-ignore
@@ -166,15 +159,14 @@ getElementById('update-modal').addEventListener('submit', async (event) => {
 
 //EVENTO PARA DELETE
 getElementById('delete-form').addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
-
-    console.log("ELIMINANDO EMPLEADO")
-
+    // Se cierra el formulario de registro
+    $("#eliminarForm").modal("hide");
     // CONVIRTIENDO EL JSON A FORMDATA
     let parameters = new FormData();
     //@ts-ignore
     parameters.append('id', datos_compra_existencia['id'])
-
     //API REQUEST
     await deleteRow(API_COMPRA_EXISTENCIA, parameters, fillTableCompraExistencia);
 });

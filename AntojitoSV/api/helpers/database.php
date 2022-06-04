@@ -85,7 +85,7 @@ class Database
         }
     }
 
-
+    
 
     //Retorna la ultima fila de registro creada
     public static function getLastRow($query, $values)

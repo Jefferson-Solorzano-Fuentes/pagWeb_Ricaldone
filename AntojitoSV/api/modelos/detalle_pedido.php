@@ -110,7 +110,7 @@ class detalle_pedido extends validator
     //Utilizaremos los campos o (NOMBRE_TIPO)
     public function searchRows($value)
     {
-        $sql = 'SELECT id_detalle_pedido, pedido.id_pedido, monto_total, nombre_producto, cantidad, subtotal, detalle_pedido.visibilidad
+        $sql = 'SELECT id_detalle_pedido, pedido.id_pedido, monto_total, nombre_producto, cantidad, subtotal
         FROM detalle_pedido
         INNER JOIN producto
         ON producto.id_producto = detalle_pedido.id_producto

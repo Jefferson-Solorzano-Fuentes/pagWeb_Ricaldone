@@ -11831,11 +11831,78 @@ main{
   padding-bottom: 0px;
 }
 
-/*Fondo de Container main*/
+/*Fondo de Container main*/ 
 #containerImg{
   margin: 5px;
   border-radius: 1rem;
   background-image: url(../img/main/fondo.png);
+}
+
+
+.bodyLogInContainer {
+  background-image: url("../img/navbarPrivimg/fondo.png");
+  width: 100%;
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+  
+.logoContainer {
+  width: 60%;
+  height: 90%;
+  background-color: #f8e4d4;
+  border-radius: 25px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#welcomeParagrah {
+  display: inline;
+  font-size: 115px;
+  font-family: justbubble;
+}
+
+.logInContainer {
+  width: 30%;
+  height: 70%;
+  background-color: white;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#button_iniciar_sesion{
+  width: 80%;
+}
+#button_iniciar_sesion h5{
+  color: white;
+}
+
+#button_crear_cuenta{
+  width: 80%;
+  margin-top: 5%;
+}
+
+/*Decoracion del header*/
+#formHeader{
+  background-color: #872323;
+  color: white;
+}
+
+#btnmenu{
+  border-color: black;
+  color: white;
+}
+
+#btnExternos a{
+  border-color: black;
+  color: white;
+  text-decoration: none;
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------*/
@@ -12882,6 +12949,26 @@ main{
   margin-top: 50px;
 }
 
+#historial{
+  border-radius: 15px;
+  padding: 2px;
+  margin: 10px;
+}
+
+.historialCardText{
+  color: #000;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.btnDetallePedido{
+  margin-left: 100px;
+  margin-top: 100px;
+}
+
+.btnHistorial{
+  margin: 100px;
+}
 
 
 

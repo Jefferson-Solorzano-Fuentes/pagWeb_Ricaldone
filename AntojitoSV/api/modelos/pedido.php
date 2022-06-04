@@ -202,7 +202,7 @@ class pedido extends validator
     //Leer todas las filas de la Tabla
     public function readAll()
     {
-        $sql = 'SELECT id_pedido, fecha_entrega, monto_total, direccion, descripcion, fecha_creacion, pedido.id_cliente, estado
+        $sql = 'SELECT id_pedido, fecha_entrega, monto_total, direccion, descripcion, fecha_creacion, pedido.id_cliente,nombre_cliente, estado
         FROM pedido
         INNER JOIN cliente
         ON cliente.id_cliente = pedido.id_cliente

@@ -8,6 +8,9 @@ import {
   API_REGISTRAR_EMPLEADO_USER,
   API_READ_EMPLEADOS_USERS,
   SERVER,
+  DOM_CONTENT_LOADED,
+  SIGNUP_FORM,
+  SUBMIT,
 } from "../constants/api_constant.js";
 
 // Constante para establecer la ruta y parámetros de comunicación con la API.
@@ -33,13 +36,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
   // Método manejador de eventos que se ejecuta cuando se envía el formulario de iniciar sesión.
-document.getElementById("singUp-form").addEventListener('submit', async (event) => {
+document.getElementById('singUp-form').addEventListener('submit', async (event) => {
     // EVITA RECARGAR LAS PAGINA DESPUES DE ENVIAR EL FORM
     event.preventDefault();
   
     let APIEndpoint = API_USUARIOS + API_REGISTRAR_EMPLEADO_USER;
     //@ts-ignore
-    let parameters = new FormData(getElementById("singUp-form"))
+    let parameters = new FormData(getElementById('singUp-form'))
   
     // Petición para revisar si el administrador se encuentra registrado.
     let APIResponse = await APIConnection(

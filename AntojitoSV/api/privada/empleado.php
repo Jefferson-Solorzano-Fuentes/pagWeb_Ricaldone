@@ -164,10 +164,20 @@ if (isset($_GET[ACTION])) {
             } elseif ($empleado->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'EMPLEADO modificada correctamente';
-                if ($result[DATA_SET] = $empleado->readAll()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
+                if ($empleado->saveFile($_FILES[EMPLEADO_ARCHIVO], $empleado->getRutaImagenes(), $empleado->getImagen())) {
+                    $result[MESSAGE] = 'Imagen ingresada correctanente';
+                    if ($result[DATA_SET] = $empleado->readAll()) {
+                        $result[STATUS] = SUCESS_RESPONSE;
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
                 } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
+                    $result[MESSAGE] = 'Imagen no se a ingresado correctanente';
+                    if ($result[DATA_SET] = $empleado->readAll()) {
+                        $result[STATUS] = SUCESS_RESPONSE;
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
                 }
             } else {
                 $result[EXCEPTION] = Database::getException();

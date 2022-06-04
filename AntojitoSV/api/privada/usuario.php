@@ -56,7 +56,6 @@ if (isset($_GET[ACTION])) {
                     $result[EXCEPTION] = 'Alias de usuario indefinido';
                 }
                 break;
-
             case 'logOut':
                 if (session_destroy()) {
                     $result[STATUS] = 1;
@@ -65,58 +64,11 @@ if (isset($_GET[ACTION])) {
                     $result[EXCEPTION] = 'Ocurrió un problema al cerrar la sesión';
                 }
                 break;
-
-                /* case 'readProfile':
-               if ($result[DATASET] = $usuario->readProfile()) {
-                    $result[STATUS] = 1;
-               } elseif (Database::getException()) {
-                    $result[EXCEPTION] = Database::getException();
-                } else {
-                   $result[EXCEPTION] = 'Usuario inexistente';
-               }
-               break;
-
-               */
-
-
-                // case 'editProfile':
-                //     $_POST = $usuario->validateForm($_POST);
-                //     if (!$usuario->setNombres($_POST[NOMBRES])) {
-                //         $result[EXCEPTION] = 'Nombres incorrectos';
-                //     } elseif (!$usuario->setApellidos($_POST[APELLIDOS])) {
-                //         $result[EXCEPTION] = 'Apellidos incorrectos';
-                //     } elseif (!$usuario->setCorreo($_POST[CORREO])) {
-                //         $result[EXCEPTION] = 'Correo incorrecto';
-                //     } elseif ($usuario->editProfile()) {
-                //         $result[STATUS] = 1;
-                //         $result[MESSAGE] = 'Perfil modificado correctamente';
-                //     } else {
-                //         $result[EXCEPTION] = Database::getException();
-                //     }
-                //     break;
-                // case 'changePassword':
-                //     $_POST = $usuario->validateForm($_POST);
-                //     if (!$usuario->setId($_SESSION[ID_USUARIO])) {
-                //         $result[EXCEPTION] = 'Usuario incorrecto';
-                //     } elseif (!$usuario->checkPassword($_POST[ACTUAL])) {
-                //         $result[EXCEPTION] = 'Clave actual incorrecta';
-                //     } elseif ($_POST[NUEVA] != $_POST[CONFIRMAR]) {
-                //         $result[EXCEPTION] = 'Claves nuevas diferentes';
-                //     } elseif (!$usuario->setClave($_POST[NUEVA])) {
-                //         $result[EXCEPTION] = $usuario->getPasswordError();
-                //     } elseif ($usuario->changePassword()) {
-                //         $result[STATUS] = 1;
-                //         $result[MESSAGE] = 'Contraseña cambiada correctamente';
-                //     } else {
-                //         $result[EXCEPTION] = Database::getException();
-                //     }
-                //     break;
-
             case READ_ALL:
                 if ($result[DATASET] = $usuario->readAll()) {
                     $result[STATUS] = 1;
                 } elseif (Database::getException()) {
-                    $result[EXCEPTION] = Database::getException();
+                    $result[EXCEPTION] = Database::getException(); 
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';
                 }
@@ -134,60 +86,6 @@ if (isset($_GET[ACTION])) {
                     $result[EXCEPTION] = 'No hay coincidencias';
                 }
                 break;
-
-                /*case 'create':
-                $_POST = $usuario->validateForm($_POST);
-                if (!$usuario->setNombres($_POST['nombre_usuario'])) {
-                    $result[EXCEPTION] = 'Nombres incorrectos';
-                 } elseif (!$usuario->setCorreo($_POST[CORREO])) {
-                     $result[EXCEPTION] = 'Correo incorrecto';
-                 } elseif (!$usuario->setAlias($_POST['alias'])) {
-                    $result[EXCEPTION] = 'Alias incorrecto';
-                 } elseif ($_POST[CLAVE] != $_POST[CONFIRMAR]) {
-                     $result[EXCEPTION] = 'Claves diferentes';
-                 } elseif (!$usuario->setClave($_POST[CLAVE])) {
-                     $result[EXCEPTION] = $usuario->getPasswordError();
-                 } elseif ($usuario->createRow()) {
-                     $result[STATUS] = 1;
-                     $result[MESSAGE] = 'Usuario creado correctamente';
-                 } else {
-                     $result[EXCEPTION] = Database::getException();
-                 }
-                 break;*/
-
-            case 'readOne':
-                if (!$usuario->setId($_POST[ID])) {
-                    $result[EXCEPTION] = 'Usuario incorrecto';
-                } elseif ($result[DATASET] = $usuario->readOne()) {
-                    $result[STATUS] = 1;
-                } elseif (Database::getException()) {
-                    $result[EXCEPTION] = Database::getException();
-                } else {
-                    $result[EXCEPTION] = 'Usuario inexistente';
-                }
-                break;
-
-                /*case 'update':
-                 $_POST = $usuario->validateForm($_POST);
-                 if (!$usuario->setId($_POST[ID
-                 ])) {
-                    $result[EXCEPTION] = 'Usuario incorrecto';
-                 } elseif (!$usuario->readOne()) {
-                    $result[EXCEPTION] = 'Usuario inexistente';
-                } elseif (!$usuario->setNombres($_POST[NOMBRES])) {
-                    $result[EXCEPTION] = 'Nombres incorrectos';
-                 } elseif (!$usuario->setApellidos($_POST[APELLIDOS])) {
-                     $result[EXCEPTION] = 'Apellidos incorrectos';
-                } elseif (!$usuario->setCorreo($_POST[CORREO])) {
-                    $result[EXCEPTION] = 'Correo incorrecto';
-                } elseif ($usuario->updateRow()) {
-                $result[STATUS] = 1;
-                    $result[MESSAGE] = 'Usuario modificado correctamente';
-                } else {
-                $result[EXCEPTION] = Database::getException();
-               }
-               break;*/
-
             case DELETE:
                 if (!$usuario->setId($_POST['id'])) {
                     $result[EXCEPTION] = 'Comentario incorrecto';
@@ -206,7 +104,6 @@ if (isset($_GET[ACTION])) {
                     $result[EXCEPTION] = Database::getException();
                 }
                 break;
-
             case UNDELETE:
                 if (!$usuario->setId($_POST['id'])) {
                     $result[EXCEPTION] = 'Comentario incorrecto';
@@ -225,7 +122,7 @@ if (isset($_GET[ACTION])) {
                 break;
                 
             default:
-                $result[EXCEPTION] = 'Acción no disponible dentro de la sesión';
+                $result[EXCEPTION] = 'Acción  de la sesión';
         }
     } else {
         // Se compara la acción a realizar cuando el administrador no ha iniciado sesión.

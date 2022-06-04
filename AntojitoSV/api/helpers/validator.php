@@ -78,7 +78,7 @@ class Validator
     // Parámetros: $file (archivo de un formulario), $maxWidth (ancho máximo para la imagen) y $maxHeigth (alto máximo para la imagen).
     public function validateImageFile($file, $maxWidth, $maxHeigth)
     {
-        // Verifica si el archivi existe, si no muestra un error
+        // Se verifica si el archivo existe, de lo contrario se establece el mensaje de error correspondiente.
         if ($file) {
             // Se comprueba si el archivo tiene un tamaño menor o igual a 2MB, de lo contrario se establece el mensaje de error correspondiente.
             if ($file['size'] <= 2097152) {
@@ -90,8 +90,8 @@ class Validator
                     if ($type == 2 || $type == 3) {
                         // Se obtiene la extensión del archivo y se convierte a minúsculas.
                         $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-                        // Se utiliza una extensión para hacer unico el archivo.
-                        $this->fileName = uniqid() . '-' . $extension;
+                        // Se establece un nombre único para el archivo.
+                        $this->fileName = uniqid() . '.' . $extension;
                         return true;
                     } else {
                         $this->fileError = 'El tipo de imagen debe ser jpg o png';
@@ -110,7 +110,7 @@ class Validator
             return false;
         }
     }
-
+    
     // Validar que en los campos de correo electronico, sean correos verificables
     // Utiliza el parametro "$value" que es valor del campo a validar
     public function validateEmail($value)
@@ -253,7 +253,7 @@ class Validator
             return false;
         }
     }
-
+ 
 
     // Validar una fecha
     // Utilizar parametros "$value" que es el valor del campo a validar.  
@@ -268,8 +268,14 @@ class Validator
         }
     }
 
-    // Validar la ubicación de un archivo antes de subirlo al servidor.
-    // Utilizar parametros $file (archivo), $path (ruta del archivo) y $name (nombre del archivo)
+
+    /*
+    *   Método para validar la ubicación de un archivo antes de subirlo al servidor.
+    *
+    *   Parámetros: $file (archivo), $path (ruta del archivo) y $name (nombre del archivo).
+    *   
+    *   Retorno: booleano (true si el archivo fue subido al servidor o false en caso contrario).
+    */
     public function saveFile($file, $path, $name)
     {
         // Se comprueba que la ruta en el servidor exista.
@@ -285,9 +291,13 @@ class Validator
         }
     }
 
-
-    // Validar la ubicación de un archivo antes de borrarlo del servidor.
-    // Utilizar parametros $file (archivo), $path (ruta del archivo) y $name (nombre del archivo)
+    /*
+    *   Método para validar la ubicación de un archivo antes de borrarlo del servidor.
+    *
+    *   Parámetros: $path (ruta del archivo) y $name (nombre del archivo).
+    *   
+    *   Retorno: booleano (true si el archivo fue borrado del servidor o false en caso contrario).
+    */
     public function deleteFile($path, $name)
     {
         // Se verifica que la ruta exista.
