@@ -27,111 +27,79 @@ class producto extends validator
     //Id - integer
     public function setId($value)
     {
-            $this->id_producto = $value;
-            return true;
-
+        $this->id_producto = $value;
+        return true;
     }
 
     //Nombre del producto - varying char
     public function setNombre($value)
     {
-        if ($this->validateAlphabetic($value, 1, 50)) {
-            $this->nombre_producto = $value;
-            return true;
-        } else {
-            return false;
-        }
+        $this->nombre_producto = $value;
+        return true;
     }
 
     //Descripcion del producto  - varying char
     public function setDescripcion($value)
     {
-        if ($this->validateString($value, 1, 100)) {
-            $this->descripcion = $value;
-            return true;
-        } else {
-            return false;
-        }
+        $this->descripcion = $value;
+        return true;
     }
 
     //Id del proveedor - integer
     public function setProveedorId($value)
     {
-            $this->proveedor_id = $value;
-            return true;
-
+        $this->proveedor_id = $value;
+        return true;
     }
 
     //Precio del producto - numeric
     public function setPrecio($value)
     {
-        if ($this->validateMoney($value)) {
-            $this->precio = $value;
-            return true;
-        } else {
-            return false;
-        }
+        $this->precio = $value;
+        return true;
     }
 
     //Stock del producto - integer
     public function setCantidad($value)
     {
-        if ($this->validateNaturalNumber($value)) {
-            $this->stock = $value;
-            return true;
-        } else {
-            return false;
-        }
+        $this->stock = $value;
+        return true;
     }
 
     //Desuento del producto - integer
     public function setDescuento($value)
     {
-        if ($this->validateNaturalNumber($value)) {
-            $this->descuento = $value;
-            return true;
-        } else {
-            return false;
-        }
+        $this->descuento = $value;
+        return true;
     }
 
     //Categoria del producto - char
     public function setCategoria($value)
     {
-        if ($this->validateNaturalNumber($value)) {
-            $this->categoria = $value;
-            return true;
-        } else {
-            return false;
-        }
+        $this->categoria = $value;
+        return true;
     }
 
     //Visbilidad - boolean
     public function setVisibilidad($value)
     {
-        if ($this->validateBoolean($value)) {
-            $this->visiblidad = $value;
-            return true;
-        } else {
-            return false;
-        }
+        $this->visiblidad = $value;
+        return true;
     }
 
     //Id de la imagen- integer
     public function setIdImagen($value)
     {
-        if ($this->validateNaturalNumber($value)) {
-            $this->id_imagen_p = $value;
-            return true;
-        } else {
-            return false;
-        }
+
+        $this->id_imagen_p = $value;
+        return true;
     }
 
-    //Imagen del producto - varying char
+
+    //Imagen representativa de la categoria
     public function setImagen($file)
     {
-        if ($this->validateImageFile($file, 5000, 5000)) {
+        if ($this->validateImageFile($file, 500, 500)) {
             $this->imagen = $this->getFileName();
             return true;
         } else {
@@ -141,7 +109,8 @@ class producto extends validator
 
     //Metodos para obtener los valores de los campos
 
-    public function getRutaImagenes() {
+    public function getRutaImagenes()
+    {
         return '../imagenes/producto/';
     }
 
@@ -239,16 +208,9 @@ class producto extends validator
         return Database::executeRow($sql, $params);
     }
 
-/*   
-    public function createRowImage()
-    {
-        $sql = 'INSERT INTO imagen_producto(
-            id_producto, imagen)
-            VALUES (?, ?)';
-        $params = array($this->id_producto, $this->imagen);
-        return Database::executeRow($sql, $params);
-    }
-*/
+    
+
+
     //Metodo para la actualización
     public function updateRow()
     {
@@ -259,7 +221,7 @@ class producto extends validator
         return Database::executeRow($sql, $params);
     }
 
-/*  
+    /*  
     public function updateRowImage()
     {
         $sql = 'UPDATE imagen_producto
@@ -279,8 +241,8 @@ class producto extends validator
         $params = array($this->false, $this->id_producto);
         return Database::executeRow($sql, $params);
     }
-    
-/*  
+
+    /*  
     public function deleteRowImage()
     {
         $sql = 'DELETE FROM imagen_producto
@@ -305,18 +267,49 @@ class producto extends validator
         return Database::getRows($sql, $params);
     }
 
-    //Leer solamente una fila de la Tabla
     public function readOne()
     {
-        $sql = 'SELECT producto.id_producto, nombre_producto, descripcion, proveedor.id_proveedor, proveedor.nombre, precio, stock, descuento, categoria.id_categoria, nombre_categoria, imagen
+        $sql = 'SELECT nombre_producto, descripcion, precio, imagen from producto 
+        WHERE  id_producto =?';
+        $params = [$this->id_producto];
+        $response = Database::getRow($sql, $params);
+
+        $response['imagen'] = "/AntojitoSV/api/imagenes/producto/{$response['imagen']}";
+
+        $response['comentarios'] = Database::getRows("SELECT comentario.comentario, cliente.nombre_cliente,  comentario.valoraciones
+        FROM comentario  INNER JOIN cliente ON cliente.id_cliente = comentario.id_cliente 
+        WHERE  comentario.id_producto = ? AND comentario.visibilidad = true", [
+        $this->id_producto
+        ]);
+        return $response;
+    }
+    
+    //Buscar por medio de categoria
+    public function readCategories()
+    {
+        $sql = 'SELECT producto.id_producto, nombre_producto, descripcion, proveedor.id_proveedor, proveedor.nombre, precio, stock, descuento, categoria.id_categoria, nombre_categoria, producto.imagen
         FROM producto
         INNER JOIN categoria
         ON categoria.id_categoria = producto.id_categoria
         INNER JOIN proveedor
         ON proveedor.id_proveedor = producto.id_proveedor
-        WHERE producto.id_producto = ?';
-        $params = ($this->id_producto);
-        return Database::getRow($sql, $params);
+        WHERE producto.id_categoria = ? AND visibilidad = true';
+        $params = array($this->categoria);
+        return Database::getRows($sql, $params);
+    }
+
+    //Buscar por medio de categoria
+    public function readDiscount()
+    {
+        $sql = 'SELECT producto.id_producto, nombre_producto, descripcion, proveedor.id_proveedor, proveedor.nombre, precio, stock, descuento, categoria.id_categoria, nombre_categoria, producto.imagen
+        FROM producto
+        INNER JOIN categoria
+        ON categoria.id_categoria = producto.id_categoria
+        INNER JOIN proveedor
+        ON proveedor.id_proveedor = producto.id_proveedor
+        WHERE descuento > 0';
+        $params = null;
+        return Database::getRows($sql, $params);
     }
 
     //Llenar combobox

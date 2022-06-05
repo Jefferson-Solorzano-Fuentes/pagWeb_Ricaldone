@@ -11,6 +11,7 @@ import {
   SERVER,
   API_READONE,
   API_UNDELETE,
+  API_CREATE
 } from "./constants/api_constant.js";
 import { getElementById } from "./constants/functions.js";
 
@@ -94,5 +95,16 @@ export async function readOne(ENDPOINT, parameters, fillrows) {
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
     return;
+  }
+}
+
+// LEER REGISTROS
+export async function creAte(ENDPOINT, fillrows) {
+  let APIEndpoint = ENDPOINT + API_CREATE;
+  //Llamar a la función de conexión api para realizar fetch y then
+  let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, null);
+  if (APIResponse.status == API_SUCESS_REQUEST) {
+    fillrows(APIResponse.dataset)
+    return
   }
 }

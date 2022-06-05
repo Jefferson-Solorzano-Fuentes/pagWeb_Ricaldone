@@ -8,9 +8,10 @@ class comentario extends validator
     //Declaración de atributos (propiedades)
     private $id_comentario = null;
     private $comentario = null;
-    private $cliente_id = null;
+    private $cliente_id = 1;
     private $producto_id = null;
     private $visibilidad = null;
+    private $valoraciones = null;
 
     //Parametros TRUE / FALSE
     private $true = true;
@@ -65,13 +66,24 @@ class comentario extends validator
     public function setVisibilidad($value)
     {
         if ($this->validateBoolean($value)) {
-            $this->setVisibilidad = $value;
+            $this->visibilidad = $value;
             return true;
         } else {
             return false;
         }
     }
-    
+
+    //Valoracion
+    public function setValoracion($value)
+    {
+        if ($this->validateNaturalNumber($value)) {
+            $this->valoraciones = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     //Metodos para obtener los valores de los campos
     //Id
     public function getId()
@@ -99,7 +111,7 @@ class comentario extends validator
     }
 
     //Visbilidad
-    public function getVisbilidad() 
+    public function getVisbilidad()
     {
         return $this->visibilidad;
     }
@@ -120,6 +132,17 @@ class comentario extends validator
         $params = array($this->producto_id);
         return Database::getRows($sql, $params);
     }
+
+    //Metodo para la inserción
+    public function createRow()
+    {
+        $sql = 'INSERT INTO public.comentario(
+                comentario, id_cliente, id_producto, visibilidad, valoraciones)
+                VALUES (?, ?, ?, ?, ?)';
+        $params = array($this->comentario, $this->cliente_id,$this->producto_id, $this->true, $this->valoraciones);
+        return Database::executeRow($sql, $params);
+    }
+
 
     //Metodo para la actualización UPDATE
     public function updateRow()
