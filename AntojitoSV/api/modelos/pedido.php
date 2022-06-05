@@ -206,7 +206,8 @@ class pedido extends validator
         FROM pedido
         INNER JOIN cliente
         ON cliente.id_cliente = pedido.id_cliente
-        WHERE estado =?';
+        WHERE pedido.id_cliente =? 
+        AND estado = true';
         $params = array($this->true);
         return Database::getRows($sql, $params);
     }

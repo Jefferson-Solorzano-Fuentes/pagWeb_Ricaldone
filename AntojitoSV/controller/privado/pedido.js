@@ -58,7 +58,7 @@ async function fillComboBoxCliente() {
     let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null)
     //Obtiene todos los valores y los ordena en un array, presentandolos en el select
     APIResponse.dataset.map(element => {
-        getElementById('id_cliente').innerHTML += `<option value="${element.id_cliente}" > ${element.nombre_cliente} </option>`
+        getElementById('id_cliente_update').innerHTML += `<option value="${element.id_cliente}" > ${element.nombre_cliente} </option>`
     })
     APIResponse.dataset.map(element => {
         getElementById('id_cliente_u').innerHTML += `<option value="${element.id_cliente}" > ${element.nombre_cliente} </option>`

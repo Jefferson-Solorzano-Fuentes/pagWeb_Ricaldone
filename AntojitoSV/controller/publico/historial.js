@@ -75,6 +75,7 @@ export function fillTableHistorial(dataset) {
                                     <p class="historialCardText">Dirección: ${row.direccion}</p>
                                     <p class="historialCardText">Descripción: ${row.descripcion}</p>
                                     <p class="historialCardText" id="cantidad">Estado: ${row.estado}</p>
+                                    <p class="historialCardText">Cliente: ${row.nombre_cliente}</p>
                                     <p class="historialCardText"><small class="text-muted">Fecha de Entrega: ${row.fecha_entrega}</small></p>
                                     <p class="historialCardText"><small class="text-muted">Fecha de Creación: ${row.fecha_creacion}</small></p>
                                 </div>
