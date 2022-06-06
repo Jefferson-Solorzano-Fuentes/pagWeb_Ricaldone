@@ -83,6 +83,7 @@ export async function readOne(ENDPOINT, parameters, fillrows) {
 
   let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
 
+  console.log(APIResponse);  
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
     return;

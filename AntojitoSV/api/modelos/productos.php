@@ -192,8 +192,8 @@ class producto extends validator
         ON categoria.id_categoria = producto.id_categoria
         INNER JOIN proveedor
         ON proveedor.id_proveedor = producto.id_proveedor
-        WHERE nombre_producto ILIKE ? OR proveedor.nombre ILIKE ? OR nombre_categoria ILIKE ? 
-        ORDER BY id_categoria ';
+        WHERE (nombre_producto ILIKE ? OR proveedor.nombre ILIKE ? OR nombre_categoria ILIKE ?) AND visibilidad = true
+        ORDER BY id_categoria';
         $params = array("%$value%", "%$value%", "%$value%");
         return Database::getRows($sql, $params);
     }
@@ -267,15 +267,17 @@ class producto extends validator
 
     public function readOne()
     {
-        $sql = 'SELECT nombre_producto, descripcion, precio, imagen from producto 
+        $sql = 'SELECT id_producto, nombre_producto, descripcion, precio, imagen from producto 
         WHERE  id_producto =?';
-        $params = [$this->id_detalle];
+        $params = [$this->id_producto];
         $response = Database::getRow($sql, $params);
 
         $response['imagen'] = "/AntojitoSV/api/imagenes/producto/{$response['imagen']}";
 
-        $response['comentarios'] = Database::getRows("SELECT comentario.comentario, cliente.nombre_cliente FROM comentario INNER JOIN cliente ON cliente.id_cliente = comentario.id_cliente WHERE  comentario.id_producto = ? AND comentario.visibilidad = true", [
-            $this->id_detalle
+        $response['comentarios'] = Database::getRows("SELECT comentario.comentario, cliente.nombre_cliente,  comentario.valoracion
+        FROM comentario  INNER JOIN cliente ON cliente.id_cliente = comentario.id_cliente 
+        WHERE  comentario.id_producto = ? AND comentario.visibilidad = true", [
+        $this->id_producto
         ]);
         return $response;
     }
@@ -303,7 +305,7 @@ class producto extends validator
         ON categoria.id_categoria = producto.id_categoria
         INNER JOIN proveedor
         ON proveedor.id_proveedor = producto.id_proveedor
-        WHERE descuento > 0';
+        WHERE descuento > 0 AND visibilidad = true';
         $params = null;
         return Database::getRows($sql, $params);
     }

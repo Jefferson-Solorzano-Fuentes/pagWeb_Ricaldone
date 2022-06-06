@@ -89,9 +89,9 @@
                                 <a href="categoria.html?id=1">Antojos</a>
                             </div>
                             <div class="row col-1 navBarItem">
-                                <img onclick="abrirDescuento()"
-                                    src="../../resources/img/navbar_publico/discount_75px.png">
-                                <a onclick="abrirDescuento()">Promociones</a>
+                                <img src="../../resources/img/navbar_publico/discount_75px.png"
+                                    usemap="#menu_promociones">
+                                <a href="categoria.html">Promociones</a>
                             </div>
                             <div class="row col-1 navBarItem">
                                 <img src="../../resources/img/navbar_publico/home_75px.png" usemap="#Inicio">
@@ -116,6 +116,9 @@
                             <map name="menu_antojitos">
                                 <area shape="rect" coords="10,0,85,75" href="categoria.html?id=1">
                             </map>
+                            <map name="menu_promociones">
+                                <area shape="rect" coords="10,0,85,75" href="categoria.html">
+                            </map>
                             <map name="Inicio">
                                 <area shape="rect" coords="10,0,85,75" href="index.html">
                             </map>
@@ -133,7 +136,19 @@
     <main>
         <!-- contenedor padre -->
         <div class="container-fluid" id="promo">
-            <h1 id="titulo">Antojos</h1>
+            <h1 id="titulo">Productos</h1>
+            <div class="container-fluid">
+                <div class="searchContainer">
+                    <!-- Barra de  Buscador -->
+                    <form method="post" id="search-bar">
+                        <input type="search" id="site-search" name="search" aria-label="buscar información"
+                            class="buscador bg-light" placeholder="Buscar..." required>
+                        <button type="submit" class="searchButton"> <img class="searchImage" id="buscar_icono"
+                                src="../../resources/img/cards/buttons/search.png"></button>
+                    </form>
+                </div>
+            </div>
+
             <div class="row" id="cuerpo_promo">
 
             </div>
@@ -205,5 +220,6 @@
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
     <script type="module" src="../../controller/publico/navbar.js"></script>
+    <script type="module" src="../../controller/publico/index.js"></script>
 
 </body>

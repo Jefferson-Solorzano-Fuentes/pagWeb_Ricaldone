@@ -11912,6 +11912,42 @@ main{
 /*----------------------------------------------------------------------------------------------------------------------------*/
 
 /*Fernando Ortiz*/
+  
+.buscador {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  background: transparent;
+  width: 80%;
+  height: 50px;
+  
+}
+.searchButton {
+  width: 45px;
+  height: 35px;
+  background: transparent;
+  border: 0;
+}
+
+.searchImage{
+  width: 100%;
+  height: 100%;
+} 
+#site-search{
+  border-radius: 2px;
+  margin-top: 2%;
+  margin-left: 2%;
+}
+
+/*Estetica de los botones del menu producto*/
+#colImg img{
+  border: 5px solid red;
+  border-radius: 10px;
+}
+
+#hyperlink {
+  color:black;
+}
 
 .text{
   padding: 2,5rem 2rem;
@@ -11919,6 +11955,40 @@ main{
   margin-left: 80px;
   font-family: justbubble;
 
+}
+/*Detalle producto responsive*/
+#prodbtn{
+  padding: 10px 25px;
+  max-width: 55%;
+  border: none;
+  outline: none;
+  border-radius: 30px;
+  font-size: 16px;
+  background-color: #872323;
+  font-size: 20px;
+  position:static;
+}
+
+#prodbtn:hover{
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#prodbtn:hover a{
+ color: #198754;
+}
+
+#prodbtn a{
+  color: white;
+}
+
+#insert{
+  max-width: 80%;
+}
+
+#carouselExampleDark{
+  margin: 30px;
+  padding-top: 50px;
+  
 }
 
 .text h1{
@@ -12949,7 +13019,27 @@ main{
   margin-top: 50px;
 }
 
+ /*AQUI CRISTIAN*/
+ #historial{
+  border-radius: 15px;
+  padding: 2px;
+  margin: 10px;
+}
 
+.historialCardText{
+  color: #000;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.btnDetallePedido{
+  margin-left: 100px;
+  margin-top: 100px;
+}
+
+.btnHistorial{
+  margin: 100px;
+}
 
 
 @media screen and (max-width: 700px){

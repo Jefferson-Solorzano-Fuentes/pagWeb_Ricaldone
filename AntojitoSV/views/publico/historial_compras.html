@@ -53,30 +53,8 @@
                         </div>
                         <!-- Segunda mitad del navbar -->
                         <div class="col-4 bg-secondary">
-                            <a class="navbar-brand" href="#">
-                                <!-- Boton de registrarse-->
-                                <a class="btn btn-danger" href="login.html" id="registrate"><img
-                                        src="../../resources/img/navbar/user_25px.png"> Registrate</a>
-                                <!-- Imagenes para ordenes/recibo -->
-                                <img class="redesSociales"
-                                    src="../../resources/img/navbar/shopping_cart_with_money_35px.png"
-                                    usemap="#historial">
-                                <img class="redesSociales" src="../../resources/img/navbar/bill_35px.png"
-                                    usemap="#historial">
-                                <map name="historial">
-                                    <area shape="rect" coords="15,0,35,35" href="historial_compras.html">
-                                </map>
-                                <!-- Dropdown de idiomas -->
-                                <div class="btn-group">
-                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="../../resources/img/navbar/el_salvador_35px.png">
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Español</a>
-                                        <a class="dropdown-item" href="#">Ingles</a>
-                                    </ul>
-                                </div>
+                            <a class="navbar-brand" href="#" id="segunda_mitad_navbar">
+
                             </a>
                         </div>
                     </div>
@@ -94,24 +72,24 @@
                             <!-- Imagenes de los botones y sus respectivos textos links-->
                             <div class="row col-1 navBarItem">
                                 <img src="../../resources/img/navbar_publico/ice_cream_sundae_75px.png"
-                                    usemap="#menu_item">
-                                <a href="categoria.html">Sorbetes</a>
+                                    usemap="#menu_sorbete">
+                                <a href="categoria.html?id=4">Sorbetes</a>
                             </div>
                             <div class="row col-1 navBarItem">
                                 <img src="../../resources/img/navbar_publico/christmas_candy_75px.png"
-                                    usemap="#menu_item">
-                                <a href="categoria.html">Dulces</a>
+                                    usemap="#menu_dulces">
+                                <a href="categoria.html?id=2">Dulces</a>
                             </div>
                             <div class="row col-1 navBarItem">
-                                <img src="../../resources/img/navbar_publico/croissant_75px.png" usemap="#menu_item">
-                                <a href="categoria.html">Pan Dulce</a>
+                                <img src="../../resources/img/navbar_publico/croissant_75px.png" usemap="#menu_pan">
+                                <a href="categoria.html?id=3">Pan Dulce</a>
                             </div>
                             <div class="row col-1 navBarItem">
-                                <img src="../../resources/img/navbar_publico/Pelmeni_75px.png" usemap="#menu_item">
-                                <a href="categoria.html">Antojos</a>
+                                <img src="../../resources/img/navbar_publico/Pelmeni_75px.png" usemap="#menu_antojitos">
+                                <a href="categoria.html?id=1">Antojos</a>
                             </div>
                             <div class="row col-1 navBarItem">
-                                <img src="../../resources/img/navbar_publico/discount_75px.png" usemap="#menu_item">
+                                <img src="../../resources/img/navbar_publico/discount_75px.png" usemap="#menu_promociones">
                                 <a href="categoria.html">Promociones</a>
                             </div>
                             <div class="row col-1 navBarItem">
@@ -125,7 +103,19 @@
                             <map name="categorias">
                                 <area shape="rect" coords="10,0,85,75" href="menu_principal.html">
                             </map>
-                            <map name="menu_item">
+                            <map name="menu_sorbete">
+                                <area shape="rect" coords="10,0,85,75" href="categoria.html?id=4">
+                            </map>
+                            <map name="menu_dulces">
+                                <area shape="rect" coords="10,0,85,75" href="categoria.html?id=2">
+                            </map>
+                            <map name="menu_pan">
+                                <area shape="rect" coords="10,0,85,75" href="categoria.html?id=3">
+                            </map>
+                            <map name="menu_antojitos">
+                                <area shape="rect" coords="10,0,85,75" href="categoria.html?id=1">
+                            </map>
+                            <map name="menu_promociones">
                                 <area shape="rect" coords="10,0,85,75" href="categoria.html">
                             </map>
                             <map name="Inicio">
@@ -247,7 +237,7 @@
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
     <script type="module" src="../../controller/publico/historial.js"></script>
-
+    <script type="module" src="../../controller/publico/navbar.js"></script>
 </body>
 
 </html>

@@ -31,21 +31,21 @@ export function fillCategorias(dataset) {
       content += ` 
       <div class="col-3">
       <!-- Contenedor individual de los productos -->
-      <div class="container text-center">
+      <div class="container text-center" id="categorias_col">
           <div class="row">
               <div class="col-10" id="colImg">
                 <img src="../../api/imagenes/categoria/${row.imagen}">
               </div>
               <div class="col-10">
-                  <a href="categoria.html" id="hyperlink">
+                  <a href="categoria.html?id=${row.id_categoria}" id="hyperlink">
                       <h3>${row.nombre_categoria}</h3>
                   </a>
               </div>
           </div>
-      </div>
+            </div>
         </div>
             `;
     });
     // Se muestran cada filas de los registros
-    getElementById("cuerpo_promo").innerHTML = content;
+    getElementById("cuerpo_categorias").innerHTML = content;
   }

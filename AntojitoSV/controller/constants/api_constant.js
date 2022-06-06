@@ -17,6 +17,7 @@ export const API_DELETE = 'delete'
 export const API_UNDELETE = 'unDelete'
 export const API_LOG_IN = 'logIn'
 export const API_LOG_OUT = 'logOut' 
+export const API_GET_USER = 'getUser'
 export const API_CHECK_SESSION = 'checkSession'
 //Contante de los formularios de eventos
 export const DOM_CONTENT_LOADED ='DOMContentLoaded'

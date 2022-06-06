@@ -99,7 +99,6 @@ class pedido extends validator
 
     public function setFechaEntrega ($value) {
         $this-> fecha_entrega = $value;
-        return true;
     }
 
 
@@ -169,11 +168,12 @@ class pedido extends validator
     }
 
     //Metodo para la inserción
-    public function createPedido()
+    public function createRow()
     {
-        $sql = 'INSERT INTO pedido(direccion, descripcion, fecha_creacion, id_cliente, estado,fecha_entrega)
-        VALUES (?, ?, ?, ?, ?,?)';
-        $params = array($this->direccion, $this->descripcion, $this->fecha_creacion, $this->cliente_id,1,$this->fecha_creacion);
+        $sql = 'INSERT INTO pedido(
+        fecha_entrega, monto_total, direccion, descripcion, fecha_creacion, id_cliente, estado)
+        VALUES (?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->fecha_entrega, $this->monto, $this->direccion, $this->descripcion, $this->fecha_creacion, $this->cliente_id, 1);
         return Database::executeRow($sql, $params);
     }
 
@@ -206,8 +206,22 @@ class pedido extends validator
         FROM pedido
         INNER JOIN cliente
         ON cliente.id_cliente = pedido.id_cliente
-        WHERE estado =?';
+        WHERE estado = true';
         $params = array($this->true);
+        return Database::getRows($sql, $params);
+    }
+
+     //Metodo para leer READ
+    //Leer todas las filas de la Tabla
+    public function readAllHistorial()
+    {
+        $sql = 'SELECT id_pedido, fecha_entrega, monto_total, direccion, descripcion, fecha_creacion, pedido.id_cliente,nombre_cliente, estado
+        FROM pedido
+        INNER JOIN cliente
+        ON cliente.id_cliente = pedido.id_cliente
+        WHERE pedido.id_cliente =? 
+        AND estado = true';
+        $params = array($_SESSION['id_cliente']);
         return Database::getRows($sql, $params);
     }
 
@@ -232,5 +246,4 @@ class pedido extends validator
         $params = null;
         return Database::getRows($sql, $params);
     }
-
 }

@@ -37,14 +37,14 @@ export function fillCarrito(dataset) {
   dataSetArray = dataset;
   // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
   dataset.map((row) => {
-    let priceProduct = row.subtotal;
+    let priceProduct = row.precio;
     // Se crean y concatenan las filas de la tabla con los datos de cada registro.
     content += `
             <tr>
                 <td> <img src="../../api/imagenes/producto/${row.imagen}" width=100></td>
                 <td>${row.nombre_producto}</td>
                 <td> <p id="${row.id_detalle_pedido}subTotal">$ ${priceProduct}</p></td>
-                <p class="prodCantidad">Cantidad: <input id="${row.id_detalle_pedido}quantity" onclick = "updateSubtotal('${row.id_detalle_pedido}', ${priceProduct})" value="1" name="" type="number">
+                <p class="prodCantidad">Cantidad: <input type="number" id="${row.id_detalle_pedido}quantity" onkeypress = "updateSubtotal('${row.id_detalle_pedido}', ${priceProduct})" value="1" name="">
                 <button class="eliminar btn-primary" onclick="deleteDetalePedido('${row.id_detalle_pedido}')">
                     <i class="fa fa-trash" id="eliminarIcon"></i>
                     Eliminar
@@ -112,7 +112,7 @@ getElementById("createPedidoFom").addEventListener("submit", async (event) => {
   //@ts-ignore
   let parameters = new FormData(getElementById("createPedidoFom"));
   parameters.append("fecha_creacion", getTodayDate());
-  parameters.append("cliente_id", clientInformation.id_cliente ?? '1');
+  parameters.append("cliente_id", clientInformation.id_cliente);
 
   // Petición para revisar si el administrador se encuentra registrado.
   let APIResponse = await APIConnection(
@@ -123,7 +123,6 @@ getElementById("createPedidoFom").addEventListener("submit", async (event) => {
 
   $("#pedidoModal").modal("hide");
   if (APIResponse.status == API_SUCESS_REQUEST) {
-    console.log("HO")
     $("#modalSuccess").modal("show");
     return;
   }

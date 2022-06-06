@@ -33,6 +33,7 @@ if (isset($_GET['action'])) {
     // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
     switch ($_GET['action']) {
         case READ_ALL:
+            $_POST = $pedido->validateSpace($_POST);
             if ($result[DATA_SET] = $detalle_pedido->readAll()) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } elseif (Database::getException()) {
@@ -42,18 +43,12 @@ if (isset($_GET['action'])) {
             }
             break;
         case CREATE:
-            $_POST = $pedido->validateSpace($_POST);
-            if (!$pedido->setDireccion($_POST['direccion'])) {
-                $result[EXCEPTION] = 'direccion incorrecta';
-            } else if (!$pedido->setDescripcion($_POST['descripcion'])) {
-                $result[EXCEPTION] = 'descripcion incorrecta';
-            } else if (!$pedido->setCreacion($_POST['fecha_creacion'])) {
-                $result[EXCEPTION] = 'fecha creacion incorrecta';
-            } else if (!$pedido->setCliente($_POST['cliente_id'])) {
-                $result[EXCEPTION] = 'cliente ID incorrecta';
-            } elseif ($pedido->createPedido()) {
+            $_POST = $detalle_pedido->validateSpace($_POST);
+            if (!$detalle_pedido->setProducto($_POST['producto_id'])) {
+                $result[EXCEPTION] = 'id producto malo';
+            } elseif ($detalle_pedido->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'pedido creado existosamente';
+                $result[MESSAGE] = 'deatelle pedido creado existosamente';
                 if ($result[DATA_SET] = $pedido->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
                 } else {

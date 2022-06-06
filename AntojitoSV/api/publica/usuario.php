@@ -52,8 +52,7 @@ if (isset($_GET[ACTION])) {
                 if (isset($_SESSION[ALIAS_USUARIO])) {
                     $result[STATUS] = 1;
                     $result[USERNAME] = $_SESSION[ALIAS_USUARIO];
-                    $result['id_cliente'] = $_SESSION[ID_CLIENTE];
-
+                    $result[CLIENTE_ID] = $_SESSION[ID_CLIENTE];
                 } else {
                     $result[EXCEPTION] = 'Alias de usuario indefinido';
                 }
@@ -75,7 +74,7 @@ if (isset($_GET[ACTION])) {
                     $result[EXCEPTION] = 'No hay datos registrados';
                 }
                 break;
-                //case SEARCH:
+            case SEARCH:
                 $_POST = $usuario->validateForm($_POST);
                 if ($_POST[SEARCH] == '') {
                     $result[EXCEPTION] = 'Ingrese un valor para buscar';
@@ -160,7 +159,7 @@ if (isset($_GET[ACTION])) {
                 break;
             case 'logIn':
                 $_POST = $usuario->validateForm($_POST);
-                if (!$usuario->searchUser($_POST[NOMBRE_USUARIO])) {
+                if (!$usuario->searchUserClient($_POST[NOMBRE_USUARIO])) {
                     $result[EXCEPTION] = 'Alias incorrecto';
                 } elseif ($usuario->searchPassword($_POST['contraseñaUsuario'])) {
                     $result[STATUS] = 1;
@@ -168,7 +167,7 @@ if (isset($_GET[ACTION])) {
                     $_SESSION[ID_USUARIO] = $usuario->getId();
                     $_SESSION[ALIAS_USUARIO] = $usuario->getNombre();
                     $_SESSION[ID_CLIENTE] = $usuario->getCliente();
-                } else {
+               } else {
                     $result[EXCEPTION] = 'Clave incorrecta';
                 }
                 break;

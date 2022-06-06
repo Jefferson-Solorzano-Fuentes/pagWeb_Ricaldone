@@ -15,7 +15,7 @@ class detalle_pedido extends validator
     
     //Parametros TRUE / FALSE
     private $true = true;
-    private $false = '0';
+    private $false = false;
 
     //Metodos para setear los valores de los campos
     //Id
@@ -39,12 +39,9 @@ class detalle_pedido extends validator
     //Id del producto que se vende
     public function setProducto($value)
     {
-        if ($this->validateNaturalNumber($value)) {
             $this->producto_id = $value;
             return true;
-        } else {
-            return false;
-        }
+    
     }
 
     //Cantidad del producto que se vende
@@ -116,12 +113,14 @@ class detalle_pedido extends validator
     }
 
     //Metodo para la inserción INSERT
+
+    //AGREGARLE VALOR BOOLEANO TRUE A ESTADO DE CARRITO
+    // SOLO RDEJAR PRODUCTO_ID
     public function createRow()
     {
-        $sql = 'INSERT INTO detalle_pedido(
-            id_pedido, id_producto, cantidad, subtotal)
+        $sql = 'INSERT INTO detalle_pedido(id_producto, carrito, visibilidad, id_cliente)
             VALUES (?, ?, ?, ?)';
-        $params = array($this->pedido_id, $this->producto_id, $this->cantidad, $this->subtotal);
+        $params = array($this->producto_id, 1,  1 , $_SESSION['id_cliente']);
         return Database::executeRow($sql, $params);
     }
 
@@ -170,14 +169,12 @@ class detalle_pedido extends validator
     //Leer todas las filas de la Tabla
     public function readAll()
     {
-        $sql = 'SELECT id_detalle_pedido, producto.imagen, subtotal, cantidad, nombre_producto, detalle_pedido.id_producto
+        $sql = 'SELECT  carrito, detalle_pedido.visibilidad, subtotal, precio ,detalle_pedido.id_cliente, id_detalle_pedido, producto.imagen, subtotal, cantidad, nombre_producto, detalle_pedido.id_producto
         FROM detalle_pedido
         INNER JOIN producto
         ON producto.id_producto = detalle_pedido.id_producto
-        INNER JOIN pedido
-        ON pedido.id_pedido = detalle_pedido.id_pedido
-        order by detalle_pedido.id_pedido';
-        $params = null;
+        WHERE detalle_pedido.visibilidad = true AND carrito = true AND detalle_pedido.id_cliente = ?';
+        $params = array($_SESSION['id_cliente']);
         return Database::getRows($sql, $params);
     }
 

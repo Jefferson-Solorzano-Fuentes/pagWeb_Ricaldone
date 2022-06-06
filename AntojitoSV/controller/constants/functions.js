@@ -105,6 +105,16 @@ export async function validateExistenceOfUserPublic(es_pagina_carrito) {
   return;
 }
 
+export async function getUser(){
+  let APIEndpoint = API_USUARIOS_PUBLIC + "getUser";
+  let APIResponseGetUset = await APIConnection(APIEndpoint, GET_METHOD, null);
+  if(APIResponseGetUset == API_SUCESS_REQUEST){
+
+  }
+  return;
+}
+
+
 //Convierte el datos del id de json a formData
 export function getFormData(object) {
   const formData = new FormData();

@@ -41,5 +41,7 @@ getElementById("session-form").addEventListener("submit", async (event) => {
     location.href = "index.html"
   } else{
     console.log("USER DOESNT EXIST");
+    //En caso de fracaso se abrira un modal de error
+    $('#error_proceso').modal('show');
   }
 });

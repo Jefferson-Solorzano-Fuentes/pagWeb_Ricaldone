@@ -13,6 +13,6 @@ let datos_categoria = {
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
+    // Verificar la existencia de usuario
     await validateExistenceOfUserPublic(false);
-    // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
 });

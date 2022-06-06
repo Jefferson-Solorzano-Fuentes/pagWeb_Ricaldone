@@ -252,7 +252,7 @@ class usuario extends validator
     {
         $sql = 'SELECT id_usuario, nombre_usuario, password, id_tipo_usuario
         FROM usuario
-        WHERE nombre_usuario = ?';
+        WHERE nombre_usuario = ? AND id_tipo_usuario != 4';
         $param = array($nombre_Usuario);
         if ($data = Database::getRow($sql, $param)) {
             $this->id_usuario = $data['id_usuario'];
@@ -264,12 +264,31 @@ class usuario extends validator
         return Database::getRow($sql, $param);
     }
 
+    //Buscar el nombre del Cliente
+    public function searchUserClient($nombre_Usuario)
+    {
+        $sql = 'SELECT id_usuario, nombre_usuario, password, id_tipo_usuario, id_cliente
+        FROM usuario
+        WHERE nombre_usuario = ? AND id_tipo_usuario != 4';
+        $param = array($nombre_Usuario);
+        if ($data = Database::getRow($sql, $param)) {
+            $this->id_usuario = $data['id_usuario'];
+            $this->nombre_usuario = $nombre_Usuario;
+            $this->cliente_id = $data['id_cliente'];
+            return true;
+        } else {
+            return false;
+        }
+        return Database::getRow($sql, $param);
+    }
+
+
     //Buscar el password
     public function searchPassword()
     {
         $sql = 'SELECT password 
         FROM usuario 
-        WHERE id_usuario = ?';
+        WHERE id_usuario = ? AND id_tipo_usuario != 4';
         $param = array($this->id_usuario);
         return Database::getRow($sql, $param);
     }

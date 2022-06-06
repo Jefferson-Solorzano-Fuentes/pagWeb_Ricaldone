@@ -4,11 +4,11 @@
 // @ts-ignore
 import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
 import { SERVER, API_CREATE, API_UPDATE, DOM_CONTENT_LOADED, SEARCH_BAR, SUBMIT, INSERT_MODAL, UPDATE_MODAL, DELETE_FORM } from "../constants/api_constant.js";
-import { getElementById, validateExistenceOfUser } from "../constants/functions.js";
+import { getElementById, validateExistenceOfUserPublic } from "../constants/functions.js";
 import { APIConnection } from "../APIConnection.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
-const API_PEDIDO_HISTORIAL = SERVER + 'privada/pedido.php?action=';
+const API_PEDIDO_HISTORIAL = SERVER + 'publica/historial.php?action=';
 const API_DETALLE_PEDIDO_HISTORIAL = SERVER + 'privada/detalle_pedido.php?action=';
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
@@ -36,6 +36,7 @@ let datos_detalle_pedido ={
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
     //Validar que el usuario este en sesión
+    validateExistenceOfUserPublic(true);
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     await readRows(API_PEDIDO_HISTORIAL, fillTableHistorial)
 
@@ -74,15 +75,16 @@ export function fillTableHistorial(dataset) {
                                     <p class="historialCardText">Dirección: ${row.direccion}</p>
                                     <p class="historialCardText">Descripción: ${row.descripcion}</p>
                                     <p class="historialCardText" id="cantidad">Estado: ${row.estado}</p>
+                                    <p class="historialCardText">Cliente: ${row.nombre_cliente}</p>
                                     <p class="historialCardText"><small class="text-muted">Fecha de Entrega: ${row.fecha_entrega}</small></p>
                                     <p class="historialCardText"><small class="text-muted">Fecha de Creación: ${row.fecha_creacion}</small></p>
                                 </div>
                                 <div class="col-md-3"> 
-                                    <form method='post' class="btnDetallePedido" id='${row.id_pedido}' >
+                                    <form method='post' id='${row.id_pedido}' class="btnHistorial">
                                         <a onclick="guardarDetallePedido(${row.id_pedido})" data-bs-toggle="modal"  type="submit"
-                                        data-bs-target="#detallePedidoForm" class="btn btn-primary"  name="search"><img
-                                        src="../../resources/img/cards/buttons/eye_40px.png"></a>
-                                    </form>
+                                            data-bs-target="#detallePedidoForm" class="btn btn-primary"  name="search"><img
+                                            src="../../resources/img/cards/buttons/eye_40px.png"></a>
+                                    </form> 
                                 </div>
                             </div>
                         </div>
@@ -104,17 +106,6 @@ export function fillTableDetallePedido(dataset) {
                 <td>${row.nombre_producto}</td>
                 <td>${row.cantidad}</td>
                 <td>${row.subtotal}</td>
-                <td class="d-flex justify-content-center">
-                    <div class="btn-group" role="group">
-                        <form method="post" id="read-one">
-                            <a onclick="guardarDatosDetallePedido(${row.id_detalle_pedido})"  data-bs-toggle="modal" data-bs-target="#deactivarForm" class="btn btn-primary">
-                                <img src="../../resources/img/cards/buttons/invisible_40px.png"></a>
-                            <a  onclick="guardarDatosDetallePedido(${row.id_detalle_pedido})" data-bs-toggle="modal" data-bs-target="#reactivarForm" class="btn btn-primary"  
-                            name="search">
-                                <img src="../../resources/img/cards/buttons/eye_40px.png"></a>
-                        </form>
-                    </div>
-                </td>
             </tr>
         `;
     });

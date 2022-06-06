@@ -70,7 +70,7 @@
                             <!-- Imagenes de los botones y sus respectivos textos links-->
                             <div class="row col-1 navBarItem">
                                 <img src="../../resources/img/navbar_publico/ice_cream_sundae_75px.png"
-                                    usemap="menu_sorbete">
+                                    usemap="#menu_sorbete">
                                 <a href="categoria.html?id=4">Sorbetes</a>
                             </div>
                             <div class="row col-1 navBarItem">
@@ -87,9 +87,8 @@
                                 <a href="categoria.html?id=1">Antojos</a>
                             </div>
                             <div class="row col-1 navBarItem">
-                                <img onclick="abrirDescuento()"
-                                    src="../../resources/img/navbar_publico/discount_75px.png">
-                                <a onclick="abrirDescuento()">Promociones</a>
+                                <img src="../../resources/img/navbar_publico/discount_75px.png" usemap="#menu_promociones">
+                                <a href="categoria.html">Promociones</a>
                             </div>
                             <div class="row col-1 navBarItem">
                                 <img src="../../resources/img/navbar_publico/home_75px.png" usemap="#Inicio">
@@ -113,6 +112,9 @@
                             </map>
                             <map name="menu_antojitos">
                                 <area shape="rect" coords="10,0,85,75" href="categoria.html?id=1">
+                            </map>
+                            <map name="menu_promociones">
+                                <area shape="rect" coords="10,0,85,75" href="categoria.html">
                             </map>
                             <map name="Inicio">
                                 <area shape="rect" coords="10,0,85,75" href="index.html">
@@ -206,7 +208,7 @@
                     </div>
                       
                 </div>
-                <div class="row justify-content-evenly">
+                <div class="row justify-content-evenly" id="cuerpo_categorias">
 
                 </div>
             </div>

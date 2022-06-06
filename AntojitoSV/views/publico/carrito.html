@@ -72,26 +72,25 @@
                             <!-- Imagenes de los botones y sus respectivos textos links-->
                             <div class="row col-1 navBarItem">
                                 <img src="../../resources/img/navbar_publico/ice_cream_sundae_75px.png"
-                                    onclick="guardarCategoria(4)">
-                                <a href="carrito.html?id=4&">Sorbetes</a>
-                            </div>
-                            <div onclick="guardarCategoria(3)" class="row col-1 navBarItem">
-                                <img src="../../resources/img/navbar_publico/christmas_candy_75px.png"
-                                    usemap="#menu_item">
-                                <a>Dulces</a>
-                            </div>
-                            <div onclick="guardarCategoria(2)" class="row col-1 navBarItem">
-                                <img src="../../resources/img/navbar_publico/croissant_75px.png" usemap="#menu_item">
-                                <a>Pan Dulce</a>
-                            </div>
-                            <div onclick="guardarCategoria(1)" class="row col-1 navBarItem">
-                                <img src="../../resources/img/navbar_publico/Pelmeni_75px.png" usemap="#menu_item">
-                                <a>Antojos</a>
+                                    usemap="#menu_sorbete">
+                                <a href="categoria.html?id=4">Sorbetes</a>
                             </div>
                             <div class="row col-1 navBarItem">
-                                <img onclick="abrirDescuento()"
-                                    src="../../resources/img/navbar_publico/discount_75px.png" usemap="#menu_item">
-                                <a onclick="abrirDescuento()">Promociones</a>
+                                <img src="../../resources/img/navbar_publico/christmas_candy_75px.png"
+                                    usemap="#menu_dulces">
+                                <a href="categoria.html?id=2">Dulces</a>
+                            </div>
+                            <div class="row col-1 navBarItem">
+                                <img src="../../resources/img/navbar_publico/croissant_75px.png" usemap="#menu_pan">
+                                <a href="categoria.html?id=3">Pan Dulce</a>
+                            </div>
+                            <div class="row col-1 navBarItem">
+                                <img src="../../resources/img/navbar_publico/Pelmeni_75px.png" usemap="#menu_antojitos">
+                                <a href="categoria.html?id=1">Antojos</a>
+                            </div>
+                            <div class="row col-1 navBarItem">
+                                <img src="../../resources/img/navbar_publico/discount_75px.png" usemap="#menu_promociones">
+                                <a href="categoria.html">Promociones</a>
                             </div>
                             <div class="row col-1 navBarItem">
                                 <img src="../../resources/img/navbar_publico/home_75px.png" usemap="#Inicio">
@@ -104,7 +103,21 @@
                             <map name="categorias">
                                 <area shape="rect" coords="10,0,85,75" href="menu_principal.html">
                             </map>
-
+                            <map name="menu_sorbete">
+                                <area shape="rect" coords="10,0,85,75" href="categoria.html?id=4">
+                            </map>
+                            <map name="menu_dulces">
+                                <area shape="rect" coords="10,0,85,75" href="categoria.html?id=2">
+                            </map>
+                            <map name="menu_pan">
+                                <area shape="rect" coords="10,0,85,75" href="categoria.html?id=3">
+                            </map>
+                            <map name="menu_antojitos">
+                                <area shape="rect" coords="10,0,85,75" href="categoria.html?id=1">
+                            </map>
+                            <map name="menu_promociones">
+                                <area shape="rect" coords="10,0,85,75" href="categoria.html">
+                            </map>
                             <map name="Inicio">
                                 <area shape="rect" coords="10,0,85,75" href="index.html">
                             </map>
@@ -313,6 +326,7 @@
         crossorigin="anonymous"></script>
         <script src="http://cdn.date-fns.org/v1.9.0/date_fns.min.js"></script>
     <script type="module" src="../../controller/publico/carrito.js"></script>
+    <script type="module" src="../../controller/publico/navbar.js"></script>
 </body>
 
 </html>
