@@ -14,6 +14,9 @@ const SEARCH = 'search';
 const READ_ALL = 'readAll';
 const READ_CATEGORIES = 'readCategories';
 const SUCESS_RESPONSE = 1;
+const READ_ONE = 'readOne';
+const ID_DETALLE = 'id_detalle';
+
 
 // NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARIO
 
@@ -55,6 +58,16 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'No hay coincidencias';
             }
             break;
+        case READ_ONE:
+            if (!$producto->setId($_GET[ID_DETALLE])) {
+                $result[EXCEPTION] = 'identificador Comentario incorrecto';
+            } elseif ($result[DATA_SET] = $producto->readOne()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'Producto no encontrado';
+            }
         default:
             $result[EXCEPTION] = 'Acción no disponible dentro de la sesión';
     }

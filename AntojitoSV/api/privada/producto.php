@@ -27,7 +27,7 @@ if (isset($_GET[ACTION])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
-    $producto = new producto;
+    $producto = new Producto;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array(STATUS => 0, MESSAGE => null, EXCEPTION => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -58,9 +58,10 @@ if (isset($_GET[ACTION])) {
             break;
         case CREATE:
             $_POST = $producto->validateSpace($_POST);
-            if ( !$producto->setNombre($_POST['nombre_producto'])) {
+            if (!$producto->setNombre($_POST['nombre_producto'])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
-            } if (!$producto->setDescripcion($_POST['descripcion_producto'])) {
+            }
+            if (!$producto->setDescripcion($_POST['descripcion_producto'])) {
                 $result[EXCEPTION] = 'Descripcion no valida';
             } else if (!$producto->setProveedorId($_POST['proveedor_id'])) {
                 $result[EXCEPTION] = 'Proveedor ID no valido';
@@ -89,13 +90,13 @@ if (isset($_GET[ACTION])) {
                 } else {
                     $result[MESSAGE] = 'Imagen no se a ingresado correctanente';
                 }
-               
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
         case UPDATE:
             $_POST = $producto->validateSpace($_POST);
+            print_r($_POST);
             if (!$producto->setId($_POST['id'])) {
                 $result[EXCEPTION] = 'id incorrecto';
             } else if (!$producto->setNombre($_POST['nombre_producto'])) {
@@ -134,6 +135,7 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case DELETE:
+            print_r($_POST);
             if (!$producto->setId($_POST['id'])) {
                 $result[EXCEPTION] = 'id no seteado correctamente';
             } elseif ($producto->deleteRow()) {
@@ -141,7 +143,7 @@ if (isset($_GET[ACTION])) {
                 $result[MESSAGE] = 'Proveedor removido correctamente';
                 if ($result[DATA_SET] = $producto->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
-                } elseif (Database::getException()) { 
+                } elseif (Database::getException()) {
                     $result[EXCEPTION] = Database::getException();
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';
@@ -164,6 +166,27 @@ if (isset($_GET[ACTION])) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } else {
                 $result[EXCEPTION] = 'Algo salio mal';
+            }
+            break;
+        case 'Graph1':
+            if ($result[DATA_SET] = $producto->readGraph1()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
+        case 'Graph2':
+            if ($result[DATA_SET] = $producto->readGraph2()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
+        case 'Graph3':
+            if ($result[DATA_SET] = $producto->readGraph3()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
             }
             break;
         default:

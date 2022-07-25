@@ -215,9 +215,9 @@
                                     <input type="text" class="form-control" id="nombre_producto" name="nombre_producto"
                                         placeholder="Escriba el nombre del producto" required>
                                     <label for="descripcion_producto" class="form-label">Descripción</label>
-                                    <textarea name="descripcion_producto" id="descripcion_producto" rows="3"
+                                    <input name="descripcion_producto" id="descripcion_producto" rows="3"
                                         class="form-control" placeholder="Escriba una descripción para el producto"
-                                        required></textarea>
+                                        required></input>
                                     <label for="listado_de_proveedores" class="form-label">Proveedor</label>
                                     <!-- listado de proveedores -->
                                     <select onchange="selectIdProveedor('listado_de_proveedores')"
@@ -316,7 +316,7 @@
                                         <div class="col">
                                             <label for="precio_producto_update" class="form-label">Precio</label>
                                             <input type="number" class="form-control" id="precio_producto_update"
-                                                name="precio_producto" placeholder="Escriba el precio" min="0.01"
+                                                name="precio_producto" placeholder="Escriba el precio" min="1"
                                                 max="999.99" required>
                                         </div>
                                         <div class="col">
@@ -409,7 +409,9 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <div id="grafico_comentario"></div>
                         <div class="container-fluid" id="tabla_datos">
+                            
                             <table class="table table-responsive table-bordered">
                                 <thead>
                                     <tr>
@@ -496,6 +498,8 @@
                 </div>
             </div>
         </div>
+        <!-- Importación de librería para generar gráficos en tiempo real. Para más información https://www.chartjs.org/ -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     </main>
 
     <!-- Footer de privados-->

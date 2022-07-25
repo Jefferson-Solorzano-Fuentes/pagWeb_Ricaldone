@@ -2,7 +2,7 @@
 //Maneja la tabla de categoria  de la base de datos
 //Contiene validaciones de validator
 
-class categoria extends validator
+class Categoria extends Validator
 {
 
     //Declaración de atributos (propiedades)

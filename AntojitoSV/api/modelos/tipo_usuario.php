@@ -2,7 +2,7 @@
 //Maneja la tabla de tipo_usuarios  de la base de datos
 //Contiene validaciones de validator
 
-class tipo_usuario extends validator
+class Tipo_usuario extends Validator
 {
 
     //Declaración de atributos (propiedades)
@@ -62,9 +62,9 @@ class tipo_usuario extends validator
     public function createRow()
     {
         $sql = 'INSERT INTO tipo_usuario(
-            nombre_tipo)
-            VALUES (?)';
-        $params = array($this->nombre_tipo);
+            nombre_tipo, visibilidad)
+            VALUES (?, ?)';
+        $params = array($this->nombre_tipo, $this->true);
         return Database::executeRow($sql, $params);
     }
 
@@ -72,7 +72,7 @@ class tipo_usuario extends validator
     public function updateRow()
     {
         $sql = 'UPDATE tipo_usuario
-        SET nombre_tipo=?
+        SET nombre_tipo=?, visibilidad=?
         WHERE id_tipo_usuario =?';
         $params = array($this->nombre_tipo, $this->id_tipo_usuario);
         return Database::executeRow($sql, $params);
@@ -92,7 +92,7 @@ class tipo_usuario extends validator
     //Leer todas las filas de la Tabla
     public function readAll()
     {
-        $sql = 'SELECT id_tipo_usuario, nombre_tipo
+        $sql = 'SELECT id_tipo_usuario, nombre_tipo, visibilidad
         FROM tipo_usuario';
         $params = null;
         return Database::getRows($sql, $params);

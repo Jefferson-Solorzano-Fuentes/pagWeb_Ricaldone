@@ -2,7 +2,7 @@
 //Maneja la tabla de envio  de la base de datos
 //Contiene validaciones de validator
 
-class envio extends validator
+class Envio extends Validator
 {
 
     //Declaración de atributos (propiedades)

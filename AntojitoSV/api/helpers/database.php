@@ -15,7 +15,7 @@ class Database
         $server = 'localhost';
         $database = 'AntojitoSVBD';
         $username = 'postgres';
-        $password = 'Gangshit5';
+        $password = '1234';
 
         //Se crea una sentencia usando la extensión PDO y el controlador para PostgreSQL
         self::$connection = new PDO('pgsql:host=' . $server . ';dbname=' . $database . ';port=5432', $username, $password);
@@ -85,7 +85,7 @@ class Database
         }
     }
 
-    
+
 
     //Retorna la ultima fila de registro creada
     public static function getLastRow($query, $values)

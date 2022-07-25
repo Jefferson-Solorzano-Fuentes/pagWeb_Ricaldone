@@ -32,7 +32,7 @@ if (isset($_GET[ACTION])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
-    $categoria = new categoria;
+    $categoria = new Categoria;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array(STATUS => 0, MESSAGE => null, EXCEPTION => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.

@@ -2,15 +2,16 @@
 //Maneja la tabla de compra_existencia de la base de datos
 //Contiene validaciones de validator
 
-class comentario extends validator
+class Comentario extends Validator
 {
 
     //Declaración de atributos (propiedades)
     private $id_comentario = null;
     private $comentario = null;
-    private $cliente_id = null;
+    private $cliente_id = 1;
     private $producto_id = null;
     private $visibilidad = null;
+    private $valoracion = null;
 
     //Parametros TRUE / FALSE
     private $true = true;
@@ -65,13 +66,24 @@ class comentario extends validator
     public function setVisibilidad($value)
     {
         if ($this->validateBoolean($value)) {
-            $this->setVisibilidad = $value;
+            $this->visibilidad = $value;
             return true;
         } else {
             return false;
         }
     }
-    
+
+    //Valoracion
+    public function setValoracion($value)
+    {
+        if ($this->validateNaturalNumber($value)) {
+            $this->valoracion = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     //Metodos para obtener los valores de los campos
     //Id
     public function getId()
@@ -99,7 +111,7 @@ class comentario extends validator
     }
 
     //Visbilidad
-    public function getVisbilidad() 
+    public function getVisbilidad()
     {
         return $this->visibilidad;
     }
@@ -110,7 +122,7 @@ class comentario extends validator
     //Utilizaremos los campos o (NOMBRE, APELLIDO, TIPO, ESTADO, TELEFONO, DUI, NIT)
     public function searchRows($value)
     {
-        $sql = 'SELECT id_comentario, comentario, comentario.id_cliente, comentario.id_producto, nombre_producto, nombre_cliente, comentario.visibilidad
+        $sql = 'SELECT id_comentario, comentario, comentario.id_cliente, comentario.id_producto, nombre_producto, nombre_cliente, comentario.visibilidad, valoracion
         FROM comentario
         INNER JOIN cliente
         ON cliente.id_cliente = comentario.id_cliente
@@ -120,6 +132,17 @@ class comentario extends validator
         $params = array($this->producto_id);
         return Database::getRows($sql, $params);
     }
+
+    //Metodo para la inserción
+    public function createRow()
+    {
+        $sql = 'INSERT INTO public.comentario(
+                comentario, id_cliente, id_producto, visibilidad, valoracion)
+                VALUES (?, ?, ?, ?, ?)';
+        $params = array($this->comentario, $_SESSION['id_cliente'], $this->producto_id, $this->true, $this->valoracion);
+        return Database::executeRow($sql, $params);
+    }
+
 
     //Metodo para la actualización UPDATE
     public function updateRow()
@@ -156,7 +179,7 @@ class comentario extends validator
     //Leer todas las filas de la Tabla
     public function readAll()
     {
-        $sql = 'SELECT comentario, comentario.id_cliente, comentario.id_producto, nombre_producto, nombre_cliente
+        $sql = 'SELECT comentario, comentario.id_cliente, comentario.id_producto, nombre_producto, nombre_cliente, valoracion
         FROM comentario
         INNER JOIN cliente
         ON cliente.id_cliente = comentario.id_cliente
@@ -169,7 +192,7 @@ class comentario extends validator
     //Leer solamente una fila de la Tabla
     public function readOne()
     {
-        $sql = 'SELECT comentario, comentario.id_cliente, comentario.id_producto, nombre_producto, nombre_cliente
+        $sql = 'SELECT comentario, comentario.id_cliente, comentario.id_producto, nombre_producto, nombre_cliente, valoracion
         FROM comentario
         INNER JOIN cliente
         ON cliente.id_cliente = comentario.id_cliente
@@ -198,4 +221,27 @@ class comentario extends validator
         $params = null;
         return Database::getRow($sql, $params);
     }
+
+    //Productos mejor valorados, según las calificaciones de clientes.
+    public function readGraph1()
+    {
+        $sql = 'SELECT ROUND(AVG(valoracion)), nombre_producto FROM public.comentario
+        INNER JOIN public.producto
+        ON producto.id_producto = comentario.id_producto
+        GROUP BY nombre_producto
+        ORDER BY round DESC';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }   
+
+    //La cantidad de valoraciones con una especifica calificación de los clientes
+    public function readGraph2()
+    {
+        $sql = 'SELECT COUNT(id_comentario), valoracion from public.comentario
+        WHERE id_producto = ?
+        GROUP BY valoracion
+        ORDER BY valoracion DESC;';
+        $params = array($this->producto_id);
+        return Database::getRows($sql, $params);
+    }        
 }

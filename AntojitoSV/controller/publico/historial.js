@@ -8,7 +8,7 @@ import { getElementById, validateExistenceOfUserPublic } from "../constants/func
 import { APIConnection } from "../APIConnection.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
-const API_PEDIDO_HISTORIAL = SERVER + 'privada/pedido.php?action=';
+const API_PEDIDO_HISTORIAL = SERVER + 'publica/historial.php?action=';
 const API_DETALLE_PEDIDO_HISTORIAL = SERVER + 'privada/detalle_pedido.php?action=';
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
@@ -36,7 +36,7 @@ let datos_detalle_pedido ={
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
     //Validar que el usuario este en sesión
-    validateExistenceOfUserPublic()
+    validateExistenceOfUserPublic(true);
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     await readRows(API_PEDIDO_HISTORIAL, fillTableHistorial)
 
@@ -59,6 +59,7 @@ window.guardarDetallePedido = async (id_pedido) => {
 }
 
 export function fillTableHistorial(dataset) {
+    console.log(dataset)
     let content = '';
     // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
     dataset.map(row => {
@@ -69,15 +70,12 @@ export function fillTableHistorial(dataset) {
                             <div class="card-body">
                             <div class="row g-0">
                                 <div class="col-md-9">
-                                    <a href="carrito.html" id="comprasProd">
-                                        <h2 class="card-title">$${row.monto_total}</h2>
-                                    </a>
-                                    <p class="historialCardText">Dirección: ${row.direccion}</p>
-                                    <p class="historialCardText">Descripción: ${row.descripcion}</p>
-                                    <p class="historialCardText" id="cantidad">Estado: ${row.estado}</p>
-                                    <p class="historialCardText">Cliente: ${row.nombre_cliente}</p>
-                                    <p class="historialCardText"><small class="text-muted">Fecha de Entrega: ${row.fecha_entrega}</small></p>
-                                    <p class="historialCardText"><small class="text-muted">Fecha de Creación: ${row.fecha_creacion}</small></p>
+                                    <h2 class="card-title">$${row.monto_total}</h2>
+                                    <p class="historialCardText"><b>Dirección:</b> ${row.direccion}</p>
+                                    <p class="historialCardText"><b>Descripción:</b> ${row.descripcion}</p>
+                                    <p class="historialCardText"><b>Cliente:</b> ${row.nombre_cliente}</p>
+                                    <p class="historialCardText"><b>Fecha de Entrega:</b> ${row.fecha_entrega} </p>
+                                    <p class="historialCardText"><b>Fecha de Creación:</b> ${row.fecha_creacion}</p>
                                 </div>
                                 <div class="col-md-3"> 
                                     <form method='post' id='${row.id_pedido}' class="btnHistorial">
@@ -123,4 +121,14 @@ window.guardarDatosPedido = (id_pedido) => {
 window.guardarDatosDetallePedido = (id_detalle_pedido) => {
     datos_detalle_pedido.id = id_detalle_pedido
 }
+
+// Método que se ejecuta al enviar un formulario de busqueda
+getElementById('search-bar').addEventListener('submit', async (event) => {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    //@ts-ignore
+    let parameters = new FormData(getElementById('search-bar'))
+    // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
+    await searchRows(API_PEDIDO_HISTORIAL, null, fillTableHistorial, parameters);
+});
 

@@ -1,5 +1,3 @@
-//@ts-check
-
 //Importar las constantes y metodos de components.js y api_constant.js
 import {
   readRows,
@@ -7,6 +5,7 @@ import {
   searchRows,
   deleteRow,
   unDeleteRow,
+  doughnutGraph,
 } from "../components.js";
 import {
   getElementById,
@@ -143,6 +142,7 @@ window.guardarDatosproductoUpdate = (
   document.getElementById("stock_producto_update").value = String(stock);
   //@ts-ignore
   document.getElementById("descuento_producto_update").value =String(descuento);
+  
 };
 
 // FUNCION PARA GUARDAR LOS DATOS DEL PRODUCTO
@@ -179,9 +179,9 @@ window.guardarProductoComentario = async (id_producto) => {
   //Se envian el parametro del id para realizar la busqueda
   //@ts-ignore
   parameters.append("search", datos_comentarios["id_producto"]);
-
   // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
   await searchRows(APIEndpoint, null, fillTableComentario, parameters);
+  await graphDoughnutCalificaciones(id_producto);
   $("#comentarioForm").modal("show")
 };
 
@@ -244,7 +244,7 @@ export function fillTableProductos(dataset) {
                             name="search">
                                 <img src="../../resources/img/cards/buttons/delete_40px.png"></a>
                                 <form method='post' id='${row.id_producto}'>
-                                    <a onclick="guardarProductoComentario(${row.id_producto})" data-bs-toggle="modal"  type="submit"
+                                    <a onclick="guardarProductoComentario(${row.id_producto})"  type="submit"
                                       class="btn btn-primary"  name="search"><img
                                         src="../../resources/img/cards/buttons/eye_40px.png"></a>
                                 </form>        
@@ -254,8 +254,15 @@ export function fillTableProductos(dataset) {
             </tr>
         `;
   });
+
+  let p = getElementById("tbody-rows-productos").innerHTML
+
+  if (p){
+    getElementById("tbody-rows-productos").innerHTML = content; 
+  } else {
+    console.log(p)
+  }
   // Se muestran cada filas de los registros
-  getElementById("tbody-rows-productos").innerHTML = content;
 }
 
 // EVENTO PARA INSERT
@@ -288,12 +295,11 @@ getElementById('update-modal').addEventListener('submit', async (event) => {
   //@ts-ignore
   let parameters = new FormData(getElementById('update-modal'));
   //@ts-ignore
-  parameters.append("id", datos_producto["id_proveedor"]);
-  //@ts-ignore
   parameters.append("proveedor_id", datos_producto["id_proveedor"]);
   //@ts-ignore
   parameters.append("id_categoria", datos_producto["id_categoria"]);
-
+  //@ts-ignore
+  parameters.append("id", datos_producto["id_producto"]);
   // API REQUEST
   await saveRow(API_PRODUCTO, API_UPDATE, parameters, fillTableProductos);
 });
@@ -339,3 +345,44 @@ getElementById('reactivate-form').addEventListener('submit', async (event) => {
   //API REQUEST
   await unDeleteRow(API_COMENTARIO, parameters, fillTableComentario);
 });
+
+ 
+// Función para crear el grafico que, "Leer Cantidad de Productos por Marca"
+export async function graphDoughnutCalificaciones(id_producto) {
+  //Creo un formData para los parametros
+  let parameters = new FormData();
+  //Inserto el id_producto a los parametros
+  parameters.append("producto_id", id_producto)
+  //Obtener los datos del grafico
+  //Crear endpoint
+  let APIEndpoint = API_COMENTARIO + "Graph2";
+  //Se realiza la consulta con el endpoint, el metodo "get" y no requiere parametros
+  let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
+  console.log(APIResponse)
+  //Se verifica si la consulta retorna un valor positivo
+  if (APIResponse.status == API_SUCESS_REQUEST) {
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
+    if (APIResponse.status) {
+      // Se declaran los arreglos para guardar los datos a gráficar.
+      let valoracion = [];
+      let cantidad = [];
+      // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+      APIResponse.dataset.map(function (row) {
+        // Se agregan los datos a los arreglos.
+        valoracion.push(row.valoracion);
+        cantidad.push(row.count);
+      });
+      getElementById('grafico_comentario').innerHTML = '<div class="container d-flex justify-content-center"><div class="col-sm-4"><div class="card" id="colorcarta12"><div class="card-body"><canvas id="chart1"></canvas></div></div></div></div>';
+      // Se llama a la función que genera y muestra un gráfico de pastel. Se encuentra en el archivo components.js
+      doughnutGraph(
+        "chart1",
+        valoracion,
+        cantidad,
+        "La cantidad de valoraciones con una especifica calificación de los clientes"
+      );
+    } else {
+      document.getElementById("chart1").remove();
+      console.log(response.exception);
+    }
+  }
+}

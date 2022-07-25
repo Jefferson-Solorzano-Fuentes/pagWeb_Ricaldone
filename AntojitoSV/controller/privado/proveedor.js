@@ -61,7 +61,7 @@ function fillTableProveedor(dataset) {
                             name="search">
                                 <img src="../../resources/img/cards/buttons/delete_40px.png"></a>
                         </form>
-                    </div>
+                    </div> 
                 </td>
             </tr>
         `;

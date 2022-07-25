@@ -2,7 +2,7 @@
     //Maneja la tabla de vehiculo  de la base de datos
     //Contiene validaciones de validator
 
-    class vehiculo extends validator
+    class Vehiculo extends Validator
     {
 
         //Declaración de atributos (propiedades)

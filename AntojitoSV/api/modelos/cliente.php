@@ -2,7 +2,7 @@
 //Maneja la tabla de cliente de la base de datos
 //Contiene validaciones de validator
 
-class cliente extends validator
+class Cliente extends Validator
 {
 
     //Declaración de atributos (propiedades)

@@ -28,7 +28,7 @@ if (isset($_GET[ACTION])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
-    $tipo_empleado = new tipo_empleado;
+    $tipo_empleado = new Tipo_empleado;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array(STATUS => 0, MESSAGE => null, EXCEPTION => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -87,23 +87,19 @@ if (isset($_GET[ACTION])) {
             break;
         case UPDATE:
             $_POST = $tipo_empleado->validateSpace($_POST);
-            if (!$tipo_empleado->setId($_POST[ID])) {
-                $result[EXCEPTION] = 'Categoría incorrecta';
-            } elseif (!$data = $tipo_empleado->readOne()) {
-                $result[EXCEPTION] = 'Categoría inexistente';
-            } elseif (!$tipo_empleado->setNombre($_POST[NOMBRE])) {
-                $result[EXCEPTION] = 'Nombre incorrecto';
-            } elseif ($tipo_empleado->updateRow()) {
-                $result[STATUS] = SUCESS_RESPONSE;
+
+            $result[EXCEPTION] = $tipo_empleado->setId($_POST[ID]) ? null : 'nombre incorrecto' ;
+            $result[EXCEPTION] = $tipo_empleado->setNombre($_POST[NOMBRE]) ? null : 'Nombre incorrecto';
+            $result[EXCEPTION] = $data = $tipo_empleado->readOne() ? null:  'Categoría inexistente' ;
+
+            if ($tipo_empleado->updateRow()) {
                 $result[MESSAGE] = 'Cantidad modificada correctamente';
-                if ($result[DATA_SET] = $tipo_empleado->readAll()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
-                } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
-                }
+                $result[DATA_SET] = $tipo_empleado->readAll();
+                $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
+
             break;
         case DELETE:
             if (!$tipo_empleado->setId($_POST[ID])) {

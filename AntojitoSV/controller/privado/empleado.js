@@ -78,7 +78,7 @@ async function fillComboBoxTipoEmpleado() {
     })
 }
 
-//Obtener los datos de combobox estado empleado
+//Obtener los datos de combobox estado empleado 
 async function fillComboxEstadoEmpleado() {
     //Se crea un endpoint especifico para el caso de leer tipo empleado
     let APIEndpoint = SERVER + 'privada/empleado.php?action=readEstadoEmpleado'
@@ -86,14 +86,17 @@ async function fillComboxEstadoEmpleado() {
     let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null)
     //Obtiene todos los valores y los ordena en un array, presentandolos en el select
     APIResponse.dataset.map(element => {
+        //@ts-ignore 
         getElementById('estado_empleado').innerHTML += `<option value="${element.id_estado_empleado}" > ${element.nombre_estado} </option>`
     })
     APIResponse.dataset.map(element => {
+        //@ts-ignore 
+
         getElementById('estado_empleado_update').innerHTML += `<option value="${element.id_estado_empleado}" > ${element.nombre_estado} </option>`
     })
-}
+} 
 
-//@ts-ignore
+//@ts-ignore 
 window.seleccionarTipoEmpleado = () => {
     //@ts-ignore
     datos_empleado.id_tipo_empleado = document.getElementById('tipo_empleado').value

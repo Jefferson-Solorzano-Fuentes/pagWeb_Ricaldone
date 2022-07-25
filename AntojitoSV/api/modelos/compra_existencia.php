@@ -2,7 +2,7 @@
 //Maneja la tabla de compra_existencia de la base de datos
 //Contiene validaciones de validator
 
-class compra_exitencia extends validator
+class Compra_exitencia extends Validator
 {
 
     //Declaración de atributos (propiedades)

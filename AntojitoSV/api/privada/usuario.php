@@ -14,7 +14,7 @@ const DATASET = "dataset";
 const USERNAME = 'username';
 const ID_USUARIO = 'id_usuario';
 const NOMBRES = 'nombres';
-const ACTUAL = 'actual';
+const ACTUAL = 'actual'; 
 const NUEVA = 'nueva';
 const SEARCH = 'search';
 const READ_ALL = 'readAll';
@@ -38,7 +38,7 @@ if (isset($_GET[ACTION])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente, esto para poder acceder a sus functiones como "readOne".
-    $usuario = new usuario;
+    $usuario = new Usuario;
 
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array(STATUS => 0, SESSION => 0, MESSAGE => null, EXCEPTION => null, DATASET => null, USERNAME => null);
@@ -164,7 +164,7 @@ if (isset($_GET[ACTION])) {
                 }
                 break;
             case 'checkSession':
-                if (!isset($_SESSION['usuario'])) {
+                if (isset($_SESSION['usuario'])) {
                     $result[STATUS] = 1;
                 }
                 break;

@@ -1,7 +1,7 @@
 export async function APIConnection (APIEndpoint, Metodo, parametrosDePeticion) {
     //NOTAS:
     //lOS PARAMETROS DE PETICION YA DEBEN DE VENIR EN UNA INSTANCIA DEL OBJETO "FormData()"
-    
+    "privada/compra_existencia.php?action=readAll"
         try {
             //Connectando a la API y guardando respuesta en variable "response"
             let response = await fetch(APIEndpoint, {

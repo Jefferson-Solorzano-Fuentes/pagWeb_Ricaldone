@@ -2,7 +2,7 @@
 //Maneja la tabla de empleados  de la base de datos
 //Contiene validaciones de validator
 
-class empleado extends validator
+class Empleado extends Validator
 {
 
     //Declaración de atributos (propiedades)
@@ -21,7 +21,7 @@ class empleado extends validator
 
     private $true = 1;
     private $still_true = 2;
-    private $false =3;
+    private $false = 3;
     //Metodos para setear los valores de los campos
     //Id - integer
     public function setId($value)
@@ -59,59 +59,39 @@ class empleado extends validator
     //DUI del empleado - char
     public function setDUI($value)
     {
-            // if ($this->validateDUI($value)) {
-            $this->dui = $value;
-            return true;
-        // } else {
-        //     return false;
-        // }
+        $this->dui = $value;
+        return true;
     }
 
     //NIT del empleado - char
     public function setNIT($value)
     {
-        // if ($this->validateNIT($value)) {
-            $this->nit = $value;
-            return true;
-        // } else {
-        //     return false;
-        // }
+        $this->nit = $value;
+        return true;
     }
 
     //Telefono del empleado - char
     public function setTelefono($value)
     {
-        // if ($this->validatePhone($value)) {
-            $this->telefono = $value;
-            return true;
-    //     } else {
-    //         return false;
-    //     }
-     }
+        $this->telefono = $value;
+        return true;
+    }
 
     //Correo del empleado - varying char
     public function setCorreo($value)
     {
-        // if ($this->validateAlphanumeric($value, 1, 75)) {
-            $this->correo = $value;
-            return true;
-        // } else {
-        //     return false;
-        // }
+        $this->correo = $value;
+        return true;
     }
 
     //Genero del empleado - char
     public function setGenero($value)
     {
-        // if ($this->validateAlphabetic($value, 1, 1)) {
-            $this->genero = $value;
-            return true;
-        // } else {
-        //     return false;
-        // }
+        $this->genero = $value;
+        return true;
     }
 
-    
+
     //Imagen del empleado - varying char
     public function setImage($file)
     {
@@ -158,7 +138,7 @@ class empleado extends validator
         }
     }
 
-    
+
     //Imagen representativa de la categoria
     public function setImagen($file)
     {
@@ -174,7 +154,8 @@ class empleado extends validator
     //Metodos para obtener los valores de los campos
 
     //ruta img
-    public function getRutaImagenes() {
+    public function getRutaImagenes()
+    {
         return '../imagenes/empleado/';
     }
 
@@ -272,11 +253,11 @@ class empleado extends validator
 
     //Metodo para la inserción
     public function createRow()
-    {   
+    {
         $sql = 'INSERT INTO public.empleado(
 			nombre, apellido, "DUI", "NIT", telefono, correo, genero, fecha_nacimiento, id_estado_empleado, id_tipo_empleado, imagen)
 			VALUES (?,?,?,?,?,?,?,?,?,?,?)';
-        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->nit,  $this->telefono, $this->correo , $this->genero,$this->fecha_nacimiento , $this->estado_empleado, $this->tipo_empleado, $this->imagen);
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->nit,  $this->telefono, $this->correo, $this->genero, $this->fecha_nacimiento, $this->estado_empleado, $this->tipo_empleado, $this->imagen);
         return Database::executeRow($sql, $params);
     }
 
@@ -286,7 +267,7 @@ class empleado extends validator
         $sql = 'UPDATE public.empleado
         SET  nombre= ?, apellido= ?, "DUI"= ?, "NIT"= ?, telefono= ?, correo= ?, genero= ?, fecha_nacimiento= ?, id_estado_empleado= ?, id_tipo_empleado= ?, imagen= ?
         WHERE id_empleado = ?';
-        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->nit, $this->telefono, $this->correo, $this->genero, $this->fecha_nacimiento, $this->estado_empleado, $this->tipo_empleado,$this->imagen, $this->id_empleado);
+        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->nit, $this->telefono, $this->correo, $this->genero, $this->fecha_nacimiento, $this->estado_empleado, $this->tipo_empleado, $this->imagen, $this->id_empleado);
         return Database::executeRow($sql, $params);
     }
 
@@ -297,7 +278,7 @@ class empleado extends validator
         $sql = 'UPDATE empleado 
         SET id_estado_empleado =?
         WHERE id_empleado =?';
-        $params = array($this->false,$this->id_empleado);
+        $params = array($this->false, $this->id_empleado);
         return Database::executeRow($sql, $params);
     }
 
@@ -340,11 +321,23 @@ class empleado extends validator
         return Database::getRows($sql, $params);
     }
 
-    //Combobox de estado empleado
+    //Combobox de estado empleado 
     public function readTipoEmpleado()
     {
         $sql = 'SELECT  id_tipo_empleado, nombre_tipo
         FROM tipo_empleado';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    //Empleados con mayor cantidad de envios
+    public function readGraph1()
+    {
+        $sql = 'SELECT COUNT(id_envio), nombre from public.envio
+        INNER JOIN public.empleado
+        ON envio.id_empleado = envio.id_empleado
+        GROUP BY nombre
+        LIMIT 5';
         $params = null;
         return Database::getRows($sql, $params);
     }

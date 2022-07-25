@@ -11931,35 +11931,15 @@
   }
   
   #cardAnalytic{
-    height: 20rem;
     box-shadow: none;
   }
+  
   
   .card-title{
     font-family: JustBubble;
       font-size: 50px;
   }
   
-  /*Estetica de los botones del menu producto*/
-  #colImg img{
-    border: 5px solid red;
-    border-radius: 10px;
-  }
-  
-  #colImgAdd .container{
-    width: 155px;
-    height: 148px;
-    border-radius: 10px;
-    border: 5px solid red;
-  }
-  
-  #colImgAdd .btn{
-    margin-top:40px;
-  }
-  
-  #colImgAdd img{
-   border-radius:20px;
-  }
   
   /*Botones de Ajutar en SCRUD*/
   #btnAjustar img{
@@ -12316,4 +12296,22 @@
 }
 #button_iniciar_sesion h5{
   color: white;
+}
+
+/*cartas de  el inicio*/
+
+#contedordepureva{
+  text-align: center;
+  
+ }
+ 
+ /*contenedor*/
+ 
+ #olaamigos12{
+   justify-content: center;
+   background-color: #000;
+ }
+
+#colorcarta12{
+  height: 25rem;
 }

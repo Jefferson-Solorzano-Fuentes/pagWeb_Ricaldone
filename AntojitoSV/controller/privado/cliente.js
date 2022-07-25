@@ -1,4 +1,4 @@
-//@ts-check
+//@ts-ignore
 
 //Importar las constantes y metodos de components.js y api_constant.js
 // @ts-ignore
@@ -72,7 +72,7 @@ export function fillTableCliente(dataset) {
 
 // FUNCION PARA GUARDAR LOS DATOS DEL CLIENTE
 // @ts-ignore
-window.guardarDatosClienteUpdate = (id_cliente,nombre_cliente,telefono,correo) =>{
+window.guardarDatosClienteUpdate = (id_cliente, nombre_cliente, telefono, correo) => {
   datos_cliente.id = id_cliente;
   $("#actualizarform").modal("show");
   // SE ACTUALIZA EL VALOR DEL INPUT CON EL ID ESPECIFICADO AL VALOR INGRESADO AL PARAMETRO, ASEGURENSE DE QUE ELINPUT TENGA
@@ -145,3 +145,26 @@ getElementById("delete-form").addEventListener("submit", async (event) => {
   //API REQUEST
   await deleteRow(API_CLIENTE, parameters, fillTableCliente);
 });
+
+
+//CREACIÓN DE PDF
+window.createComprasPDF = async () => {
+  let APIEndpointrReadFiles = API_REPORTE + "compra_clientes";
+  let APIEndpointObtenerUsuarioActual = API_USUARIO + 'getUser';
+  let readAllOrderResponse = await APIConnection(APIEndpointrReadFiles, GET_METHOD, null);
+  let ObtenerUsuarioActualResponse = await APIConnection(APIEndpointObtenerUsuarioActual, GET_METHOD, null);
+
+  let tableContent = ``;
+
+  readAllOrderResponse.dataset.forEach((element) => {
+    tableContent += `
+    <tr>
+    <td>${element.id_compra_existencia}</td>
+    <td>${element.nombre_producto}</td>
+    <td>${element.nombre}</td>
+    <td>${element.stock_comprado}</td>
+    <td>${element.fecha_compra}</td>
+    <tr>
+    `;
+  });
+}

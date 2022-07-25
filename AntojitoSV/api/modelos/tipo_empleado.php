@@ -2,7 +2,7 @@
 //Maneja la tabla de tipo_empleados  de la base de datos
 //Contiene validaciones de validator
 
-class tipo_empleado extends validator
+class Tipo_empleado extends Validator
 {
 
     //Declaración de atributos (propiedades)
@@ -17,7 +17,7 @@ class tipo_empleado extends validator
             $this->id_tipo_empleado = $value;
             return true;
         } else {
-            return false;
+         return 'nombre incorrecto';
         }
     }
 
@@ -28,7 +28,7 @@ class tipo_empleado extends validator
             $this->nombre_tipo = $value;
             return true;
         } else {
-            return false;
+            return null;
         }
     }
 
@@ -62,9 +62,9 @@ class tipo_empleado extends validator
     public function createRow()
     {
         $sql = 'INSERT INTO tipo_empleado(
-            nombre_tipo)
-            VALUES (?)';
-        $params = array($this->nombre_tipo);
+            nombre_tipo, visibilidad)
+            VALUES (?, ?)';
+        $params = array($this->nombre_tipo, $this->true);
         return Database::executeRow($sql, $params);
     }
 
@@ -72,9 +72,9 @@ class tipo_empleado extends validator
     public function updateRow()
     {
         $sql = 'UPDATE tipo_empleado
-        SET nombre_tipo=?
+        SET nombre_tipo=?, visibilidad=?
         WHERE id_tipo_empleado =?';
-        $params = array($this->nombre_tipo, $this->id_tipo_empleado);
+        $params = array($this->nombre_tipo, $this->visibilidad, $this->id_tipo_empleado);
         return Database::executeRow($sql, $params);
     }
 

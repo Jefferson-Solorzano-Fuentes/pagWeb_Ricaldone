@@ -2,7 +2,7 @@
 //Maneja la tabla de detalle_pedido  de la base de datos
 //Contiene validaciones de validator
 
-class detalle_pedido extends validator
+class Detalle_pedido extends Validator
 {
 
     //Declaración de atributos (propiedades)
@@ -12,7 +12,7 @@ class detalle_pedido extends validator
     private $cantidad = null;
     private $subtotal = null;
 
-    
+
     //Parametros TRUE / FALSE
     private $true = true;
     private $false = '0';
@@ -21,12 +21,8 @@ class detalle_pedido extends validator
     //Id
     public function setId($value)
     {
-        if ($this->validateNaturalNumber($value)) {
-            $this->id_detalle_pedido = $value;
-            return true;
-        } else {
-            return false;
-        }
+        $this->id_detalle_pedido = $value;
+        return true;
     }
 
     //Id del pedido en cuestion
@@ -43,23 +39,15 @@ class detalle_pedido extends validator
     //Id del producto que se vende
     public function setProducto($value)
     {
-        if ($this->validateNaturalNumber($value)) {
-            $this->producto_id = $value;
-            return true;
-        } else {
-            return false;
-        }
+        $this->producto_id = $value;
+        return true;
     }
 
     //Cantidad del producto que se vende
     public function setCantidad($value)
     {
-        if ($this->validateNaturalNumber($value)) {
-            $this->cantidad = $value;
-            return true;
-        } else {
-            return false;
-        }
+        $this->cantidad = $value;
+        return true;
     }
 
     //Id del producto que se vende
@@ -110,7 +98,7 @@ class detalle_pedido extends validator
     //Utilizaremos los campos o (NOMBRE_TIPO)
     public function searchRows($value)
     {
-        $sql = 'SELECT id_detalle_pedido, pedido.id_pedido, monto_total, nombre_producto, cantidad, subtotal
+        $sql = 'SELECT id_detalle_pedido, pedido.id_pedido, monto_total, nombre_producto, cantidad, subtotal, detalle_pedido.visibilidad
         FROM detalle_pedido
         INNER JOIN producto
         ON producto.id_producto = detalle_pedido.id_producto
@@ -123,13 +111,17 @@ class detalle_pedido extends validator
     }
 
     //Metodo para la inserción INSERT
+
+    //AGREGARLE VALOR BOOLEANO TRUE A ESTADO DE CARRITO
+    // SOLO RDEJAR PRODUCTO_ID
     public function createRow()
     {
-        $sql = 'INSERT INTO detalle_pedido(
-            id_pedido, id_producto, cantidad, subtotal)
+
+            $sql = 'INSERT INTO detalle_pedido(id_producto, carrito, visibilidad, id_cliente)
             VALUES (?, ?, ?, ?)';
-        $params = array($this->pedido_id, $this->producto_id, $this->cantidad, $this->subtotal);
-        return Database::executeRow($sql, $params);
+            $params = array($this->producto_id, 1,  1, $_SESSION['id_cliente']);
+            return Database::executeRow($sql, $params);
+        
     }
 
     //Metodo para la actualización UPDATE
@@ -142,6 +134,15 @@ class detalle_pedido extends validator
         return Database::executeRow($sql, $params);
     }
 
+    //Actualizar la cantidad de productos 
+    public function updateQuantity()
+    {
+        $sql = 'UPDATE detalle_pedido
+        SET cantidad = ?,  subtotal=?
+        WHERE id_detalle_pedido =?';
+        $params = array($this->cantidad, $this->subtotal, $this->id_detalle_pedido);
+        return Database::executeRow($sql, $params);
+    }
 
     //Metodo para la eliminación DELETE 
     public function deleteRow()
@@ -149,7 +150,7 @@ class detalle_pedido extends validator
         $sql = 'UPDATE detalle_pedido
         SET visibilidad =?
         WHERE id_detalle_pedido=?';
-        $params = array($this->false,$this->id_detalle_pedido);
+        $params = array($this->false, $this->id_detalle_pedido);
         return Database::executeRow($sql, $params);
     }
 
@@ -162,20 +163,18 @@ class detalle_pedido extends validator
         $params = array($this->true, $this->id_detalle_pedido);
         return Database::executeRow($sql, $params);
     }
-    
+
 
     //Metodo para leer READ
     //Leer todas las filas de la Tabla
     public function readAll()
     {
-        $sql = 'SELECT id_detalle_pedido, pedido.id_pedido, monto_total, nombre_producto, cantidad, subtotal
+        $sql = 'SELECT  carrito, detalle_pedido.visibilidad, subtotal, precio ,detalle_pedido.id_cliente, id_detalle_pedido, producto.imagen, subtotal, cantidad, nombre_producto, detalle_pedido.id_producto
         FROM detalle_pedido
         INNER JOIN producto
         ON producto.id_producto = detalle_pedido.id_producto
-        INNER JOIN pedido
-        ON pedido.id_pedido = detalle_pedido.id_pedido
-        order by detalle_pedido.id_pedido';
-        $params = null;
+        WHERE detalle_pedido.visibilidad = true AND carrito = true AND detalle_pedido.id_cliente = ?';
+        $params = array($_SESSION['id_cliente']);
         return Database::getRows($sql, $params);
     }
 
@@ -194,7 +193,7 @@ class detalle_pedido extends validator
         return Database::getRow($sql, $params);
     }
 
-    //Llenar combobox
+
     //Combobox de  proveedor
     public function readPedido()
     {

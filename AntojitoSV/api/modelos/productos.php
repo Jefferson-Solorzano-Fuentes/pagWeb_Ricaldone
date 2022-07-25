@@ -2,7 +2,7 @@
 //Maneja la tabla de productos e imagen_producto  de la base de datos
 //Contiene validaciones de validator
 
-class producto extends validator
+class Producto extends Validator
 {
 
     //Declaración de atributos (propiedades)
@@ -192,8 +192,8 @@ class producto extends validator
         ON categoria.id_categoria = producto.id_categoria
         INNER JOIN proveedor
         ON proveedor.id_proveedor = producto.id_proveedor
-        WHERE nombre_producto ILIKE ? OR proveedor.nombre ILIKE ? OR nombre_categoria ILIKE ? 
-        ORDER BY id_categoria ';
+        WHERE (nombre_producto ILIKE ? OR proveedor.nombre ILIKE ? OR nombre_categoria ILIKE ?) AND visibilidad = true
+        ORDER BY id_categoria';
         $params = array("%$value%", "%$value%", "%$value%");
         return Database::getRows($sql, $params);
     }
@@ -219,16 +219,6 @@ class producto extends validator
         return Database::executeRow($sql, $params);
     }
 
-    /*  
-    public function updateRowImage()
-    {
-        $sql = 'UPDATE imagen_producto
-        SET  id_producto=?, imagen=?
-        WHERE id_imagen_producto=?';
-        $params = array($this->id_producto, $this->imagen, $this->id_imagen_p);
-        return Database::executeRow($sql, $params);
-    }
-*/
 
     //Metodo para la eliminación
     public function deleteRow()
@@ -240,15 +230,7 @@ class producto extends validator
         return Database::executeRow($sql, $params);
     }
 
-    /*  
-    public function deleteRowImage()
-    {
-        $sql = 'DELETE FROM imagen_producto
-        WHERE id_imagen_producto=?';
-        $params = array($this->id_imagen_p);
-        return Database::executeRow($sql, $params);
-    }
-*/
+
     //Metodo para leer READ
     //Leer todas las filas de la Tabla
     public function readAll()
@@ -265,18 +247,21 @@ class producto extends validator
         return Database::getRows($sql, $params);
     }
 
-    //Leer solamente una fila de la Tabla
     public function readOne()
     {
-        $sql = 'SELECT producto.id_producto, nombre_producto, descripcion, proveedor.id_proveedor, proveedor.nombre, precio, stock, descuento, categoria.id_categoria, nombre_categoria, imagen
-        FROM producto
-        INNER JOIN categoria
-        ON categoria.id_categoria = producto.id_categoria
-        INNER JOIN proveedor
-        ON proveedor.id_proveedor = producto.id_proveedor
-        WHERE producto.id_producto = ?';
-        $params = ($this->id_producto);
-        return Database::getRow($sql, $params);
+        $sql = 'SELECT id_producto, nombre_producto, descripcion, precio, imagen from producto 
+        WHERE  id_producto =?';
+        $params = [$this->id_producto];
+        $response = Database::getRow($sql, $params);
+
+        $response['imagen'] = "/AntojitoSV/api/imagenes/producto/{$response['imagen']}";
+
+        $response['comentarios'] = Database::getRows("SELECT comentario.comentario, cliente.nombre_cliente,  comentario.valoracion
+        FROM comentario  INNER JOIN cliente ON cliente.id_cliente = comentario.id_cliente 
+        WHERE  comentario.id_producto = ? AND comentario.visibilidad = true", [
+            $this->id_producto
+        ]);
+        return $response;
     }
 
     //Buscar por medio de categoria
@@ -288,9 +273,9 @@ class producto extends validator
         ON categoria.id_categoria = producto.id_categoria
         INNER JOIN proveedor
         ON proveedor.id_proveedor = producto.id_proveedor
-        WHERE producto.id_categoria = ?';
+        WHERE producto.id_categoria = ? AND visibilidad = true';
         $params = array($this->categoria);
-        return Database::getRow($sql, $params);
+        return Database::getRows($sql, $params);
     }
 
     //Buscar por medio de categoria
@@ -302,7 +287,7 @@ class producto extends validator
         ON categoria.id_categoria = producto.id_categoria
         INNER JOIN proveedor
         ON proveedor.id_proveedor = producto.id_proveedor
-        WHERE descuento > 0';
+        WHERE descuento > 0 AND visibilidad = true';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -325,4 +310,49 @@ class producto extends validator
         $params = null;
         return Database::getRows($sql, $params);
     }
+
+    //Leer Top 5 de productos más vendidos en el mes actual (por cantidad)
+    public function readGraph1()
+    {
+        $sql = 'SELECT SUM(cantidad), nombre_producto from detalle_pedido
+        INNER JOIN public.pedido 
+        ON pedido.id_pedido = detalle_pedido.id_pedido
+        INNER JOIN public.producto 
+        ON producto.id_producto = detalle_pedido.id_producto
+        WHERE EXTRACT(MONTH FROM fecha_creacion) = EXTRACT(MONTH FROM current_date)
+        GROUP BY nombre_producto
+        ORDER BY SUM(cantidad) DESC
+        LIMIT 5;';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    //Leer Cantidad de Productos por Marca
+    public function readGraph2()
+    {
+        $sql = 'SELECT COUNT(nombre_producto), nombre FROM public.producto
+            INNER JOIN public.proveedor
+            ON proveedor.id_proveedor = producto.id_proveedor
+            GROUP BY nombre;';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    //Ventas por categorias del mes actual
+    public function readGraph3()
+    {
+        $sql = 'SELECT SUM(cantidad), nombre_categoria from public.detalle_pedido
+        INNER JOIN public.pedido
+        ON pedido.id_pedido = detalle_pedido.id_pedido
+        INNER JOIN public.producto
+        ON producto.id_producto = detalle_pedido.id_producto
+        INNER JOIN public.categoria
+        ON categoria.id_categoria = producto.id_categoria
+        WHERE EXTRACT(MONTH FROM fecha_creacion) = EXTRACT(MONTH FROM current_date)
+        GROUP BY nombre_categoria;';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    
 }

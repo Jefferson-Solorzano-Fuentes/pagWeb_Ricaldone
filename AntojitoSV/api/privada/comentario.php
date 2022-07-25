@@ -34,7 +34,7 @@ if (isset($_GET[ACTION])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
     // Se instancia la clase correspondiente.
-    $comentario = new comentario;
+    $comentario = new Comentario;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array(STATUS => 0, MESSAGE => null, EXCEPTION => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -42,7 +42,7 @@ if (isset($_GET[ACTION])) {
     switch ($_GET[ACTION]) {
             //Leer todo
         case READ_ALL:
-            if ($result[DATA_SET] = $comentario->readAll()) { 
+            if ($result[DATA_SET] = $comentario->readAll()) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
@@ -159,6 +159,22 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = Database::getException();
             } else {
                 $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
+        case 'graph1':
+            if ($result[DATA_SET] = $comentario->readGraph1()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
+        case 'Graph2':
+            if (!$comentario->setProducto($_POST[COMENTARIO_PRODUCTO])) {
+                $result[EXCEPTION] = 'identificador Comentario incorrecto';
+            }  else if ($result[DATA_SET] = $comentario->readGraph2()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
             }
             break;
         default:

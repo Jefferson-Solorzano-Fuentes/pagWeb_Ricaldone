@@ -29,14 +29,14 @@
                         <!-- Primera mitad del navbar -->
                         <div class="col-8 bg-primary">
                             <!-- Imagenes de las redes sociales -->
-                            <img class="redesSociales" id="Instagram" src="../../resources/img/navbar/Instagram_35px.png"
-                                alt="Instagram" usemap="#Instagram">
+                            <img class="redesSociales" id="Instagram"
+                                src="../../resources/img/navbar/Instagram_35px.png" alt="Instagram" usemap="#Instagram">
                             <img class="redesSociales" id="Facebook" src="../../resources/img/navbar/Facebook_35px.png"
                                 alt="Facebook" usemap="#Facebook">
                             <img class="redesSociales" id="WhatsApp" src="../../resources/img/navbar/whatsapp_35px.png"
                                 alt="Whatsapp" usemap="#WhatsApp">
-                            <img class="redesSociales" id="Gmail" src="../../resources/img/navbar/gmail_35px.png" alt="Gmail"
-                                usemap="#Gmail">
+                            <img class="redesSociales" id="Gmail" src="../../resources/img/navbar/gmail_35px.png"
+                                alt="Gmail" usemap="#Gmail">
                             <map name="Instagram">
                                 <area shape="rect" coords="0,0,45,45" href="https://www.instagram.com">
                             </map>
@@ -53,28 +53,8 @@
                         </div>
                         <!-- Segunda mitad del navbar -->
                         <div class="col-4 bg-secondary">
-                            <a class="navbar-brand" href="#">
-                                <!-- Boton de registrarse-->
-                                <a class="btn btn-danger" href="login.html" id="registrate"><img
-                                        src="../../resources/img/navbar/user_25px.png"> Registrate</a>
-                                <!-- Imagenes para ordenes/recibo -->
-                                <img class="redesSociales" src="../../resources/img/navbar/shopping_cart_with_money_35px.png"
-                                    usemap="#historial">
-                                <img class="redesSociales" src="../../resources/img/navbar/bill_35px.png" usemap="#historial">
-                                <map name="historial">
-                                    <area shape="rect" coords="15,0,35,35" href="historial_compras.html">
-                                </map>
-                                <!-- Dropdown de idiomas -->
-                                <div class="btn-group">
-                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="../../resources/img/navbar/el_salvador_35px.png">
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Español</a>
-                                        <a class="dropdown-item" href="#">Ingles</a>
-                                    </ul>
-                                </div>
+                            <a class="navbar-brand" href="#" id="segunda_mitad_navbar">
+
                             </a>
                         </div>
                     </div>
@@ -91,24 +71,27 @@
                         <div class="row justify-content-around">
                             <!-- Imagenes de los botones y sus respectivos textos links-->
                             <div class="row col-1 navBarItem">
-                                <img src="../../resources/img/navbar_publico/ice_cream_sundae_75px.png" usemap="#menu_item">
-                                <a href="categoria.html">Sorbetes</a>
+                                <img src="../../resources/img/navbar_publico/ice_cream_sundae_75px.png"
+                                    onclick="guardarCategoria(4)">
+                                <a href="carrito.html?id=4&">Sorbetes</a>
                             </div>
-                            <div class="row col-1 navBarItem">
-                                <img src="../../resources/img/navbar_publico/christmas_candy_75px.png" usemap="#menu_item">
-                                <a href="categoria.html">Dulces</a>
+                            <div onclick="guardarCategoria(3)" class="row col-1 navBarItem">
+                                <img src="../../resources/img/navbar_publico/christmas_candy_75px.png"
+                                    usemap="#menu_item">
+                                <a>Dulces</a>
                             </div>
-                            <div class="row col-1 navBarItem">
+                            <div onclick="guardarCategoria(2)" class="row col-1 navBarItem">
                                 <img src="../../resources/img/navbar_publico/croissant_75px.png" usemap="#menu_item">
-                                <a href="categoria.html">Pan Dulce</a>
+                                <a>Pan Dulce</a>
                             </div>
-                            <div class="row col-1 navBarItem">
+                            <div onclick="guardarCategoria(1)" class="row col-1 navBarItem">
                                 <img src="../../resources/img/navbar_publico/Pelmeni_75px.png" usemap="#menu_item">
-                                <a href="categoria.html">Antojos</a>
+                                <a>Antojos</a>
                             </div>
                             <div class="row col-1 navBarItem">
-                                <img src="../../resources/img/navbar_publico/discount_75px.png" usemap="#menu_item">
-                                <a href="categoria.html">Promociones</a>
+                                <img onclick="abrirDescuento()"
+                                    src="../../resources/img/navbar_publico/discount_75px.png" usemap="#menu_item">
+                                <a onclick="abrirDescuento()">Promociones</a>
                             </div>
                             <div class="row col-1 navBarItem">
                                 <img src="../../resources/img/navbar_publico/home_75px.png" usemap="#Inicio">
@@ -121,9 +104,7 @@
                             <map name="categorias">
                                 <area shape="rect" coords="10,0,85,75" href="menu_principal.html">
                             </map>
-                            <map name="menu_item">
-                                <area shape="rect" coords="10,0,85,75" href="categoria.html">
-                            </map>
+
                             <map name="Inicio">
                                 <area shape="rect" coords="10,0,85,75" href="index.html">
                             </map>
@@ -286,8 +267,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
+    <script type="module" src="../../controller/publico/navbar.js"></script>
+    <script type="module" src="../../controller/publico/index.js"></script>
 
 </body>
-
+ 
 
 </html>

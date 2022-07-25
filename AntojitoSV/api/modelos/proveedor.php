@@ -2,7 +2,7 @@
 //Maneja la tabla de proveedor  de la base de datos
 //Contiene validaciones de validator
 
-class proveedor extends validator
+class Proveedor extends Validator
 {
 
     //Declaración de atributos (propiedades)
