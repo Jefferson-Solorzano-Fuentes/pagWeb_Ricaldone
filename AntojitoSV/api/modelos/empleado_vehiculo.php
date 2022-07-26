@@ -28,6 +28,7 @@ class empleado_vehiculo extends validator
     //Id del empleado conductor
     public function setEmpleado($value)
     {
+        //Validaciones de numeros Naturales
         if ($this->validateNaturalNumber($value)) {
             $this->empleado_id = $value;
             return true;
@@ -39,6 +40,7 @@ class empleado_vehiculo extends validator
     //Id del vehiculo
     public function setVehiculo($value)
     {
+        //Validaciones de numeros Naturales
         if ($this->validateNaturalNumber($value)) {
             $this->vehiculo_id = $value;
             return true;

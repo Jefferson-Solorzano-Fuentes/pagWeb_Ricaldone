@@ -36,7 +36,7 @@ let datos_tipo_usuario = {
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener("DOMContentLoaded", async () => {
   //Validar que el usuario este en sesión
-  validateExistenceOfUser();
+  await validateExistenceOfUser();
   // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
   //Declarando cual CRUD es este
   await readRows(API_TIPO_USUARIO, fillTableTipoUsuario);

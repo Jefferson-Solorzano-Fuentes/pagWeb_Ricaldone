@@ -20,6 +20,7 @@ class cliente extends validator
     //Id - integer
     public function setId($value)
     {
+        //Validaciones de numeros naturales
         if ($this->validateNaturalNumber($value)) {
             $this->id_cliente = $value;
             return true;
@@ -31,6 +32,7 @@ class cliente extends validator
     //Nombre del cliente - varying char
     public function setNombre($value)
     {
+        //Validaciones de valores alfabeticos
         if ($this->validateAlphabetic($value, 1, 50)) {
             $this->nombre = $value;
             return true;
@@ -42,6 +44,7 @@ class cliente extends validator
     //Telefono del cliente - char
     public function setTelefono($value)
     {
+        //Numero de telefono
         $this->telefono = $value;
         return true;
     }
@@ -49,6 +52,7 @@ class cliente extends validator
     //Correo del cliente - varying char
     public function setCorreo($value)
     {
+        //Correo Electronico
         $this->correo = $value;
         return true;
     }
@@ -56,6 +60,7 @@ class cliente extends validator
     //Estado del cliente - boolean
     public function setEstado($value)
     {
+        //Validaciones de booleanos
         if ($this->validateBoolean($value)) {
             $this->estado = $value;
             return true;
@@ -72,7 +77,7 @@ class cliente extends validator
         return $this->id_cliente;
     }
 
-    //Nombre del empleado
+    //Nombre del Cliente
     public function getNombre()
     {
         return $this->nombre;
@@ -159,5 +164,15 @@ class cliente extends validator
         WHERE id_cliente = ?';
         $params = ($this->id_cliente);
         return Database::getRow($sql, $params);
+    }
+
+    //Leer los clientes para llenar un combobox
+    public function readCliente()
+    {
+        $sql = 'SELECT id_cliente, nombre_cliente
+            FROM cliente
+            WHERE estado_cliente = true';
+        $params = null;
+        return Database::getRows($sql, $params);
     }
 }

@@ -19,12 +19,6 @@ import {
   API_SUCESS_REQUEST,
   GET_METHOD,
   SERVER,
-  SEARCH_BAR,
-  INSERT_MODAL,
-  UPDATE_MODAL,
-  SUBMIT,
-  REACTIVATE_FORM,
-  DOM_CONTENT_LOADED,
 } from "../constants/api_constant.js";
 import { APIConnection } from "../APIConnection.js";
 
@@ -51,7 +45,7 @@ let datos_comentarios = {
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
-  validateExistenceOfUser();
+  await validateExistenceOfUser();
 
   // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
   await readRows(API_PRODUCTO, fillTableProductos);
@@ -348,3 +342,47 @@ getElementById('reactivate-form').addEventListener('submit', async (event) => {
   //API REQUEST
   await unDeleteRow(API_COMENTARIO, parameters, fillTableComentario);
 });
+<<<<<<< Updated upstream
+=======
+
+ 
+// Función para crear el grafico que, "Leer Cantidad de Productos por Marca"
+export async function graphDoughnutCalificaciones(id_producto) {
+  //Creo un formData para los parametros
+  let parameters = new FormData();
+  //Inserto el id_producto a los parametros
+  parameters.append("producto_id", id_producto)
+  //Obtener los datos del grafico
+  //Crear endpoint
+  let APIEndpoint = API_COMENTARIO + "Graph2";
+  //Se realiza la consulta con el endpoint, el metodo "get" y no requiere parametros
+  let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
+  console.log(APIResponse)
+  //Se verifica si la consulta retorna un valor positivo
+  if (APIResponse.status == API_SUCESS_REQUEST) {
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
+    if (APIResponse.status) {
+      // Se declaran los arreglos para guardar los datos a gráficar.
+      let valoracion = [];
+      let cantidad = [];
+      // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+      APIResponse.dataset.map(function (row) {
+        // Se agregan los datos a los arreglos.
+        valoracion.push(row.valoracion);
+        cantidad.push(row.count);
+      });
+      getElementById('grafico_comentario').innerHTML = '<div class="container d-flex justify-content-center"><div class="col-sm-4"><div class="card" id="colorcarta12"><div class="card-body"><canvas id="chart1"></canvas></div></div></div></div>';
+      // Se llama a la función que genera y muestra un gráfico de pastel. Se encuentra en el archivo components.js
+      doughnutGraph(
+        "chart1",
+        valoracion,
+        cantidad,
+        "La cantidad de valoraciones con una especifica calificación de los clientes"
+      );
+    } else {
+      document.getElementById("chart1").remove();
+      console.log(response.exception);
+    }
+  }
+}
+>>>>>>> Stashed changes

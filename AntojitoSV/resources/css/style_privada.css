@@ -12317,3 +12317,21 @@
 #button_iniciar_sesion h5{
   color: white;
 }
+
+/*cartas de  el inicio*/
+
+#contedordepureva{
+  text-align: center;
+  
+ }
+ 
+ /*contenedor*/
+ 
+ #olaamigos12{
+   justify-content: center;
+   background-color: #000;
+ }
+
+#colorcarta12{
+  height: 25rem;
+}

@@ -31,7 +31,7 @@ let datos_categoria = {
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener("DOMContentLoaded", async () => {
   //Valida que el usuario este logeado
-  validateExistenceOfUser();
+  await validateExistenceOfUser();
   // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
   await readRows(API_CATEGORIA, fillTableCategoria);
 });

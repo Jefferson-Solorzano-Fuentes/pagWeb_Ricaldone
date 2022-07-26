@@ -161,6 +161,25 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'No hay datos registrados';
             }
             break;
+<<<<<<< Updated upstream
+=======
+        case 'graph1':
+            if ($result[DATA_SET] = $comentario->readGraph1()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
+        case 'Graph2':
+            if (!$comentario->setProducto($_POST[COMENTARIO_PRODUCTO])) {
+                $result[EXCEPTION] = 'identificador Comentario incorrecto';
+            }  else if ($result[DATA_SET] = $comentario->readGraph2()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
+>>>>>>> Stashed changes
         default:
             $result[EXCEPTION] = 'Acción no disponible dentro de la sesión';
     }

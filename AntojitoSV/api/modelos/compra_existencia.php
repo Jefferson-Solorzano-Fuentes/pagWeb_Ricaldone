@@ -20,6 +20,7 @@ class compra_exitencia extends validator
     //Id
     public function setId($value)
     {
+        //Validaciones de numeros Naturales
         if ($this->validateNaturalNumber($value)) {
             $this->id_compra_existencia = $value;
             return true;
@@ -31,6 +32,7 @@ class compra_exitencia extends validator
     //Id del producto a comprar
     public function setProducto($value)
     {
+        //Validaciones de numeros Naturales
         if ($this->validateNaturalNumber($value)) {
             $this->producto_id = $value;
             return true;

@@ -1,8 +1,12 @@
 <?php
 //Maneja la tabla de categoria  de la base de datos
 //Contiene validaciones de validator
+<<<<<<< Updated upstream
 
 class categoria extends validator
+=======
+class Categoria extends Validator
+>>>>>>> Stashed changes
 {
 
     //Declaración de atributos (propiedades)
@@ -15,6 +19,7 @@ class categoria extends validator
     //Id
     public function setId($value)
     {
+        //Validacion de numeros naturales
         if ($this->validateNaturalNumber($value)) {
             $this->id_categoria = $value;
             return true;
@@ -26,6 +31,7 @@ class categoria extends validator
     //Nombre de la Categoria
     public function setNombre($value)
     {
+        //Validaciones de valores alfabeticos
         if ($this->validateAlphabetic($value, 1, 50)) {
             $this->nombre_categoria = $value;
             return true;
@@ -37,6 +43,7 @@ class categoria extends validator
     //Imagen representativa de la categoria
     public function setImagen($file)
     {
+        //Validación de la Imagen
         if ($this->validateImageFile($file, 500, 500)) {
             $this->imagen = $this->getFileName();
             return true;
@@ -47,7 +54,7 @@ class categoria extends validator
 
 
     //Metodos para obtener los valores de los campos
-
+    //Ruta donde se guardan las imagenes
     public function getRutaImagenes()
     {
         return '../imagenes/categoria/';

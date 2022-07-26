@@ -1,14 +1,15 @@
-//@ts-check
 
 //Importar las constantes y metodos de components.js y api_constant.js
 // @ts-ignore
-import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
-import { GET_METHOD, SERVER, API_CREATE, API_UPDATE, DOM_CONTENT_LOADED, SEARCH_BAR, SUBMIT, INSERT_MODAL, UPDATE_MODAL, DELETE_FORM } from "../constants/api_constant.js";
+import { readRows, saveRow, searchRows, deleteRow, obtenerFechaActual, generatePDF } from "../components.js";
+import { GET_METHOD, SERVER, API_CREATE, API_UPDATE, POST_METHOD } from "../constants/api_constant.js";
 import { getElementById, validateExistenceOfUser } from "../constants/functions.js";
 import { APIConnection } from "../APIConnection.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_EMPLEADO = SERVER + 'privada/empleado.php?action=';
+const API_REPORTE = SERVER + 'privada/pdf.php?action=';
+const API_USUARIO = SERVER + 'privada/usuario.php?action=';
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
@@ -43,7 +44,7 @@ let datos_tipo_empleado = {
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
     //Valida que el usuario este logeado
-    validateExistenceOfUser();
+    await validateExistenceOfUser();
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     await readRows(API_EMPLEADO, fillTableEmpleado)
     // Se define una variable para establecer las opciones del componente Modal.
@@ -58,10 +59,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     //Cargar combo box de tipo empleado
     await fillComboBoxTipoEmpleado()
-    //Carfar combo box de estado empleado
+    //Cargar combo box de estado empleado
     await fillComboxEstadoEmpleado()
-
+    //Cargar combo box de estado empleado
+    await fillComboBoxEmpleado()
 });
+
+
+//Obtener los datos de combobox tipo empleado
+async function fillComboBoxEmpleado() {
+    //Se crea un endpoint especifico para el caso de leer tipo empleado
+    let APIEndpoint = SERVER + 'privada/empleado.php?action=readEmpleado'
+    //Se utiliza como api connection para realizar la consulta
+    let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null)
+    //Obtiene todos los valores y los ordena en un array, presentandolos en el select
+    console.log(APIResponse);
+    APIResponse.dataset.forEach(element => {
+        //@ts-ignore 
+        getElementById('empleado').innerHTML += `<option value="${element.id_empleado}" > ${element.nombre} </option>`
+    })
+}
 
 //Obtener los datos de combobox tipo empleado
 async function fillComboBoxTipoEmpleado() {
@@ -71,9 +88,11 @@ async function fillComboBoxTipoEmpleado() {
     let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null)
     //Obtiene todos los valores y los ordena en un array, presentandolos en el select
     APIResponse.dataset.map(element => {
+        //@ts-ignore 
         getElementById('tipo_empleado').innerHTML += `<option value="${element.id_tipo_empleado}" > ${element.nombre_tipo} </option>`
     })
     APIResponse.dataset.map(element => {
+        //@ts-ignore 
         getElementById('tipo_empleado_update').innerHTML += `<option value="${element.id_tipo_empleado}" > ${element.nombre_tipo} </option>`
     })
 }
@@ -89,6 +108,10 @@ async function fillComboxEstadoEmpleado() {
         getElementById('estado_empleado').innerHTML += `<option value="${element.id_estado_empleado}" > ${element.nombre_estado} </option>`
     })
     APIResponse.dataset.map(element => {
+<<<<<<< Updated upstream
+=======
+        //@ts-ignore 
+>>>>>>> Stashed changes
         getElementById('estado_empleado_update').innerHTML += `<option value="${element.id_estado_empleado}" > ${element.nombre_estado} </option>`
     })
 }
@@ -103,6 +126,12 @@ window.seleccionarTipoEmpleado = () => {
 window.seleccionarEstadoEmpleado = () => {
     //@ts-ignore
     datos_empleado.id_estado_empleado = document.getElementById('estado_empleado').value
+}
+
+//@ts-ignore
+window.seleccionarEmpleado = () => {
+    //@ts-ignore
+    datos_empleado.id_estado_empleado = document.getElementById('empleado').value
 }
 
 
@@ -234,6 +263,151 @@ getElementById('delete-form').addEventListener('submit', async (event) => {
     //API REQUEST
     await deleteRow(API_EMPLEADO, parameters, fillTableEmpleado);
 });
+
+
+
+//CREACIÓN DE PDF
+window.createEmpleadoPDF = async () => {
+    let APIEnpointReadEmpleado = API_REPORTE + "envios_empleado";
+    let APIEndpointObtenerUsuarioActual = API_USUARIO + 'getUser';
+
+    let parametersEmpleado = new FormData()
+    parametersEmpleado.append("id_empleado", getElementById('empleado').value)
+    let readEmpleadoResponse = await APIConnection(APIEnpointReadEmpleado, POST_METHOD, parametersEmpleado);
+    let ObtenerUsuarioActualResponse = await APIConnection(APIEndpointObtenerUsuarioActual, GET_METHOD, null);
+
+    let tableContent = ``;
+
+    readEmpleadoResponse.dataset.forEach((element) => {
+        tableContent += `
+    <tr>
+    <td>${element.fecha_creacion}</td>
+    <td>${element.fecha_envio}</td>
+    <td>${element.direccion}</td>
+    <td>${element.monto_total}</td>
+    <td>${element.placa}</td>
+    <tr>
+    `;
+    });
+
+    
+
+    let generatedHTML = `
+<!doctype html>
+<html lang="es">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+
+        }
+
+        #tabla-header {
+            background-color: #872323;
+            color: aliceblue;
+            padding: 10px;
+            font-size: 40px;
+            padding-bottom: 20px;
+            margin-bottom: 10px;
+
+        }
+
+        #tabla-header img {
+            max-width: 65px;
+        }
+
+        /*Tabla de datos*/
+        #tabla_datos {
+            margin-top: 3%;
+            margin-bottom: 3%;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+        }
+
+        /*Colores al encabezado*/
+        #tabla_datos th {
+            color: white;
+            background-color: #872323;
+        }
+
+        /*Colores al cuerpo*/
+        #tabla_datos tr {
+            border: solid black 1px;
+            background-color: #F6E3D5;
+        }
+
+        #tabla_reporte {
+            width: 100%;
+            height: 60%;
+            margin-top: 20px;
+
+        }
+
+        #tabla_reporte th,
+        td {
+            text-align: left;
+            padding-left: 5px;
+        }
+    </style>
+    <title>AntojitoSV</title>
+
+</head>
+
+<body>
+    <!-- Tabla de Datos -->
+    <div class="container-fluid" id="tabla_datos" style="width: 100%">
+        <div class="container-fluid" id="tabla-header">
+            <a>AntojitoSV</a>
+            <img src="../../resources/img/navbar_publico/logoCut.png">
+        </div>
+        <div class="container-fluid" id="tabla-header">
+            <a>Envios realizados por un empleado en el mes</a>
+        </div>
+        <table class="table table-responsive table-bordered" id="tabla_reporte">
+            <thead>
+                <tr>
+                    <th>Creado por:</th>
+                    <td>${ObtenerUsuarioActualResponse.username}</td>
+                </tr>
+                <tr>
+                    <th>Fecha:</th>
+                    <td>${obtenerFechaActual()}</td>
+                </tr>
+                <tr>
+                <th>nombre:</th>
+                <td>${readEmpleadoResponse.dataset[0].nombre}</td>
+                <th>apellido:</th>
+                <td>${readEmpleadoResponse.dataset[0].apellido}</td>
+                <th>DUI:</th>
+                <td>${readEmpleadoResponse.dataset[0].DUI}</td>
+            </tr>
+                <tr>
+                    <th>Fecha de creacion</th>
+                    <th>Fecha de envio</th>
+                    <th>Direccion</th>
+                    <th>monto total</th>
+                    <th>placa</th>
+                </tr>
+            </thead>
+            <tbody>
+               ${tableContent}
+            </tbody>
+        </table>
+    </div>
+    </main>
+</body>
+
+</html>`;
+    let res = await generatePDF(generatedHTML, "envio_" + readEmpleadoResponse.dataset[0].id_empleado + obtenerFechaActual().replace("/", "-").replace("/", "-") + ".pdf")
+
+    window.open("../../api/reportes/privado/" +  "envio_" + readEmpleadoResponse.dataset[0].id_empleado + obtenerFechaActual().replace("/", "-").replace("/", "-") + ".pdf");
+}
+
+
 
 
 

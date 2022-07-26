@@ -18,6 +18,7 @@ class empleado_vehiculo extends validator
     //Id
     public function setId($value)
     {
+        //Validaciones de los Numeros Naturales
         if ($this->validateNaturalNumber($value)) {
             $this->id_pedido_envio = $value;
             return true;
@@ -29,6 +30,7 @@ class empleado_vehiculo extends validator
     //Id del pedido
     public function setPedido($value)
     {
+        //Validaciones de los Numeros Naturales
         if ($this->validateNaturalNumber($value)) {
             $this->pedido_id = $value;
             return true;
@@ -40,6 +42,7 @@ class empleado_vehiculo extends validator
     //Id del envio
     public function setEnvio($value)
     {
+        //Validaciones de los numeros naturales
         if ($this->validateNaturalNumber($value)) {
             $this->envio_id = $value;
             return true;
@@ -51,6 +54,7 @@ class empleado_vehiculo extends validator
     //Visibilidad del registro
     public function setVisiblidad($value)
     {
+        //Validacion de los valores Booleanos
         if ($this->validateBoolean($value)) {
             $this->visbilidad = $value;
             return true;

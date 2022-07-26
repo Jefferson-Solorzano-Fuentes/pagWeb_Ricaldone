@@ -21,7 +21,7 @@ let datos_vehiculo = {
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
     //Validar que el usuario este en sesión
-    validateExistenceOfUser();
+    await validateExistenceOfUser();
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     await readRows(API_VEHICULO, fillTableVehiculo)
 

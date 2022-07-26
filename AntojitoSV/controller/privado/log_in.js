@@ -5,13 +5,9 @@ import {
   API_SUCESS_REQUEST,
   GET_METHOD,
   POST_METHOD,
-  API_READALL,
-  API_READ_EMPLEADOS_USERS,
   SERVER,
   API_LOG_IN,
-  DOM_CONTENT_LOADED,
-  SUBMIT,
-  SESSION_FORM
+
 } from "../constants/api_constant.js";
 
 // Constante para establecer la ruta y parámetros de comunicación con la API.
@@ -23,7 +19,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   // haciendo coneccion con la API pormedio del enpoint
   let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
   // valida session activa
+<<<<<<< Updated upstream
   if (APIResponse.session) {
+=======
+  console.log(APIResponse)
+  if (APIResponse.session == API_SUCESS_REQUEST) {
+>>>>>>> Stashed changes
     // REENVIA A LA PAGINA ASIGNADA
     location.href = "paginaprivada.html";
     // VALIDA QUE EXISTA UN USUARIO
@@ -50,7 +51,7 @@ getElementById('session-form').addEventListener('submit', async (event) => {
     parameters
   );
 
-  if (APIResponse.status) {
+  if (APIResponse.session  == API_SUCESS_REQUEST) {
     location.href = "paginaprivada.html";
   } else {
     console.log("USER DOESNT EXIST");

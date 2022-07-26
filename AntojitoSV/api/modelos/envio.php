@@ -20,6 +20,7 @@ class envio extends validator
     //Id
     public function setId($value)
     {
+        //Validaciones de los numeros naturales
         if ($this->validateNaturalNumber($value)) {
             $this->id_envio = $value;
             return true;
@@ -31,6 +32,7 @@ class envio extends validator
     //Fecha del envio
     public function setFecha($value)
     {
+        //Validacion de las fechas
         if ($this->validateDate($value)) {
             $this->fecha_envio = $value;
             return true;
@@ -42,6 +44,7 @@ class envio extends validator
     //Estado del envio
     public function setEstado($value)
     {
+        //Validaciones de los Numeros Naturales
         if ($this->validateNaturalNumber($value)) {
             $this->estado_id = $value;
             return true;
@@ -53,6 +56,7 @@ class envio extends validator
     //El emplado encargado del envio
     public function setEmpleado($value)
     {
+        //Validaciones de los numeros Naturales
         if ($this->validateNaturalNumber($value)) {
             $this->empleado_id = $value;
             return true;

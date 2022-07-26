@@ -23,10 +23,15 @@ class pedido extends validator
     //Id - integer
     public function setId($value)
     {
+<<<<<<< Updated upstream
 
             $this->id_pedido = $value;
             return true;
 
+=======
+        $this->id_pedido = $value;
+        return true;
+>>>>>>> Stashed changes
     }
 
     //Fecha de Entrega - varying char

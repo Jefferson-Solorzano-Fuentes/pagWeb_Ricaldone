@@ -30,6 +30,7 @@ const CORREO = 'correo';
 const NOMBRE_USUARIO = 'nombre_usuario';
 const APELLIDOS = 'apellidos';
 const CONFIRMAR = 'confirmar';
+const ID_CLIENTE = 'id_cliente';
 
 
 
@@ -41,23 +42,17 @@ if (isset($_GET[ACTION])) {
     $usuario = new usuario;
 
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array(STATUS => 0, SESSION => 0, MESSAGE => null, EXCEPTION => null, DATASET => null, USERNAME => null);
-
+    $result = array(STATUS => 0, SESSION => 0, MESSAGE => null, EXCEPTION => null, DATASET => null, USERNAME => null, 'id_cliente' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se ejecutara lo especificado  "else".
     if (isset($_SESSION[ID_USUARIO])) {
         $result[SESSION] = 1;
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET[ACTION]) {
-            case 'checkSession':
-                if (isset($_SESSION[ID_USUARIO])) {
-                    $result[SESSION] = 1;
-                }
-                break;
             case 'getUser':
                 if (isset($_SESSION[ALIAS_USUARIO])) {
                     $result[STATUS] = 1;
                     $result[USERNAME] = $_SESSION[ALIAS_USUARIO];
-                } else {
+                    } else {
                     $result[EXCEPTION] = 'Alias de usuario indefinido';
                 }
                 break;
@@ -73,12 +68,12 @@ if (isset($_GET[ACTION])) {
                 if ($result[DATASET] = $usuario->readAll()) {
                     $result[STATUS] = 1;
                 } elseif (Database::getException()) {
-                    $result[EXCEPTION] = Database::getException(); 
+                    $result[EXCEPTION] = Database::getException();
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';
                 }
                 break;
-                //case SEARCH:
+            case SEARCH:
                 $_POST = $usuario->validateForm($_POST);
                 if ($_POST[SEARCH] == '') {
                     $result[EXCEPTION] = 'Ingrese un valor para buscar';
@@ -125,22 +120,28 @@ if (isset($_GET[ACTION])) {
                     $result[EXCEPTION] = Database::getException();
                 }
                 break;
-                
+            case 'registerClienteUser':
+                $_POST = $usuario->validateForm($_POST);
+                if (!$usuario->setNombre($_POST['nombre_usuario'])) {
+                    $result[EXCEPTION] = 'Nombres incorrectos';
+                } elseif ($_POST['contraseñaUsuarioCheck'] != $_POST['contraseñaUsuario']) {
+                    $result[EXCEPTION] = 'Claves diferentes';
+                } elseif (!$usuario->setPassword($_POST['contraseñaUsuarioCheck'])) {
+                    $result[EXCEPTION] = $usuario->getPasswordError();
+                } elseif ($usuario->updateRowCliente()) {
+                    $result[STATUS] = 1;
+                    $result[MESSAGE] = 'Usuario registrado correctamente';
+                } else {
+                    $result[EXCEPTION] = Database::getException();
+                }
+                break;
             default:
-                $result[EXCEPTION] = 'Acción  de la sesión';
+                $result[EXCEPTION] = "SOMETHING WENT WRONG";
         }
     } else {
         // Se compara la acción a realizar cuando el administrador no ha iniciado sesión.
         switch ($_GET[ACTION]) {
-            case 'readEmpleadosUsers':
-                if ($usuario->readAllEmpleado()) {
-                    $result[STATUS] = 1;
-                    $result[MESSAGE] = 'Existe al menos un usuario registrado';
-                } else {
-                    $result[EXCEPTION] = 'No existen usuarios registrados';
-                }
-                break;
-            case 'registerEmpleadoUser':
+            case 'registerClienteUser':
                 $_POST = $usuario->validateForm($_POST);
                 if (!$usuario->setNombre($_POST[NOMBRE_USUARIO])) {
                     $result[EXCEPTION] = 'Nombres incorrectos';
@@ -148,7 +149,7 @@ if (isset($_GET[ACTION])) {
                     $result[EXCEPTION] = 'Claves diferentes';
                 } elseif (!$usuario->setPassword($_POST['contraseñaUsuarioCheck'])) {
                     $result[EXCEPTION] = $usuario->getPasswordError();
-                } elseif ($usuario->createRow()) {
+                } elseif ($usuario->updateRowCliente()) {
                     $result[STATUS] = 1;
                     $result[MESSAGE] = 'Usuario registrado correctamente';
                 } else {
@@ -157,31 +158,27 @@ if (isset($_GET[ACTION])) {
                 break;
             case 'logIn':
                 $_POST = $usuario->validateForm($_POST);
-                if (!$usuario->searchUser($_POST[NOMBRE_USUARIO])) {
+                if (!$usuario->searchUserClient($_POST[NOMBRE_USUARIO])) {
                     $result[EXCEPTION] = 'Alias incorrecto';
                 } elseif ($usuario->searchPassword($_POST['contraseñaUsuario'])) {
-                    $result[SESSION] = 1;
+                    $result[STATUS] = 1;
                     $result[MESSAGE] = 'Autenticación correcta';
-                    $_SESSION[ID_USUARIO] = 1;
+                    $_SESSION[ID_USUARIO] = $usuario->getId();
                     $_SESSION[ALIAS_USUARIO] = $usuario->getNombre();
-                } else {
+                    $_SESSION[ID_CLIENTE] = $usuario->getCliente();
+               } else {
                     $result[EXCEPTION] = 'Clave incorrecta';
                 }
                 break;
             case 'checkSession':
-<<<<<<< Updated upstream
-                if (!isset($_SESSION['usuario'])) {
-                    $result[STATUS] = 1;
-=======
                 if (isset($_SESSION[ID_USUARIO])) {
-                    $result[SESSION] = 1;
->>>>>>> Stashed changes
+                    $result[STATUS] = 1;
                 }
                 break;
             default:
                 $result[EXCEPTION] = 'Acción no disponible fuera de la sesión';
         }
-    }
+    } 
     // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
     header('content-type: application/json; charset=utf-8');
     // Se imprime el resultado en formato JSON y se retorna al controlador.

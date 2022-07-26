@@ -216,6 +216,25 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'No hay datos registrados';
             }
             break;
+<<<<<<< Updated upstream
+=======
+        case 'readEmpleado':
+            if ($result[DATA_SET] = $empleado->readEmpleado()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
+        case 'Graph1':
+            if ($result[DATA_SET] = $empleado->readGraph1()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
+>>>>>>> Stashed changes
         default:
             $result[EXCEPTION] = 'Acción no disponible dentro de la sesión';
     }

@@ -32,6 +32,7 @@ class detalle_pedido extends validator
     //Id del pedido en cuestion
     public function setPedido($value)
     {
+        //Validacion de los numeros naturales
         if ($this->validateNaturalNumber($value)) {
             $this->pedido_id = $value;
             return true;

@@ -132,6 +132,15 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
+        case 'readCliente':
+            if ($result[DATA_SET] = $cliente->readCliente()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
         default:
             $result[EXCEPTION] = 'Acción no disponible dentro de la sesión';
     }

@@ -19,6 +19,7 @@ class empleado extends validator
     private $estado_empleado = null;
     private $tipo_empleado = null;
 
+    //Valores de los diferentes tipos
     private $true = 1;
     private $still_true = 2;
     private $false =3;
@@ -26,6 +27,7 @@ class empleado extends validator
     //Id - integer
     public function setId($value)
     {
+        //Validaciones de los numeros Naturales
         if ($this->validateNaturalNumber($value)) {
             $this->id_empleado = $value;
             return true;
@@ -37,6 +39,7 @@ class empleado extends validator
     //Nombre del empleado - varying char
     public function setNombre($value)
     {
+        //Validaciones de valores Alfabeticos
         if ($this->validateAlphabetic($value, 1, 50)) {
             $this->nombre_empleado = $value;
             return true;
@@ -115,6 +118,7 @@ class empleado extends validator
     //Imagen del empleado - varying char
     public function setImage($file)
     {
+        //Validacion de las imagenes
         if ($this->validateImageFile($file, 5000, 5000)) {
             $this->imagen = $this->getFileName();
             return true;
@@ -138,7 +142,7 @@ class empleado extends validator
     //Estado del empleado - integer
     public function setEstadoEmpleado($value)
     {
-
+        //Validaciones de numeros Naturales
         if ($this->validateNaturalNumber($value)) {
             $this->estado_empleado = $value;
             return true;
@@ -150,6 +154,7 @@ class empleado extends validator
     //Estado del empleado - integer
     public function setTipoEmpleado($value)
     {
+        //Validaciones de los Numeros Naturales
         if ($this->validateNaturalNumber($value)) {
             $this->tipo_empleado = $value;
             return true;
@@ -162,6 +167,7 @@ class empleado extends validator
     //Imagen representativa de la categoria
     public function setImagen($file)
     {
+        //Validacion de Imagenes
         if ($this->validateImageFile($file, 500, 500)) {
             $this->imagen = $this->getFileName();
             return true;
@@ -173,8 +179,14 @@ class empleado extends validator
 
     //Metodos para obtener los valores de los campos
 
+<<<<<<< Updated upstream
     //ruta img
     public function getRutaImagenes() {
+=======
+    //ruta de la imagen de los empleados
+    public function getRutaImagenes()
+    {
+>>>>>>> Stashed changes
         return '../imagenes/empleado/';
     }
 
@@ -348,4 +360,31 @@ class empleado extends validator
         $params = null;
         return Database::getRows($sql, $params);
     }
+<<<<<<< Updated upstream
+=======
+
+    //Leer solamente una fila de la Tabla
+    public function readEmpleado()
+    {
+        $sql = 'SELECT id_empleado, nombre
+            FROM empleado
+            WHERE id_estado_empleado = 1 AND id_tipo_empleado = 10';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }    
+
+    //Empleados con mayor cantidad de envios
+    public function readGraph1()
+    {
+        $sql = 'SELECT COUNT(id_envio), nombre from public.envio
+        INNER JOIN public.empleado
+        ON envio.id_empleado = envio.id_empleado
+        GROUP BY nombre
+        LIMIT 5';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+
+>>>>>>> Stashed changes
 }

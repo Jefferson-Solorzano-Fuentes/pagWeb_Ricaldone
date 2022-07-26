@@ -20,6 +20,7 @@ class comentario extends validator
     //Id
     public function setId($value)
     {
+        //Validaciones de numeros naturales 
         if ($this->validateNaturalNumber($value)) {
             $this->id_comentario = $value;
             return true;
@@ -31,6 +32,7 @@ class comentario extends validator
     //comentario
     public function setComentario($value)
     {
+        //Validaciones de valores alfabeticos
         if ($this->validateAlphabetic($value, 1, 200)) {
             $this->comentario = $value;
             return true;
@@ -42,6 +44,7 @@ class comentario extends validator
     //Cliente que hizo el comentario
     public function setCliente($value)
     {
+        //Validaciones de numeros naturales
         if ($this->validateNaturalNumber($value)) {
             $this->cliente_id = $value;
             return true;
@@ -53,6 +56,7 @@ class comentario extends validator
     //Producto que tiene el comentario
     public function setProducto($value)
     {
+        //Validaciones de numeros naturales
         if ($this->validateNaturalNumber($value)) {
             $this->producto_id = $value;
             return true;
@@ -64,6 +68,7 @@ class comentario extends validator
     //Visibilidad
     public function setVisibilidad($value)
     {
+        //Validaciones de booleanos
         if ($this->validateBoolean($value)) {
             $this->setVisibilidad = $value;
             return true;
@@ -71,7 +76,23 @@ class comentario extends validator
             return false;
         }
     }
+<<<<<<< Updated upstream
     
+=======
+
+    //Valoracion
+    public function setValoracion($value)
+    {
+        //Validaciones de numeros Naturales
+        if ($this->validateNaturalNumber($value)) {
+            $this->valoracion = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+>>>>>>> Stashed changes
     //Metodos para obtener los valores de los campos
     //Id
     public function getId()
